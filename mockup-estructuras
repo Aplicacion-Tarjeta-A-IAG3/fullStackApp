@@ -1,0 +1,100 @@
+Ejemplos:
+
+Compra:
+{
+    "nombre":"string",
+    "apellido":"string",
+    "dni":"integer",
+    "comercio":"string",
+    "cuit":"integer",
+    "tarjeta":"integer",
+    "vencimiento":"date",
+    "cvc":"integer",
+    "monto":"decimal",
+    "cuotas":"integer"
+}
+
+Alta producto:
+{
+    "nombre":"string",
+    "tipo":"string",
+    "dni":"integer",
+    "categoria":"string",
+    "requisitos":"string"
+}
+
+Domucilio y contacto estan pensados para ser reutilizados,
+se pueden concatenar con personas y comercios.
+
+Alta domicilio:
+{
+    "calle":"string",
+    "numero":"integer",
+    "piso":"integer",
+    "departamento":"string",
+    "barrio":"string",
+    "codigoPostal":"string",
+    "ciudad":"string",
+    "localidad":"string",
+    "provincia":"string",
+    "pais":"string",
+}
+
+Alta contacto:
+{
+    "mail":"string",
+    "telefono":"integer",
+    "celular":"integer",
+}
+
+Alta comercio:
+{
+    "cuit":"integer",
+    "nombre":"string",
+    "persona":"string",
+}
+
+Alta persona:
+{
+    "nacimiento":"date",
+    "dni":"integer",
+    "nombre":"string",
+    "apellido":"string",
+    "estadoCivil":"string,
+}
+
+Tarjeta, cuenta, cuota
+Se crean solas en el back.
+Ejemplio de devolucion desde el back:
+Tarjeta: 
+{
+    "emision":"date",
+    "vencimiento":"date",
+    "tarjeta":"integer",
+    "cvc":"integer",
+    "limite":"decimal",
+    "consumos":"decimal",
+    "saldo":"decimal",
+}    
+
+Cuenta:
+{
+    "cbu":"integer",
+    "saldo":"decimal",
+    "descubierto":"decimal",
+}
+
+Cuotas:
+{
+    "cbu":"integer",
+    "cuotas":[
+                {
+                  "fecha":"date",
+                  "cuota":"integer",
+                  "totalCuotas":"integer",
+                  "monto":"decimal",
+                 }
+              ]
+}
+
+Faltaria liquidacion y cobranza que lo armo si esta todo ok.
