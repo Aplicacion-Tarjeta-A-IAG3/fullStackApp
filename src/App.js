@@ -6,6 +6,8 @@ import authProvider from "./authProvider"; // TODO: change for the actual authen
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import spanishMessages from "@blackbox-vision/ra-language-spanish";
 import theme from "./utils/theme";
+import PersonIcon from "@material-ui/icons/Person";
+import BusinessIcon from "@material-ui/icons/Business";
 
 const i18nProvider = polyglotI18nProvider(() => spanishMessages, "es");
 
@@ -22,7 +24,9 @@ const App = () => (
       list={UserList}
       edit={UserEdit}
       create={UserCreate}
+      icon={PersonIcon}
     />
+    <Resource name="businesses" icon={BusinessIcon} />
   </Admin>
 );
 
