@@ -1,3 +1,77 @@
+===========================================================
+JSON a enviar en la creación de cliente
+-----------------------------------------------------------
+{
+    persona: {
+        nombre: "Julia",
+        apellido: "Espinoza",
+        estadoCivil: "Soltero",
+        puntos: 0,
+        dni: "123456",
+        fechaNacimiento: "22-11-3333",
+    },
+    contacto: {
+        email: "lala@lala.com",
+        telefono: "1234567879",
+        celular: "1234567",
+    },
+    domicilio: {
+        calle: "lalala",
+        numero: "123",
+        piso: "xto",
+        departamento: "lalala",
+        barrio: "algo",
+        codigoPostal: "1234",
+        ciudad: "algo+",
+        localidad: "lalala",
+        provincia: "hhaa",
+        pais: "Argentina,"
+    }
+}
+
+===========================================================
+JSON a enviar en la creación de comercio
+-----------------------------------------------------------
+{
+    comercio: {
+        nombre: "Comercio1",
+        cuit: "12345678-5",
+        idBeneficio: 1,
+    },
+    contacto: {
+        email: "lala@lala.com",
+        telefono: "1234567879",
+        celular: "1234567",
+    },
+    domicilio: {
+        calle: "lalala",
+        numero: 123,
+        piso: "xto",
+        departamento: "lalala",
+        barrio: "algo",
+        codigoPostal: 1234,
+        ciudad: "algo+",
+        localidad: "lalala",
+        provincia: "hhaa",
+        pais: "Argentina,"
+    }
+}
+===========================================================
+JSON a enviar para el login
+-----------------------------------------------------------
+{
+    rol: "admin",
+    username: "jespinoza",
+    password: "pass"
+}
+Respuesta: {
+    status: "OK",
+    token: "algo",
+    rol: "admin",
+}
+
+================================================================
+
 Ejemplos:
 
 Compra:
