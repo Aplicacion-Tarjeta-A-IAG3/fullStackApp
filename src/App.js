@@ -5,6 +5,8 @@ import jsonServerProvider from "ra-data-json-server"; //TODO: change this for th
 import authProvider from "./authProvider"; // TODO: change for the actual authentication handler
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import spanishMessages from "@blackbox-vision/ra-language-spanish";
+import theme from "./utils/theme";
+
 const i18nProvider = polyglotI18nProvider(() => spanishMessages, "es");
 
 const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
@@ -13,6 +15,7 @@ const App = () => (
     dataProvider={dataProvider}
     authProvider={authProvider}
     i18nProvider={i18nProvider}
+    theme={theme}
   >
     <Resource
       name="users"
