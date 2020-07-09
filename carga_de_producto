@@ -1,0 +1,12 @@
+Pasos para insertar producto:
+
+1) Buscar si esta el producto:
+
+SELECT *
+FROM Producto
+WHERE nombre = 'variable';
+
+2) Si no esta lo creas con esto:
+
+INSERT INTO Producto (nombre, tipo, categoria, requisitos)
+VALUES ('variable', 'variable', 'variable', 'variable');
