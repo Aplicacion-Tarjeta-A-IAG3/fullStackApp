@@ -1,0 +1,47 @@
+Pasos para insertar comercio:
+
+1) Buscar si esta el comercio:
+
+SELECT *
+FROM Comercio 
+WHERE cuit = 99123456789;
+
+2) Si no esta buscar las fechas en la tabla fecha con:
+
+SELECT *
+FROM Fecha
+WHERE fecha = variable;
+
+variable tiene que ser date, o poses usar 'variable' en el formato '1900-12-31'
+
+3) Si no hay fecha las generas con:
+
+INSERT INTO Fecha (fecha, dia, mes, [year], diaCalendario)
+VALUES (2020-07-09,9,7,2020,'jueves');
+
+4) Buscar si el domicilo existe:
+
+SELECT *
+FROM Domicilio 
+WHERE calle = 'variable' AND numero = 1234;
+
+5) Si no existe lo generas con:
+
+INSERT INTO Domicilio (calle, numero, piso, departamento, barrio, codigoPostal, ciudad, localidad, provincia, pais)
+VALUES ('variable', 1234, 12, 12, 'variable', 'variable', 'variable', 'variable', 'variable', 'variable');
+
+6) Buscar el contacto:
+
+SELECT *
+FROM Contacto
+WHERE mail = 'variable';
+
+7) Si no existe lo creas
+
+INSERT INTO Contacto (mail, telefono, celular);)
+VALUES ('variable', 12345678, 12345678);
+
+9) Una vez que esta todo creado buscas todos los id que necesitas con lo anterior e insertas al comercio:
+
+INSERT INTO Comercio (idDomicilio, idContacto, idFechaAlta, idBeneficio, cuit, password, nombreComercio, nombrePersona)
+VALUES (1, 1, 1, 0, 99123456789, 'variable', 'variable', 'variable');
