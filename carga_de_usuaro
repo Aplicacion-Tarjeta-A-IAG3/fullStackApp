@@ -1,0 +1,12 @@
+Pasos para insertar usuario:
+
+1) Buscar si esta el usuario:
+
+SELECT *
+FROM Usuario
+WHERE username = 'variable';
+
+2) Si no esta lo creas con esto:
+
+INSERT INTO Usuario (username, password, level)
+VALUES ('variable', 'variable', 'variable');
