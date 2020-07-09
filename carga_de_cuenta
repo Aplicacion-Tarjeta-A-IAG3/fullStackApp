@@ -1,0 +1,12 @@
+Pasos para insertar cuenta:
+
+1) Buscar si esta la cuenta:
+
+SELECT *
+FROM Cuenta
+WHERE cbu = 12345678;
+
+2) Si no esta lo creas con esto:
+
+INSERT INTO Cuenta (cbu, saldo, descubierto)
+VALUES (12345678, 12345678, 12345678);
