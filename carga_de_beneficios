@@ -1,0 +1,12 @@
+Pasos para insertar beneficios:
+
+1) Buscar si esta el beneficio:
+
+SELECT *
+FROM Beneficio
+WHERE descripcion = 'variable';
+
+2) Si no esta lo creas con esto:
+
+INSERT INTO Beneficio (descripcion, descuento, cuotas)
+VALUES ('variable', 100, 12);
