@@ -1,0 +1,15 @@
+Pasos para insertar el pago a los comercios:
+
+1) Buscar si esta el comercio:
+
+SELECT *
+FROM Comercio 
+WHERE cuit = 99123456789;
+
+2) Cargas el pago con con:
+
+En este caso el idPersona es 1 y el idTarjeta 3, son los de africanexpress
+
+INSERT INTO Transaccion (idPersona, idTarjeta, idComercio, time, monto, detalle, cuotasFlag)
+VALUES (1, 3, 12, timestamp, 123, 'pago a comercio', 0);
+
