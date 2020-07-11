@@ -21,7 +21,7 @@ E) El limite se lo pones en base al producto, esta en el EF.
 
 F) Insertas con esos datos:
 
-INSERT INTO Tarjeta (idFechaEmision, idFechaVencimiento, numero, cvc, limite, consumos, saldo);
+INSERT INTO Tarjeta (idFechaEmision, idFechaVencimiento, numero, cvc, limite, consumos, saldo)
 VALUES (12, 12, 123456, 123, 123456, 0, 0);
 
 2) Buscas los los id de los datos que te pasaron con:
@@ -42,5 +42,5 @@ WHERE numero = 12345678;
 
 Por ahora titular es la misma persona (no hay adicionales, despues vemos)
 
-INSERT INTO Relacion (idPersona, idProducto, idTarjeta, idTirular, adicional);
+INSERT INTO Relacion (idPersona, idProducto, idTarjeta, idTirular, adicional)
 VALUES (12, 12, 12, 12, 0);
