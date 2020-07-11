@@ -1,27 +1,32 @@
-const ApiUrl = "https://something.com"; //TODO: update API url
-
-// const request = new Request(`${ApiUrl}/login`, {
-//   method: "POST",
-//   body: JSON.stringify({ role, username, password }),
-//   headers: new Headers({ "Content-Type": "application/json" }),
-// });
-// return fetch(request)
-//   .then((response) => {
-//     if (response.status < 200 || response.status >= 300) {
-//       throw new Error(response.statusText);
-//     }
-//     return response.json();
-//   })
-//   .then(({ token }) => {
-//     localStorage.setItem("token", token);
-//   });
 const authProvider = {
-  // called when the user attempts to log in
-  login: ({ username }) => {
-    localStorage.setItem("username", username);
-    localStorage.setItem("permissions", "admin");
-    // accept all username/password combinations
-    return Promise.resolve();
+  login: ({ username, password }) => {
+    const apiUrl = "http://african-express.br-s1.cloudhub.io/api/login";
+    const userData = { username, password };
+    const requestData = {
+      method: "POST",
+      body: JSON.stringify(userData),
+      headers: { "Content-Type": "application/json" },
+    };
+    console.log(`requesting from ${apiUrl} with:`, requestData);
+    return fetch(apiUrl, requestData)
+      .then((response) => {
+        console.log("1- raw response: ", response);
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("2- data response: ", data);
+        if (data.status === "OK") {
+          localStorage.setItem("clientId", data.client_id);
+          localStorage.setItem("clientSecret", data.client_secret);
+          localStorage.setItem("permissions", data.rol);
+          return Promise.resolve();
+        } else {
+          return Promise.reject();
+        }
+      });
   },
   // called when the user clicks on the logout button
   logout: () => {
