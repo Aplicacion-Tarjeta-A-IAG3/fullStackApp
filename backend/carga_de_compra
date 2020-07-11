@@ -1,0 +1,26 @@
+Pasos para insertar compra:
+
+1) Buscar si esta la persona:
+
+SELECT *
+FROM Persona
+WHERE dni = 12345678;
+
+2) Buscar si esta el comercio:
+
+SELECT *
+FROM Comercio 
+WHERE cuit = 99123456789;
+
+3) Buscar si hay tarjeta:
+
+SELECT *
+FROM Tarjeta
+WHERE numero = 12345678;
+
+4) Cargas la compra con:
+
+En principio tema cuotas no estaria para usar
+
+INSERT INTO Transaccion (idPersona, idTarjeta, idComercio, time, monto, detalle, cuotasFlag)
+VALUES (12, 12, 12, timestamp, 123, 'compra', 0);
