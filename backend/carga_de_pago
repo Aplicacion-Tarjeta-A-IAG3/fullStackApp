@@ -1,0 +1,18 @@
+Pasos para insertar un pago de tarjeta:
+
+1) Buscar si esta la persona:
+
+SELECT *
+FROM Persona
+WHERE dni = 12345678;
+
+2) Buscar si hay tarjeta:
+
+SELECT *
+FROM Tarjeta
+WHERE numero = 12345678;
+
+3) Cargas el pago con:
+
+INSERT INTO Transaccion (idPersona, idTarjeta, time, monto, detalle, cuotasFlag)
+VALUES (12, 12, timestamp, 123, 'pago de tarjeta', 0);
