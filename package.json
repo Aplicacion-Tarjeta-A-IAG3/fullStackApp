@@ -1,6 +1,6 @@
 {
-  "name": "tarjeta-admin",
-  "version": "0.1.0",
+  "name": "african-express",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@blackbox-vision/ra-language-spanish": "^3.5.0",
