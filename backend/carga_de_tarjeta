@@ -1,0 +1,46 @@
+Pasos para insertar tarjeta:
+
+1) Tepasan los datos de persona y el producto y generas la tarjeta automaticamente con la siguiente info:
+
+A) Para la fecha de emision y vencimiento (que sea un año desde la emision) las buscas asi:
+
+SELECT *
+FROM Fecha
+WHERE fecha = variable;
+
+variable tiene que ser date, o poses usar 'variable' en el formato '1900-12-31'
+
+B) Si no hay fecha las generas con:
+
+INSERT INTO Fecha (fecha, dia, mes, [year], diaCalendario)
+VALUES (2020-07-09,9,7,2020,'jueves');
+
+C) El numero de tarjeta un random con 16 digitos.
+D) CVC un random con 3 digitos.
+E) El limite se lo pones en base al producto, esta en el EF.
+
+F) Insertas con esos datos:
+
+INSERT INTO Tarjeta (idFechaEmision, idFechaVencimiento, numero, cvc, limite, consumos, saldo);
+VALUES (12, 12, 123456, 123, 123456, 0, 0);
+
+2) Buscas los los id de los datos que te pasaron con:
+
+SELECT *
+FROM Persona
+WHERE dni = 12345678;
+
+SELECT *
+FROM Producto
+WHERE nombre = 'variable';
+
+SELECT *
+FROM Tarjeta
+WHERE numero = 12345678;
+
+3) Generas las relaciones del usuario:
+
+Por ahora titular es la misma persona (no hay adicionales, despues vemos)
+
+INSERT INTO Relacion (idPersona, idProducto, idTarjeta, idTirular, adicional);
+VALUES (12, 12, 12, 12, 0);
