@@ -38,7 +38,7 @@ WHERE mail = 'variable';
 
 7) Si no existe lo creas
 
-INSERT INTO Contacto (mail, telefono, celular);)
+INSERT INTO Contacto (mail, telefono, celular)
 VALUES ('variable', 12345678, 12345678);
 
 9) Una vez que esta todo creado buscas todos los id que necesitas con lo anterior e insertas a la persona:
