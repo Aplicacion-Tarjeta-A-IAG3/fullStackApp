@@ -42,7 +42,7 @@ const App = () => (
     <Resource
       name="clients"
       list={ClientList}
-      // edit={ClientEdit}
+      edit={ClientEdit}
       // create={ClientCreate}
       icon={PersonIcon}
     />
