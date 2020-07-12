@@ -1,6 +1,7 @@
 const authProvider = {
   login: ({ username, password }) => {
-    const apiUrl = "http://african-express.br-s1.cloudhub.io/api/login";
+    // const apiUrl = "http://african-express.br-s1.cloudhub.io/api/login";
+    const apiUrl = "http://african-express.us-e2.cloudhub.io/api/login";
     const userData = { username, password };
     const requestData = {
       method: "POST",
@@ -19,37 +20,37 @@ const authProvider = {
       .then((data) => {
         console.log("2- data response: ", data);
         if (data.status === "OK") {
+          console.log("rol??-----1", data.rol);
+          const parsedRol = data.rol.slice(1, -1);
+          console.log("rol??-----2", parsedRol);
           localStorage.setItem("clientId", data.client_id);
           localStorage.setItem("clientSecret", data.client_secret);
           localStorage.setItem("permissions", data.rol);
           return Promise.resolve();
-        } else {
-          return Promise.reject();
         }
+        return Promise.reject();
       });
   },
-  // called when the user clicks on the logout button
   logout: () => {
-    localStorage.removeItem("username");
+    localStorage.removeItem("clientId");
+    localStorage.removeItem("clientSecret");
     localStorage.removeItem("permissions");
     return Promise.resolve();
   },
-  // called when the API returns an error
   checkError: ({ status }) => {
     if (status === 401 || status === 403) {
-      localStorage.removeItem("username");
+      localStorage.removeItem("clientId");
+      localStorage.removeItem("clientSecret");
       localStorage.removeItem("permissions");
       return Promise.reject();
     }
     return Promise.resolve();
   },
-  // called when the user navigates to a new location, to check for authentication
   checkAuth: () => {
-    return localStorage.getItem("username")
+    return localStorage.getItem("clientId")
       ? Promise.resolve()
       : Promise.reject();
   },
-  // called when the user navigates to a new location, to check for permissions / roles
   getPermissions: () => {
     return localStorage.getItem("permissions")
       ? Promise.resolve()
