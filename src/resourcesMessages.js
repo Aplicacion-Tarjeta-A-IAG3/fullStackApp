@@ -10,6 +10,14 @@ const resourceMessages = {
         },
       },
     },
+    clients: {
+      name: "Clientes",
+      fields: {
+        contacto: {
+          mail: "Email",
+        },
+      },
+    },
   },
 };
 export default resourceMessages;

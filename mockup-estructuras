@@ -169,7 +169,7 @@ fetch('https://jsonplaceholder.typicode.com/clients/1', {
 //=== Output ===
 {
   id: 1,
-  dni: 123456
+  dni: 123456,
   nombre: "Julia",
   apellido: "Espinoza",
   estadoCivil: 0,
