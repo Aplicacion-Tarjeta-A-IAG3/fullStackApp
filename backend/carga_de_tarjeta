@@ -42,5 +42,8 @@ WHERE numero = 12345678;
 
 Por ahora titular es la misma persona (no hay adicionales, despues vemos)
 
-INSERT INTO Relacion (idPersona, idProducto, idTarjeta, idTirular, adicional)
+INSERT INTO Relacion (idPersona, idProducto, idTarjeta, idTitular, adicional)
 VALUES (12, 12, 12, 12, 0);
+
+adicional-> boolean
+*** verificar con paula lo de titular - adicional - persona ***
