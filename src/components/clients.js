@@ -19,6 +19,13 @@ import {
   SelectInput,
 } from "react-admin";
 
+const estadosCiviles = [
+  { id: 0, name: "Soltero(a)" },
+  { id: 1, name: "En matrimonio" },
+  { id: 2, name: "En concubinato" },
+  { id: 3, name: "Otros" },
+];
+
 export const ClientList = (props) => (
   <List {...props}>
     <Datagrid>
@@ -36,45 +43,58 @@ export const ClientList = (props) => (
 
 export const ClientEdit = (props) => (
   <Edit title="Editar cliente" {...props}>
-    <TabbedForm>
+    <TabbedForm margin="normal">
       <FormTab label="persona">
-        <TextInput disabled label="Id" source="id" />
-        <TextInput disabled label="DNI" source="dni" />
-        <TextInput label="Nombre del cliente" source="nombre" />
-        <TextInput label="Apellido del cliente" source="apellido" />
-        <SelectInput label="Estado civil" source="estadoCivil"></SelectInput>
+        <TextInput disabled fullWidth label="Id" source="id" />
+        <TextInput disabled fullWidth label="DNI" source="dni" />
+        <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        <TextInput fullWidth label="Nombre del cliente" source="nombre" />
+        <TextInput fullWidth label="Apellido del cliente" source="apellido" />
         <SelectInput
+          fullWidth
           label="Estado civil"
           source="estadoCivil"
-          choices={[
-            { id: 0, name: "Soltero(a)" },
-            { id: 1, name: "Matrimonio" },
-            { id: 2, name: "En concubinato" },
-            { id: 3, name: "Otros" },
-          ]}
+          choices={estadosCiviles}
         />
-        <PasswordInput label="Contraseña" source="password" />
-        <NumberInput label="Puntos del cliente" source="puntos" />
-        <BooleanInput label="Cliente activo" source="activo" />
+        <PasswordInput fullWidth label="Contraseña" source="password" />
+        <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
       </FormTab>
       <FormTab label="domicilio">
-        <TextInput disabled label="Id domicilio" source="domicilio.id" />
-        <TextInput label="Calle" source="domicilio.calle" />
-        <NumberInput label="Número" source="domicilio.numero" />
-        <NumberInput label="Piso" source="domicilio.piso" />
-        <TextInput label="Departamento" source="domicilio.departamento" />
-        <TextInput label="Barrio" source="domicilio.barrio" />
-        <TextInput label="Código Postal" source="domicilio.codigoPostal" />
-        <TextInput label="Ciudad" source="domicilio.ciudad" />
-        <TextInput label="Localidad" source="domicilio.localidad" />
-        <TextInput label="Provincia" source="domicilio.provincia" />
-        <TextInput label="País" source="domicilio.pais" />
+        <TextInput
+          fullWidth
+          disabled
+          label="Id domicilio"
+          source="domicilio.id"
+        />
+        <TextInput fullWidth label="Calle" source="domicilio.calle" />
+        <NumberInput fullWidth label="Número" source="domicilio.numero" />
+        <NumberInput fullWidth label="Piso" source="domicilio.piso" />
+        <TextInput
+          fullWidth
+          label="Departamento"
+          source="domicilio.departamento"
+        />
+        <TextInput fullWidth label="Barrio" source="domicilio.barrio" />
+        <TextInput
+          fullWidth
+          label="Código Postal"
+          source="domicilio.codigoPostal"
+        />
+        <TextInput fullWidth label="Ciudad" source="domicilio.ciudad" />
+        <TextInput fullWidth label="Localidad" source="domicilio.localidad" />
+        <TextInput fullWidth label="Provincia" source="domicilio.provincia" />
+        <TextInput fullWidth label="País" source="domicilio.pais" />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput disabled label="Id contacto" source="contacto.id" />
-        <TextInput label="Email" source="contacto.mail" />
-        <NumberInput label="Celular" source="contacto.celular" />
-        <NumberInput label="Teléfono" source="contacto.telefono" />
+        <TextInput
+          fullWidth
+          disabled
+          label="Id contacto"
+          source="contacto.id"
+        />
+        <TextInput fullWidth label="Email" source="contacto.mail" />
+        <NumberInput fullWidth label="Celular" source="contacto.celular" />
+        <NumberInput fullWidth label="Teléfono" source="contacto.telefono" />
       </FormTab>
     </TabbedForm>
   </Edit>
@@ -82,15 +102,46 @@ export const ClientEdit = (props) => (
 
 export const ClientCreate = (props) => (
   <Create title="Crear nuevo cliente" {...props}>
-    <TabbedForm>
-      <TextInput source="id" />
-      <TextInput source="name" />
-      <TextInput source="username" />
-      <TextInput source="email" />
-      <TextInput source="address.street" />
-      <TextInput source="phone" />
-      <TextInput source="website" />
-      <TextInput source="company.name" />
+    <TabbedForm margin="normal">
+      <FormTab label="persona">
+        <TextInput fullWidth label="DNI" source="dni" />
+        <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        <TextInput fullWidth label="Nombre del cliente" source="nombre" />
+        <TextInput fullWidth label="Apellido del cliente" source="apellido" />
+        <SelectInput
+          fullWidth
+          label="Estado civil"
+          source="estadoCivil"
+          choices={estadosCiviles}
+        />
+        <PasswordInput fullWidth label="Contraseña" source="password" />
+        <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
+      </FormTab>
+      <FormTab label="domicilio">
+        <TextInput fullWidth label="Calle" source="domicilio.calle" />
+        <NumberInput fullWidth label="Número" source="domicilio.numero" />
+        <NumberInput fullWidth label="Piso" source="domicilio.piso" />
+        <TextInput
+          fullWidth
+          label="Departamento"
+          source="domicilio.departamento"
+        />
+        <TextInput fullWidth label="Barrio" source="domicilio.barrio" />
+        <TextInput
+          fullWidth
+          label="Código Postal"
+          source="domicilio.codigoPostal"
+        />
+        <TextInput fullWidth label="Ciudad" source="domicilio.ciudad" />
+        <TextInput fullWidth label="Localidad" source="domicilio.localidad" />
+        <TextInput fullWidth label="Provincia" source="domicilio.provincia" />
+        <TextInput fullWidth label="País" source="domicilio.pais" />
+      </FormTab>
+      <FormTab label="contacto">
+        <TextInput fullWidth label="Email" source="contacto.mail" />
+        <NumberInput fullWidth label="Celular" source="contacto.celular" />
+        <NumberInput fullWidth label="Teléfono" source="contacto.telefono" />
+      </FormTab>
     </TabbedForm>
   </Create>
 );

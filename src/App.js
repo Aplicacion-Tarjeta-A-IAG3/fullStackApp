@@ -43,7 +43,7 @@ const App = () => (
       name="clients"
       list={ClientList}
       edit={ClientEdit}
-      // create={ClientCreate}
+      create={ClientCreate}
       icon={PersonIcon}
     />
     <Resource name="businesses" icon={BusinessIcon} />
