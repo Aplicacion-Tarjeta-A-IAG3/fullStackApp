@@ -1,22 +1,23 @@
-===========================================================
-GET un cliente
------------------------------------------------------------
+======================================================================================================================
+                                                GET un cliente
+----------------------------------------------------------------------------------------------------------------------
+//=== Frontend Request ===
 fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
   .then(response => response.json())
   .then(data => console.log(data))
 
-// Output
+//=== Output ===
 {
   id: 1,
   dni: 123456
   nombre: "Julia",
   apellido: "Espinoza",
-  estadoCivil: "F",
+  estadoCivil: 0,
   password: "pwd123",
   puntos: 1,
   activo: true,
   domicilio: {
-    id: 1
+    id: 1,
     calle: "La Calle",
     numero: 1234,
     piso: 1,
@@ -29,75 +30,177 @@ fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
     pais: "Argentina",
   },
   contacto: {
-    id: 1
+    id: 1,
+    mail: "jespinoza@uade.edu.ar",
+    celular: 12345647897,
+    telefono: 123456478,
+  }
+}
+======================================================================================================================
+                                            GET todos los clientes
+----------------------------------------------------------------------------------------------------------------------
+//=== Frontend Request ===
+fetch('https://jsonplaceholder.typicode.com/clients')
+  .then((response) => response.json())
+  .then((list) => console.log(list))
+  
+//=== Output ===
+[
+  { id: 1, dni: 123456, nombre: "Julia", apellido: "Espinoza", activo: true, contacto: { mail: "jespinoza@uade.edu.ar"}},
+  { ... },
+  { id: 100, dni: 123457, nombre: "Juan", apellido: "Perez", activo: true, contacto: { mail: "jperez@uade.edu.ar"}},
+]
+======================================================================================================================
+                                            POST crear cliente
+----------------------------------------------------------------------------------------------------------------------
+//=== Frontend Request ===
+fetch('https://jsonplaceholder.typicode.com/clients', {
+    method: 'POST',
+    body: JSON.stringify({
+      dni: 123456
+      nombre: "Julia",
+      apellido: "Espinoza",
+      estadoCivil: 0,
+      password: "pwd123",
+      puntos: 0,
+      activo: true,
+      fechaNacimiento: 19990502,
+      password: "algoRandom",
+      contacto: {
+        mail: "jespinoza@uade.edu.ar",
+        celular: 12345647897,
+        telefono: 123456478,
+      },
+      domicilio: {
+        calle: "La Calle",
+        numero: 1234,
+        piso: 1,
+        departamento: "A",
+        barrio: "Palermo",
+        codigoPostal: "AA12345BB",
+        ciudad: "CABA",
+        localidad: "CABA",
+        provincia: "CABA",
+        pais: "Argentina",
+      }
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+  .then(response => response.json())
+  .then(json => console.log(json))
+
+//=== Output ===
+{
+  id: 1,
+  dni: 123456
+  nombre: "Julia",
+  apellido: "Espinoza",
+  estadoCivil: 0,
+  password: "pwd123",
+  puntos: 1,
+  activo: true,
+  fechaNacimiento: 19990502,
+  domicilio: {
+    id: 1,
+    calle: "La Calle",
+    numero: 1234,
+    piso: 1,
+    departamento: "A",
+    barrio: "Palermo",
+    codigoPostal: "AA12345BB",
+    ciudad: "CABA",
+    localidad: "CABA",
+    provincia: "CABA",
+    pais: "Argentina",
+  },
+  contacto: {
+    id: 1,
+    mail: "jespinoza@uade.edu.ar",
+    celular: 12345647897,
+    telefono: 123456478,
+  }
+}
+======================================================================================================================
+                                            PUT editar cliente
+----------------------------------------------------------------------------------------------------------------------
+//=== Frontend Request ===
+fetch('https://jsonplaceholder.typicode.com/clients/1', {
+    method: 'PUT',
+    body: JSON.stringify({
+      id: 1,
+      dni: 123456
+      nombre: "Julia",
+      apellido: "Espinoza",
+      estadoCivil: 0,
+      password: "pwd123",
+      puntos: 0,
+      activo: true,
+      fechaNacimiento: 19990502,
+      password: "algoRandom",
+      contacto: {
+        id: 1,
+        mail: "jespinoza@uade.edu.ar",
+        celular: 12345647897,
+        telefono: 123456478,
+      },
+      domicilio: {
+        id: 1,
+        calle: "La Calle",
+        numero: 1234,
+        piso: 1,
+        departamento: "A",
+        barrio: "Palermo",
+        codigoPostal: "AA12345BB",
+        ciudad: "CABA",
+        localidad: "CABA",
+        provincia: "CABA",
+        pais: "Argentina",
+      }
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+  .then(response => response.json())
+  .then(json => console.log(json))
+
+//=== Output ===
+{
+  id: 1,
+  dni: 123456
+  nombre: "Julia",
+  apellido: "Espinoza",
+  estadoCivil: 0,
+  password: "pwd123",
+  puntos: 1,
+  activo: true,
+  fechaNacimiento: 19990502,
+  domicilio: {
+    id: 1,
+    calle: "La Calle",
+    numero: 1234,
+    piso: 1,
+    departamento: "A",
+    barrio: "Palermo",
+    codigoPostal: "AA12345BB",
+    ciudad: "CABA",
+    localidad: "CABA",
+    provincia: "CABA",
+    pais: "Argentina",
+  },
+  contacto: {
+    id: 1,
     mail: "jespinoza@uade.edu.ar",
     celular: 12345647897,
     telefono: 123456478,
   }
 }
 ===========================================================
-JSON a enviar en la creación de cliente
------------------------------------------------------------
-{
-    persona: {
-        nombre: "Julia",
-        apellido: "Espinoza",
-        estadoCivil: "Soltero",
-        puntos: 0,
-        dni: "123456",
-        fechaNacimiento: "22-11-3333",
-    },
-    contacto: {
-        email: "lala@lala.com",
-        telefono: "1234567879",
-        celular: "1234567",
-    },
-    domicilio: {
-        calle: "lalala",
-        numero: "123",
-        piso: "xto",
-        departamento: "lalala",
-        barrio: "algo",
-        codigoPostal: "1234",
-        ciudad: "algo+",
-        localidad: "lalala",
-        provincia: "hhaa",
-        pais: "Argentina,"
-    }
-}
-
-===========================================================
-JSON a enviar en la creación de comercio
------------------------------------------------------------
-{
-    comercio: {
-        nombre: "Comercio1",
-        cuit: "12345678-5",
-        idBeneficio: 1,
-    },
-    contacto: {
-        email: "lala@lala.com",
-        telefono: "1234567879",
-        celular: "1234567",
-    },
-    domicilio: {
-        calle: "lalala",
-        numero: 123,
-        piso: "xto",
-        departamento: "lalala",
-        barrio: "algo",
-        codigoPostal: 1234,
-        ciudad: "algo+",
-        localidad: "lalala",
-        provincia: "hhaa",
-        pais: "Argentina,"
-    }
-}
-===========================================================
 JSON a enviar para el login
 -----------------------------------------------------------
 {
-    rol: "admin",
     username: "jespinoza",
     password: "pass"
 }
@@ -106,7 +209,8 @@ Respuesta: {
     token: "algo",
     rol: "admin",
 }
-
+================================================================
+============================FIN=================================
 ================================================================
 
 Ejemplos:
