@@ -9,8 +9,14 @@ import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
 import LoginPage from "./components/login";
+import resourcesMessages from "./resourcesMessages";
 
-const i18nProvider = polyglotI18nProvider(() => spanishMessages, "es");
+console.log("translation", resourcesMessages);
+const messages = {
+  es: { ...spanishMessages, ...resourcesMessages },
+};
+
+const i18nProvider = polyglotI18nProvider(() => messages["es"]);
 
 const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
 const App = () => (
