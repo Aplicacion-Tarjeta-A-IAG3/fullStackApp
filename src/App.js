@@ -4,11 +4,11 @@ import { Admin, Resource } from "react-admin";
 //import jsonServerProvider from "ra-data-json-server"; //TODO: uncomment when the actual Backend API is connected
 import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
 // Authentication and Authorization
-import authProvider from "./authProvider";
+import authProvider from "./models/authProvider";
 // Translations
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import spanishMessages from "@blackbox-vision/ra-language-spanish";
-import resourcesMessages from "./resourcesMessages";
+import resourcesMessages from "./models/resourcesMessages";
 // Theme&UI
 import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
