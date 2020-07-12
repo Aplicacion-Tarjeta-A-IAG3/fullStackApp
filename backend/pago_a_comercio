@@ -15,5 +15,7 @@ WHERE cuit = 99123456789;
 En este caso el idPersona es 1 y el idTarjeta 1, son los de africanexpress
 
 INSERT INTO Transaccion (idPersona, idTarjeta, idComercio, time, monto, detalle, cuotasFlag)
-VALUES (1, 1, 12, timestamp, 123, 'pago a comercio', 0);
+VALUES (1, 1, 12, timestamp, -123, 'pago a comercio', 0);
+
+es negativo xq registro que african express le esta pagando al comercio
 
