@@ -8,12 +8,14 @@ import spanishMessages from "@blackbox-vision/ra-language-spanish";
 import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
+import LoginPage from "./components/login";
 
 const i18nProvider = polyglotI18nProvider(() => spanishMessages, "es");
 
 const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
 const App = () => (
   <Admin
+    loginPage={LoginPage}
     dataProvider={dataProvider}
     authProvider={authProvider}
     i18nProvider={i18nProvider}
