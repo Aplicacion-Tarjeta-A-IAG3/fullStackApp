@@ -1,4 +1,41 @@
 ===========================================================
+GET un cliente
+-----------------------------------------------------------
+fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
+  .then(response => response.json())
+  .then(data => console.log(data))
+
+// Output
+{
+  id: 1,
+  dni: 123456
+  nombre: "Julia",
+  apellido: "Espinoza",
+  estadoCivil: "F",
+  password: "pwd123",
+  puntos: 1,
+  activo: true,
+  domicilio: {
+    id: 1
+    calle: "La Calle",
+    numero: 1234,
+    piso: 1,
+    departamento: "A",
+    barrio: "Palermo",
+    codigoPostal: "AA12345BB",
+    ciudad: "CABA",
+    localidad: "CABA",
+    provincia: "CABA",
+    pais: "Argentina",
+  },
+  contacto: {
+    id: 1
+    mail: "jespinoza@uade.edu.ar",
+    celular: 12345647897,
+    telefono: 123456478,
+  }
+}
+===========================================================
 JSON a enviar en la creación de cliente
 -----------------------------------------------------------
 {
