@@ -18,6 +18,21 @@ const theme = createMuiTheme({
       contrastText: "#fff",
     },
   },
+  overrides: {
+    MuiTableRow: {
+      head: {
+        "& > th ": {
+          color: "black",
+          fontWeight: "bold",
+        },
+      },
+    },
+    RaLayout: {
+      root: {
+        backgroundColor: "#dbdacc",
+      },
+    },
+  },
 });
 
 export default theme;
