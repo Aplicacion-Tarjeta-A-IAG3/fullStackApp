@@ -40,7 +40,7 @@ const estado = (idDescripcion) => {
 };
 
 export const ClientList = (props) => (
-  <List {...props}>
+  <List {...props} exporter={false}>
     <Datagrid>
       <TextField source="id" />
       <NumberField label="DNI" source="dni" />

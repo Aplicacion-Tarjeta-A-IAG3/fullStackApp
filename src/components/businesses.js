@@ -33,7 +33,7 @@ const estado = (idDescripcion) => {
 };
 
 export const BusinessList = (props) => (
-  <List {...props}>
+  <List {...props} exporter={false}>
     <Datagrid>
       <TextField source="id" />
       <NumberField label="CUIT" source="cuit" />
