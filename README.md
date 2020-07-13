@@ -1,6 +1,10 @@
 # fullStackApp
 
-Toda la app con las partes en carpetas
+### Detalles del Frontend
+
+- UX built with [react-admin](https://github.com/marmelab/react-admin) framework.
+- APIs managed with [ra-data-json-server](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-json-server).
+- Fake APIs managed with [ra-data-fakerest](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-fakerest).
 
 ## Iniciar la app en el servidor local
 
