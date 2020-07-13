@@ -22,13 +22,13 @@ Descripción de los requests a los endpoint del backend
 ### GET un cliente
 
 *Request*
-
+```
 fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
   .then(response => response.json())
   .then(data => console.log(data))
-
+```
 *Output*
-
+```
 {
   id: 1,
   dni: 123456
@@ -59,27 +59,27 @@ fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
     telefono: 123456478,
   }
 }
-
+```
 ### GET todos los clientes
 
 *Frontend Request*
-
+```
 fetch('https://jsonplaceholder.typicode.com/clients')
   .then((response) => response.json())
   .then((list) => console.log(list))
-  
+```
 *Output*
-
+```
 [
   { id: 1, dni: 123456, nombre: "Julia", apellido: "Espinoza", activo: true, activoDescripcion: "pendiente", contacto: { mail: "jespinoza@uade.edu.ar"}},
   { ... },
   { id: 100, dni: 123457, nombre: "Juan", apellido: "Perez", activo: true, activoDescripcion: "validado", contacto: { mail: "jperez@uade.edu.ar"}},
 ]
-
+```
 ### POST crear cliente
 
 *Frontend Request*
-
+```
 fetch('https://jsonplaceholder.typicode.com/clients', {
     method: 'POST',
     body: JSON.stringify({
@@ -117,9 +117,9 @@ fetch('https://jsonplaceholder.typicode.com/clients', {
   })
   .then(response => response.json())
   .then(json => console.log(json))
-
+```
 *Output*
-
+```
 {
   id: 1,
   dni: 123456
@@ -151,11 +151,11 @@ fetch('https://jsonplaceholder.typicode.com/clients', {
     telefono: 123456478,
   }
 }
-
+```
 ### PUT editar cliente
 
 *Frontend Request*
-
+```
 fetch('https://jsonplaceholder.typicode.com/clients/1', {
     method: 'PUT',
     body: JSON.stringify({
@@ -196,9 +196,9 @@ fetch('https://jsonplaceholder.typicode.com/clients/1', {
   })
   .then(response => response.json())
   .then(json => console.log(json))
-
+```
 *Output*
-
+```
 {
   id: 1,
   dni: 123456,
@@ -230,3 +230,4 @@ fetch('https://jsonplaceholder.typicode.com/clients/1', {
     telefono: 123456478,
   }
 }
+```
