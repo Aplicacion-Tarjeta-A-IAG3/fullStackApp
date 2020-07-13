@@ -54,8 +54,8 @@ const App = () => (
     <Resource
       name="businesses"
       list={BusinessList}
-      // edit={BusinessEdit}
-      // create={BusinessCreate}
+      edit={BusinessEdit}
+      create={BusinessCreate}
       icon={BusinessIcon}
     />
   </Admin>

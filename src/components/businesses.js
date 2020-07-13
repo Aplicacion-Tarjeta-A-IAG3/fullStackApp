@@ -19,13 +19,6 @@ import {
   SelectInput,
 } from "react-admin";
 
-const estadosCiviles = [
-  { id: 0, name: "Soltero(a)" },
-  { id: 1, name: "En matrimonio" },
-  { id: 2, name: "En concubinato" },
-  { id: 3, name: "Otros" },
-];
-
 const bajaDescripciones = [
   { id: "temporal", name: "Baja temporal del sistema" },
   { id: "definitiva", name: "Baja definitiva del sistema" },
@@ -44,7 +37,7 @@ export const BusinessList = (props) => (
     <Datagrid>
       <TextField source="id" />
       <NumberField label="CUIT" source="cuit" />
-      <TextField label="Nombre de empresa" source="nombreComercio" />
+      <TextField label="Nombre del comercio" source="nombreComercio" />
       <TextField label="Nombre del dueño" source="nombrePersona" />
       <EmailField source="contacto.mail" />
       <BooleanField label="Cliente activo" source="activo" />
@@ -58,28 +51,26 @@ export const BusinessList = (props) => (
 );
 
 export const BusinessEdit = (props) => (
-  <Edit title="Editar cliente" {...props}>
+  <Edit title="Editar establecimiento" {...props}>
     <TabbedForm margin="normal">
-      <FormTab label="persona">
+      <FormTab label="comercio">
         <TextInput disabled fullWidth label="Id" source="id" />
-        <TextInput disabled fullWidth label="DNI" source="dni" />
-        <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        <TextInput disabled fullWidth label="CUIT" source="cuit" />
+        <TextInput
+          fullWidth
+          label="Nombre del comercio"
+          source="nombreComercio"
+        />
+        <TextInput fullWidth label="Nombre del dueño" source="nombrePersona" />
+        <PasswordInput fullWidth label="Contraseña" source="password" />
+        <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
+        <BooleanInput fullWidth label="Comercio activo" source="activo" />
         <SelectInput
           fullWidth
           label="Detalle de baja"
           source="bajaDescripcion"
           choices={bajaDescripciones}
         />
-        <TextInput fullWidth label="Nombre del cliente" source="nombre" />
-        <TextInput fullWidth label="Apellido del cliente" source="apellido" />
-        <SelectInput
-          fullWidth
-          label="Estado civil"
-          source="estadoCivil"
-          choices={estadosCiviles}
-        />
-        <PasswordInput fullWidth label="Contraseña" source="password" />
-        <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
       </FormTab>
       <FormTab label="domicilio">
         <TextInput
@@ -123,21 +114,20 @@ export const BusinessEdit = (props) => (
 );
 
 export const BusinessCreate = (props) => (
-  <Create title="Crear nuevo cliente" {...props}>
+  <Create title="Crear nuevo establecimiento" {...props}>
     <TabbedForm margin="normal">
-      <FormTab label="persona">
-        <TextInput fullWidth label="DNI" source="dni" />
-        <BooleanInput fullWidth label="Cliente activo" source="activo" />
-        <TextInput fullWidth label="Nombre del cliente" source="nombre" />
-        <TextInput fullWidth label="Apellido del cliente" source="apellido" />
-        <SelectInput
+      <FormTab label="comercio">
+        <TextInput disabled fullWidth label="Id" source="id" />
+        <TextInput disabled fullWidth label="CUIT" source="cuit" />
+        <TextInput
           fullWidth
-          label="Estado civil"
-          source="estadoCivil"
-          choices={estadosCiviles}
+          label="Nombre del comercio"
+          source="nombreComercio"
         />
+        <TextInput fullWidth label="Nombre del dueño" source="nombrePersona" />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
+        <BooleanInput fullWidth label="Comercio activo" source="activo" />
       </FormTab>
       <FormTab label="domicilio">
         <TextInput fullWidth label="Calle" source="domicilio.calle" />

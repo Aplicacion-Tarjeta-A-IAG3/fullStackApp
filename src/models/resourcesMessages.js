@@ -18,6 +18,14 @@ const resourceMessages = {
         },
       },
     },
+    businesses: {
+      name: "Establecimientos",
+      fields: {
+        contacto: {
+          mail: "Email",
+        },
+      },
+    },
   },
 };
 export default resourceMessages;
