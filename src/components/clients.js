@@ -4,13 +4,13 @@ import {
   Datagrid,
   TextField,
   EmailField,
+  FunctionField,
   EditButton,
   Edit,
   TabbedForm,
   FormTab,
   TextInput,
   Create,
-  DeleteButton,
   BooleanField,
   NumberField,
   NumberInput,
@@ -26,17 +26,33 @@ const estadosCiviles = [
   { id: 3, name: "Otros" },
 ];
 
+const activoDescripciones = [
+  { id: "validado", name: "Cliente validado" },
+  { id: "pendiente", name: "Pendiente de validación" },
+  { id: "baja", name: "Baja del sistema" },
+];
+
+const estado = (idDescripcion) => {
+  const item = activoDescripciones.find((d) => d.id === idDescripcion);
+  return item.name;
+};
+
 export const ClientList = (props) => (
   <List {...props}>
     <Datagrid>
       <TextField source="id" />
-      <NumberField source="dni" />
-      <TextField source="nombre" />
-      <TextField source="apellido" />
-      <BooleanField source="activo" />
+      <NumberField label="DNI" source="dni" />
+      <FunctionField
+        label="Nombre completo"
+        render={(record) => `${record.nombre} ${record.apellido}`}
+      />
       <EmailField source="contacto.mail" />
+      <BooleanField label="Cliente activo" source="activo" />
+      <FunctionField
+        label="Estado del cliente"
+        render={(record) => estado(record.activoDescripcion)}
+      />
       <EditButton />
-      <DeleteButton />
     </Datagrid>
   </List>
 );
@@ -48,6 +64,12 @@ export const ClientEdit = (props) => (
         <TextInput disabled fullWidth label="Id" source="id" />
         <TextInput disabled fullWidth label="DNI" source="dni" />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        <SelectInput
+          fullWidth
+          label="Observaciones"
+          source="activoDescripcion"
+          choices={activoDescripciones}
+        />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />
         <TextInput fullWidth label="Apellido del cliente" source="apellido" />
         <SelectInput
@@ -106,6 +128,12 @@ export const ClientCreate = (props) => (
       <FormTab label="persona">
         <TextInput fullWidth label="DNI" source="dni" />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        <SelectInput
+          fullWidth
+          label="Observaciones"
+          source="activoDescripcion"
+          choices={activoDescripciones}
+        />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />
         <TextInput fullWidth label="Apellido del cliente" source="apellido" />
         <SelectInput

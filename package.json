@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "jsonexport": "^3.0.1",
     "prop-types": "^15.7.2",
     "ra-data-fakerest": "^3.6.2",
     "ra-data-json-server": "^3.7.0",
