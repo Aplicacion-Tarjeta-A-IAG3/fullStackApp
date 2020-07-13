@@ -116,7 +116,6 @@ fetch('https://jsonplaceholder.typicode.com/clients', {
       password: "pwd123",
       puntos: 0,
       activo: true,
-      bajaDescripcion: "pendiente",
       fechaNacimiento: 19990502,
       password: "algoRandom",
       contacto: {
@@ -342,7 +341,6 @@ fetch('https://jsonplaceholder.typicode.com/bussinesses', {
       nombreComercio: "Mi comercio",
       nombrePersona: "Juana Perez",
       activo: true,
-      bajaDescripcion: "pendiente",
       contacto: {
         mail: "elcomercio@mail.com",
         celular: 12345647897,

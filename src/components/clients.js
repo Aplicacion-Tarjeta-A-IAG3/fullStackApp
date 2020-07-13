@@ -26,14 +26,16 @@ const estadosCiviles = [
   { id: 3, name: "Otros" },
 ];
 
-const activoDescripciones = [
-  { id: "validado", name: "Cliente validado" },
-  { id: "pendiente", name: "Pendiente de validación" },
-  { id: "baja", name: "Baja del sistema" },
+const bajaDescripciones = [
+  { id: "temporal", name: "Baja temporal del sistema" },
+  { id: "definitiva", name: "Baja definitiva del sistema" },
+  { id: "datosIncompletos", name: "Por datos incompletos" },
+  { id: "movimientosProhibidos", name: "Por movimientos prohibidos" },
+  { id: "", name: "-" },
 ];
 
 const estado = (idDescripcion) => {
-  const item = activoDescripciones.find((d) => d.id === idDescripcion);
+  const item = bajaDescripciones.find((d) => d.id === idDescripcion);
   return item.name;
 };
 
@@ -49,7 +51,7 @@ export const ClientList = (props) => (
       <EmailField source="contacto.mail" />
       <BooleanField label="Cliente activo" source="activo" />
       <FunctionField
-        label="Estado del cliente"
+        label="Detalle de baja"
         render={(record) => estado(record.bajaDescripcion)}
       />
       <EditButton />
@@ -66,9 +68,9 @@ export const ClientEdit = (props) => (
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
         <SelectInput
           fullWidth
-          label="Observaciones"
+          label="Detalle de baja"
           source="bajaDescripcion"
-          choices={activoDescripciones}
+          choices={bajaDescripciones}
         />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />
         <TextInput fullWidth label="Apellido del cliente" source="apellido" />
@@ -128,12 +130,6 @@ export const ClientCreate = (props) => (
       <FormTab label="persona">
         <TextInput fullWidth label="DNI" source="dni" />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
-        <SelectInput
-          fullWidth
-          label="Observaciones"
-          source="bajaDescripcion"
-          choices={activoDescripciones}
-        />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />
         <TextInput fullWidth label="Apellido del cliente" source="apellido" />
         <SelectInput

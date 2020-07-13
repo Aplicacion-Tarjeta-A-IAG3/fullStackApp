@@ -11,7 +11,7 @@ export const myFakeDataProvider = fakeDataProvider({
       password: "pwd123",
       puntos: 1,
       activo: true,
-      bajaDescripcion: "validado",
+      bajaDescripcion: "",
       fechaNacimiento: 19990502,
       domicilio: {
         id: 1,
@@ -42,7 +42,7 @@ export const myFakeDataProvider = fakeDataProvider({
       password: "1234",
       puntos: 0,
       activo: true,
-      bajaDescripcion: "pendiente",
+      bajaDescripcion: "",
       fechaNacimiento: 19990502,
       domicilio: {
         id: 2,
@@ -73,7 +73,7 @@ export const myFakeDataProvider = fakeDataProvider({
       nombreComercio: "Mi comercio",
       nombrePersona: "Juana Perez",
       activo: true,
-      bajaDescripcion: "validado",
+      bajaDescripcion: "",
       domicilio: {
         id: 3,
         calle: "La Calle",
@@ -101,7 +101,7 @@ export const myFakeDataProvider = fakeDataProvider({
       nombreComercio: "Otro comercio",
       nombrePersona: "Juana Perez",
       activo: false,
-      bajaDescripcion: "pendiente",
+      bajaDescripcion: "",
       domicilio: {
         id: 4,
         calle: "Otra Calle",
