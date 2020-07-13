@@ -17,6 +17,11 @@ import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
 import { ClientList, ClientEdit, ClientCreate } from "./components/clients";
+import {
+  BusinessList,
+  BusinessEdit,
+  BusinessCreate,
+} from "./components/businesses";
 
 const messages = {
   es: { ...spanishMessages, ...resourcesMessages },
@@ -46,7 +51,13 @@ const App = () => (
       create={ClientCreate}
       icon={PersonIcon}
     />
-    <Resource name="businesses" icon={BusinessIcon} />
+    <Resource
+      name="businesses"
+      list={BusinessList}
+      // edit={BusinessEdit}
+      // create={BusinessCreate}
+      icon={BusinessIcon}
+    />
   </Admin>
 );
 

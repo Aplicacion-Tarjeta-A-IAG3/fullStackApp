@@ -51,14 +51,14 @@ fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
 ```
 {
   id: 1,
-  dni: 123456
+  dni: 123456,
   nombre: "Julia",
   apellido: "Espinoza",
   estadoCivil: 0,
   password: "pwd123",
   puntos: 1,
   activo: true,
-  bajaDescripcion: "pendiente"
+  bajaDescripcion: "pendiente",
   domicilio: {
     id: 1,
     calle: "La Calle",
@@ -109,7 +109,7 @@ fetch('https://jsonplaceholder.typicode.com/clients')
 fetch('https://jsonplaceholder.typicode.com/clients', {
     method: 'POST',
     body: JSON.stringify({
-      dni: 123456
+      dni: 123456,
       nombre: "Julia",
       apellido: "Espinoza",
       estadoCivil: 0,
@@ -149,7 +149,7 @@ fetch('https://jsonplaceholder.typicode.com/clients', {
 ```
 {
   id: 1,
-  dni: 123456
+  dni: 123456,
   nombre: "Julia",
   apellido: "Espinoza",
   estadoCivil: 0,
@@ -189,7 +189,7 @@ fetch('https://jsonplaceholder.typicode.com/clients/1', {
     method: 'PUT',
     body: JSON.stringify({
       id: 1,
-      dni: 123456
+      dni: 123456,
       nombre: "Julia",
       apellido: "Espinoza",
       estadoCivil: 0,
@@ -322,9 +322,9 @@ fetch('https://jsonplaceholder.typicode.com/businesses')
 
 ```
 [
-  { id: 1, dni: 123456, nombreComercio: "Mi comercio", nombrePersona: "Juana Perez", activo: true, bajaDescripcion: "pendiente", contacto: { mail: "elcomercio@mail.com"}},
+  { id: 1, cuit: 123456, nombreComercio: "Mi comercio", nombrePersona: "Juana Perez", activo: true, bajaDescripcion: "pendiente", contacto: { mail: "elcomercio@mail.com"}},
   { ... },
-  { id: 100, dni: 123457, nombreComercio: "Otro comercio", nombrePersona: "Juana Perez", activo: true, bajaDescripcion: "validado", contacto: { mail: "otrocomercio@mail.com"}},
+  { id: 100, cuit: 123457, nombreComercio: "Otro comercio", nombrePersona: "Juana Perez", activo: true, bajaDescripcion: "validado", contacto: { mail: "otrocomercio@mail.com"}},
 ]
 ```
 
