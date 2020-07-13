@@ -4,7 +4,7 @@ Toda la app con las partes en carpetas
 
 ## Iniciar la app en el servidor local
 
-git clone https://github.com/Aplicacion-Tarjeta-A-IAG3/fullStackApp.git
-cd ./fullStackApp
-npm install
-npm start
+1. git clone https://github.com/Aplicacion-Tarjeta-A-IAG3/fullStackApp.git
+1. cd ./fullStackApp
+1. npm install
+1. npm start
