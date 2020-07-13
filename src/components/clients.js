@@ -50,7 +50,7 @@ export const ClientList = (props) => (
       <BooleanField label="Cliente activo" source="activo" />
       <FunctionField
         label="Estado del cliente"
-        render={(record) => estado(record.activoDescripcion)}
+        render={(record) => estado(record.bajaDescripcion)}
       />
       <EditButton />
     </Datagrid>
@@ -67,7 +67,7 @@ export const ClientEdit = (props) => (
         <SelectInput
           fullWidth
           label="Observaciones"
-          source="activoDescripcion"
+          source="bajaDescripcion"
           choices={activoDescripciones}
         />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />
@@ -131,7 +131,7 @@ export const ClientCreate = (props) => (
         <SelectInput
           fullWidth
           label="Observaciones"
-          source="activoDescripcion"
+          source="bajaDescripcion"
           choices={activoDescripciones}
         />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />

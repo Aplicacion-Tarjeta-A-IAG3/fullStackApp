@@ -16,7 +16,7 @@ fetch('http://african-express.us-e2.cloudhub.io/api/clients/1')
   password: "pwd123",
   puntos: 1,
   activo: true,
-  activoDescripcion: "pendiente"
+  bajaDescripcion: "pendiente"
   domicilio: {
     id: 1,
     calle: "La Calle",
@@ -47,9 +47,9 @@ fetch('https://jsonplaceholder.typicode.com/clients')
   
 //=== Output ===
 [
-  { id: 1, dni: 123456, nombre: "Julia", apellido: "Espinoza", activo: true, activoDescripcion: "pendiente", contacto: { mail: "jespinoza@uade.edu.ar"}},
+  { id: 1, dni: 123456, nombre: "Julia", apellido: "Espinoza", activo: true, bajaDescripcion: "pendiente", contacto: { mail: "jespinoza@uade.edu.ar"}},
   { ... },
-  { id: 100, dni: 123457, nombre: "Juan", apellido: "Perez", activo: true, activoDescripcion: "validado", contacto: { mail: "jperez@uade.edu.ar"}},
+  { id: 100, dni: 123457, nombre: "Juan", apellido: "Perez", activo: true, bajaDescripcion: "validado", contacto: { mail: "jperez@uade.edu.ar"}},
 ]
 ======================================================================================================================
                                             POST crear cliente
@@ -65,7 +65,7 @@ fetch('https://jsonplaceholder.typicode.com/clients', {
       password: "pwd123",
       puntos: 0,
       activo: true,
-      activoDescripcion: "pendiente",
+      bajaDescripcion: "pendiente",
       fechaNacimiento: 19990502,
       password: "algoRandom",
       contacto: {
@@ -103,7 +103,7 @@ fetch('https://jsonplaceholder.typicode.com/clients', {
   password: "pwd123",
   puntos: 1,
   activo: true,
-  activoDescripcion, "pendiente",
+  bajaDescripcion, "pendiente",
   fechaNacimiento: 19990502,
   domicilio: {
     id: 1,
@@ -140,7 +140,7 @@ fetch('https://jsonplaceholder.typicode.com/clients/1', {
       password: "pwd123",
       puntos: 0,
       activo: true,
-      activoDescripcion: "validado",
+      bajaDescripcion: "validado",
       fechaNacimiento: 19990502,
       password: "algoRandom",
       contacto: {
@@ -180,7 +180,7 @@ fetch('https://jsonplaceholder.typicode.com/clients/1', {
   password: "pwd123",
   puntos: 1,
   activo: true,
-  activoDescripcion: "validado",
+  bajaDescripcion: "validado",
   fechaNacimiento: 19990502,
   domicilio: {
     id: 1,
