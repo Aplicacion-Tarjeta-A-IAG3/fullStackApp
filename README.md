@@ -2,6 +2,10 @@
 
 Toda la app con las partes en carpetas
 
+## Especificaciones de requests
+
+1. [Clientes](#clientes)
+
 ## Iniciar la app en el servidor local
 
 1. git clone https://github.com/Aplicacion-Tarjeta-A-IAG3/fullStackApp.git
