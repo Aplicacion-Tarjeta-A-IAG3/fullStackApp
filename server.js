@@ -7,7 +7,11 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(`${__dirname}/build/index.html`);
   });
 }
-var port = process.env.PORT || 8000;
+/* var port = process.env.PORT || 8000;
 app.listen(port, function () {
   console.log("App is running on port " + port);
+}); */
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
