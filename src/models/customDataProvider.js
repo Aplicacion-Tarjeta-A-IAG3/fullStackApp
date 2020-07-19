@@ -53,7 +53,7 @@ export default {
       headers: headers,
     };
 
-    const url = `${apiUrl}/${resource}?id=git s${params.id}`;
+    const url = `${apiUrl}/${resource}?id=${params.id}`;
 
     return fetch(url, options).then(({ json }) => ({
       data: json,
