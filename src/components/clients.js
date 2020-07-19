@@ -46,7 +46,7 @@ const AsignProductField = ({ record = {} }) => (
   <Button
     component={Link}
     to={{ pathname: `/personas/${record.id}/asignar_producto` }}
-    label="Asignar Productos"
+    label="Asignar Producto"
   >
     <CreditCardIcon />
   </Button>
