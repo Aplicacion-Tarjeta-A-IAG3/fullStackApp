@@ -38,7 +38,7 @@ const App = () => (
   <Admin
     customRoutes={customRoutes}
     loginPage={LoginPage}
-    dataProvider={dataProvider}
+    dataProvider={myFakeDataProvider}
     authProvider={authProvider}
     i18nProvider={i18nProvider}
     theme={theme}
