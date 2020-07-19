@@ -1,0 +1,64 @@
+Tenes que diferenciar si es para cliente o comercio:
+
+Si es comercio es bien facil, solo nececitas el cuit y el mes, nada mas:
+
+1) Buscar el comercio:
+
+SELECT *
+FROM Comercio
+WHERE cuit = 123456;
+
+2) Con eso sacas el idComercio para hacer esto:
+
+SELECT *
+FROM Transaccion t 
+INNER JOIN Fecha f ON f.idFecha = t.idFecha 
+WHERE t.idComercio = 1 AND f.mes = 5;
+
+Eso te da todos los movimientos que hicieron. Sumas el total y le restas la comision que se le cobra al comercio por el servicio de tarjeta y ya estas. 
+
+Para las personas te tienen que pasar la tarjeta y el mes:
+
+1) Buscas la tarjeta:
+
+SELECT *
+FROM Tarjeta 
+WHERE numero = 1111111111111111;
+
+2) Verificas si el pago anterior se hizo o no:
+
+SELECT SUM(monto) AS Total
+FROM Transaccion t 
+INNER JOIN Fecha f ON f.idFecha = t.idFecha 
+WHERE t.idTarjeta = 1 AND f.mes = 5-1;
+
+Esto te da el consumo total del mes pasado y le sumas el costo o comision de la tarjeta:
+
+SELECT p.categoria 
+FROM Relacion r
+INNER JOIN Tarjeta t ON t.idTarjeta = r.idTarjeta
+INNER JOIN Producto p ON p.idProducto = r.idProducto 
+WHERE t.numero = 3073243119987495;
+
+Con eso sabes la categoria, una vez que tenes calculado el resumen anterior lo buscas a ver si se pago o no y cuanto es el monto.
+
+SELECT monto 
+FROM Transaccion t
+INNER JOIN Tarjeta t2 ON t.idTarjeta = t.idTarjeta
+INNER JOIN Fecha f ON f.idFecha = t.idFecha 
+WHERE t.detalle = 'pago de tarjeta' AND f.mes = 5;
+
+Si el que calculaste coincide con el del select entonces se pago todo en tiempo y forma. 
+
+Si no coincide (guarda como pones si es 0 o NULL cuando no hubo consumos en el mes) haces la diferencia y eso lo multiplicas por el punitorio y lo guardas en una variable
+
+Ahora si haces el calculo del nuevo resumen: 
+
+SELECT *
+FROM Transaccion t 
+INNER JOIN Fecha f ON f.idFecha = t.idFecha 
+WHERE t.idTarjeta = 1 AND f.mes = 5;
+
+Con eso sumas todo y le sumas la comision por tipo de tarjeta y si hay deuda le sumas la deuda.
+
+
