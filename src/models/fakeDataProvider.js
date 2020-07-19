@@ -41,7 +41,7 @@ export const myFakeDataProvider = fakeDataProvider({
       estadoCivil: 0,
       password: "1234",
       puntos: 0,
-      activo: true,
+      activo: false,
       bajaDescripcion: "",
       fechaNacimiento: 19990502,
       domicilio: {
