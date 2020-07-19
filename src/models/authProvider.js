@@ -53,7 +53,7 @@ const authProvider = {
   },
   getPermissions: () => {
     return localStorage.getItem("permissions")
-      ? Promise.resolve()
+      ? Promise.resolve(localStorage.getItem("permissions"))
       : Promise.reject();
   },
 };
