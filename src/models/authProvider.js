@@ -1,7 +1,7 @@
 const authProvider = {
   login: ({ username, password }) => {
     // const apiUrl = "http://african-express.br-s1.cloudhub.io/api/login";
-    const apiUrl = "http://african-express.us-e2.cloudhub.io/api/login";
+    const apiUrl = "https://african-express.us-e2.cloudhub.io/api/login";
     const userData = { username, password };
     const requestData = {
       method: "POST",

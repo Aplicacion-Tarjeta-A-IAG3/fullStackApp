@@ -1,7 +1,7 @@
 import { fetchUtils } from "react-admin";
 // import { stringify } from "query-string";
 
-const apiUrl = "http://african-express.us-e2.cloudhub.io/api/core";
+const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 // const httpClient = fetchUtils.fetchJson;
 
 const clientId = localStorage.getItem("clientId");
