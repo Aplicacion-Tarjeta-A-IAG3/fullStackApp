@@ -17,7 +17,10 @@ import {
   PasswordInput,
   BooleanInput,
   SelectInput,
+  Button,
+  Link,
 } from "react-admin";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
   { id: 0, name: "Soltero(a)" },
@@ -39,6 +42,16 @@ const estado = (idDescripcion) => {
   return item.name;
 };
 
+const AsignProductField = ({ record = {} }) => (
+  <Button
+    component={Link}
+    to={{ pathname: `/personas/${record.id}/asignar_producto` }}
+    label="Asignar Producto"
+  >
+    <CreditCardIcon />
+  </Button>
+);
+
 export const ClientList = (props) => (
   <List {...props} exporter={false}>
     <Datagrid>
@@ -55,6 +68,7 @@ export const ClientList = (props) => (
         render={(record) => estado(record.bajaDescripcion)}
       />
       <EditButton />
+      <AsignProductField />
     </Datagrid>
   </List>
 );

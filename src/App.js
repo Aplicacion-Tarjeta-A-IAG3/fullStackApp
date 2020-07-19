@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Admin, Resource } from "react-admin";
+import customRoutes from "./utils/customRoutes";
 // API connection
-//import jsonServerProvider from "ra-data-json-server"; //TODO: uncomment when the actual Backend API is connected
+// import jsonServerProvider from "ra-data-json-server";
 import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
 // Authentication and Authorization
 import authProvider from "./models/authProvider";
@@ -27,37 +28,57 @@ const messages = {
   es: { ...spanishMessages, ...resourcesMessages },
 };
 const i18nProvider = polyglotI18nProvider(() => messages["es"]);
-//const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com"); //TODO: uncomment when the actual Backend API is connected
+// const dataProvider = jsonServerProvider(
+//   "http://african-express.us-e2.cloudhub.io/api/core"
+// );
 
 const App = () => (
   <Admin
+    customRoutes={customRoutes}
     loginPage={LoginPage}
     dataProvider={myFakeDataProvider}
     authProvider={authProvider}
     i18nProvider={i18nProvider}
     theme={theme}
   >
-    {/* <Resource
-      name="users"
-      list={UserList}
-      edit={UserEdit}
-      create={UserCreate}
-      icon={PersonIcon}
-    /> */}
-    <Resource
-      name="clients"
-      list={ClientList}
-      edit={ClientEdit}
-      create={ClientCreate}
-      icon={PersonIcon}
-    />
-    <Resource
-      name="businesses"
-      list={BusinessList}
-      edit={BusinessEdit}
-      create={BusinessCreate}
-      icon={BusinessIcon}
-    />
+    {(permissions) => [
+      permissions === "admin" ? (
+        <Resource
+          name="personas"
+          list={ClientList}
+          edit={ClientEdit}
+          create={ClientCreate}
+          icon={PersonIcon}
+        />
+      ) : null,
+      permissions === "admin" ? (
+        <Resource
+          name="comercios"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          icon={BusinessIcon}
+        />
+      ) : null,
+      permissions === "persona" ? (
+        <Resource
+          name="comercios"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          icon={BusinessIcon}
+        />
+      ) : null,
+      permissions === "comercio" ? (
+        <Resource
+          name="comercios"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          icon={BusinessIcon}
+        />
+      ) : null,
+    ]}
   </Admin>
 );
 

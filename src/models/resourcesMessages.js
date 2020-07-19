@@ -10,21 +10,26 @@ const resourceMessages = {
         },
       },
     },
-    clients: {
-      name: "Clientes",
+    personas: {
+      name: "Personas",
       fields: {
         contacto: {
           mail: "Email",
         },
       },
     },
-    businesses: {
-      name: "Establecimientos",
+    comercios: {
+      name: "Comercios",
       fields: {
         contacto: {
           mail: "Email",
         },
       },
+    },
+  },
+  app: {
+    page: {
+      loading: "Cargando",
     },
   },
 };

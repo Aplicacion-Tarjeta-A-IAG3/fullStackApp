@@ -1,7 +1,7 @@
 import fakeDataProvider from "ra-data-fakerest";
 
 export const myFakeDataProvider = fakeDataProvider({
-  clients: [
+  personas: [
     {
       id: 1,
       dni: 123456,
@@ -65,7 +65,7 @@ export const myFakeDataProvider = fakeDataProvider({
       },
     },
   ],
-  businesses: [
+  comercios: [
     {
       id: 1,
       cuit: 123456,
