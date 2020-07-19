@@ -27,5 +27,10 @@ const resourceMessages = {
       },
     },
   },
+  app: {
+    page: {
+      loading: "Cargando",
+    },
+  },
 };
 export default resourceMessages;

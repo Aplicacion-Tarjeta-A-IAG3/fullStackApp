@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Admin, Resource } from "react-admin";
+import customRoutes from "./utils/customRoutes";
 // API connection
 //import jsonServerProvider from "ra-data-json-server"; //TODO: uncomment when the actual Backend API is connected
 import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
@@ -31,6 +32,7 @@ const i18nProvider = polyglotI18nProvider(() => messages["es"]);
 
 const App = () => (
   <Admin
+    customRoutes={customRoutes}
     loginPage={LoginPage}
     dataProvider={myFakeDataProvider}
     authProvider={authProvider}
