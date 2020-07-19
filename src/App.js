@@ -39,27 +39,44 @@ const App = () => (
     i18nProvider={i18nProvider}
     theme={theme}
   >
-    {/* <Resource
-      name="users"
-      list={UserList}
-      edit={UserEdit}
-      create={UserCreate}
-      icon={PersonIcon}
-    /> */}
-    <Resource
-      name="clients"
-      list={ClientList}
-      edit={ClientEdit}
-      create={ClientCreate}
-      icon={PersonIcon}
-    />
-    <Resource
-      name="businesses"
-      list={BusinessList}
-      edit={BusinessEdit}
-      create={BusinessCreate}
-      icon={BusinessIcon}
-    />
+    {(permissions) => [
+      permissions === "admin" ? (
+        <Resource
+          name="clients"
+          list={ClientList}
+          edit={ClientEdit}
+          create={ClientCreate}
+          icon={PersonIcon}
+        />
+      ) : null,
+      permissions === "admin" ? (
+        <Resource
+          name="businesses"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          icon={BusinessIcon}
+        />
+      ) : null,
+      permissions === "persona" ? (
+        <Resource
+          name="businesses"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          icon={BusinessIcon}
+        />
+      ) : null,
+      permissions === "comercio" ? (
+        <Resource
+          name="businesses"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          icon={BusinessIcon}
+        />
+      ) : null,
+    ]}
   </Admin>
 );
 
