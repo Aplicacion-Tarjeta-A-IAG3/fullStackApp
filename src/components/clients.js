@@ -63,7 +63,7 @@ export const ClientList = (props) => (
         label="Nombre completo"
         render={(record) => `${record.nombre} ${record.apellido}`}
       />
-      <EmailField source="contacto.mail" />
+      <EmailField source="contacto.email" />
       <BooleanField label="Cliente activo" source="activo" />
       {/* <FunctionField
         label="Detalle de baja"
@@ -165,7 +165,7 @@ export const ClientCreate = (props) => (
         <TextInput fullWidth label="País" source="domicilio.pais" />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput fullWidth label="Email" source="contacto.mail" />
+        <TextInput fullWidth label="Email" source="contacto.email" />
         <NumberInput fullWidth label="Celular" source="contacto.celular" />
         <NumberInput fullWidth label="Teléfono" source="contacto.telefono" />
       </FormTab>
