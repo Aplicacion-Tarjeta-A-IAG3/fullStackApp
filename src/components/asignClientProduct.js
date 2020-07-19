@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import { Title, SimpleForm, SelectField, Loading } from "react-admin";
+import CardHeader from "@material-ui/core/CardHeader";
+import {
+  Title,
+  SimpleForm,
+  SelectInput,
+  Loading,
+  NumberInput,
+} from "react-admin";
 
 const AsignProduct = (props) => {
   console.log("props", props);
@@ -54,23 +61,49 @@ const AsignProduct = (props) => {
   }, []);
 
   return (
-    <Card>
-      <Title title="Asignar producto al cliente" />
-      <CardContent>
-        {isLoaded && (
-          <SimpleForm>
-            <SelectField
-              source="Productos"
-              choices={[
-                { id: "M", name: "Male" },
-                { id: "F", name: "Female" },
-              ]}
-            />
-          </SimpleForm>
-        )}
-        {!isLoaded && <Loading loadingPrimary="app.page.loading" />}
-      </CardContent>
-    </Card>
+    <div>
+      <Title title="Asignando un producto" />
+      {isLoaded && (
+        <Card>
+          <CardHeader title="Información del cliente" />
+          <CardContent style={{ display: "flex" }}>
+            <div style={{ width: "30%" }}>
+              <b>Nombre </b>
+              Juan Perez
+            </div>
+            <div style={{ width: "30%" }}>
+              <b>DNI </b>
+              1233242
+            </div>
+            <div style={{ width: "30%" }}>
+              <b>Dirección </b>
+              Avenida Santa Fe Nº 234, Piso 1, Dpto A
+            </div>
+          </CardContent>
+          <hr />
+          <CardHeader title="Asignar un producto" />
+          <CardContent>
+            <SimpleForm>
+              <SelectInput
+                label="Producto"
+                source="productoId"
+                choices={[
+                  { id: 1, name: "Producto 1" },
+                  { id: 2, name: "Producto 2" },
+                  { id: 2, name: "Producto 3" },
+                ]}
+                required={true}
+              />
+              <NumberInput
+                label="Límite de tarjeta"
+                source="limite"
+                required={true}
+              />
+            </SimpleForm>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 };
 
