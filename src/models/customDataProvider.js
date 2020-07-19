@@ -64,7 +64,11 @@ export default {
       body: JSON.stringify(params.data),
     };
     const url = `${apiUrl}/${resource}`;
-    return fetch(url, options).then(({ json }) => ({ data: json }));
+    return fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => ({ data: result }));
   },
 
   create: (resource, params) => {
@@ -74,9 +78,16 @@ export default {
       body: JSON.stringify(params.data),
     };
     const url = `${apiUrl}/${resource}`;
-    return fetch(url, options).then(({ json }) => ({
-      data: { ...params.data, id: json.id },
-    }));
+    return fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => ({
+        data: { ...params.data, id: result.id },
+      }))
+      .catch((e) => ({
+        error: e.message,
+      }));
   },
 
   delete: (resource, params) => {
