@@ -1,7 +1,7 @@
 import { fetchUtils } from "react-admin";
 // import { stringify } from "query-string";
 
-const apiUrl = "http://african-express.us-e2.cloudhub.io/api/core";
+const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 // const httpClient = fetchUtils.fetchJson;
 
 const clientId = localStorage.getItem("clientId");
@@ -34,9 +34,17 @@ export default {
       headers: headers,
     };
 
-    return fetch(url, options).then((response) => ({
-      data: response.json(),
-    }));
+    return fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => ({
+        data: result,
+        total: result.length,
+      }))
+      .catch((e) => ({
+        error: e.message,
+      }));
   },
 
   getOne: (resource, params) => {
