@@ -14,6 +14,12 @@ SELECT *
 FROM  Transaccion
 WHERE idTarjeta = 1 AND MONTH(time) = 5;
 
+EDIT TO:
+
+SELECT *
+FROM Transaccion t 
+INNER JOIN Fecha f ON f.idFecha = t.idFecha 
+WHERE t.idTarjeta = 1 AND f.mes = 5;
 
 2) Si es un comercio tomas el dia y mes del java y haces esto:
 
@@ -28,3 +34,10 @@ Con eso sacas el idComercio para hacer esto:
 SELECT *
 FROM Transaccion
 WHERE idComercio = 1 AND MONTH(time) = 5 AND DAY(time) = 22;
+
+EDIT TO:
+
+SELECT *
+FROM Transaccion t 
+INNER JOIN Fecha f ON f.idFecha = t.idFecha 
+WHERE t.idComercio = 1 AND f.mes = 5 AND f.dia = 22;
