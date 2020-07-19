@@ -1,0 +1,30 @@
+Te tienen que mandar un JSON con la persona que hace el pago, la cuenta a la que hace el pago, el monto del pago y la tarjeta que paga.
+
+1) Buscas a la persona, si la persona esta seguis
+
+SELECT *
+FROM Persona
+WHERE dni = 123456;
+
+2) Buscas si la cuenta existe (es la cuenta de african), si esta seguis
+
+SELECT *
+FROM Cuenta
+WHERE cbu = 12345678;
+
+3) Buscas si existe la tarjeta, si existe seguis
+
+SELECT *
+FROM Tarjeta 
+WHERE numero = 1111111111111111;
+
+4) Haces el registro del pago en la transaccion asi:
+
+INSERT INTO Transaccion (idPersona, idTarjeta, time, monto, detalle, cuotasFlag)
+VALUES (1, 1, timestamp, -123, 'pago de tarjeta', 0);
+
+5) Acutualizas los fondos de la cuenta, le agregas en positivo la plata a la cuenta asi:
+
+UPDATE Cuenta
+SET saldo = sumas el monto en positivo
+WHERE cbu = 12345678;
