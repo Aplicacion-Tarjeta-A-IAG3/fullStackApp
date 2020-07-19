@@ -2,7 +2,7 @@ import * as React from "react";
 import { Admin, Resource } from "react-admin";
 import customRoutes from "./utils/customRoutes";
 // API connection
-//import jsonServerProvider from "ra-data-json-server"; //TODO: uncomment when the actual Backend API is connected
+// import jsonServerProvider from "ra-data-json-server";
 import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
 // Authentication and Authorization
 import authProvider from "./models/authProvider";
@@ -28,7 +28,9 @@ const messages = {
   es: { ...spanishMessages, ...resourcesMessages },
 };
 const i18nProvider = polyglotI18nProvider(() => messages["es"]);
-//const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com"); //TODO: uncomment when the actual Backend API is connected
+// const dataProvider = jsonServerProvider(
+//   "http://african-express.us-e2.cloudhub.io/api/core"
+// );
 
 const App = () => (
   <Admin
@@ -42,7 +44,7 @@ const App = () => (
     {(permissions) => [
       permissions === "admin" ? (
         <Resource
-          name="clients"
+          name="personas"
           list={ClientList}
           edit={ClientEdit}
           create={ClientCreate}
@@ -51,7 +53,7 @@ const App = () => (
       ) : null,
       permissions === "admin" ? (
         <Resource
-          name="businesses"
+          name="comercios"
           list={BusinessList}
           edit={BusinessEdit}
           create={BusinessCreate}
@@ -60,7 +62,7 @@ const App = () => (
       ) : null,
       permissions === "persona" ? (
         <Resource
-          name="businesses"
+          name="comercios"
           list={BusinessList}
           edit={BusinessEdit}
           create={BusinessCreate}
@@ -69,7 +71,7 @@ const App = () => (
       ) : null,
       permissions === "comercio" ? (
         <Resource
-          name="businesses"
+          name="comercios"
           list={BusinessList}
           edit={BusinessEdit}
           create={BusinessCreate}
