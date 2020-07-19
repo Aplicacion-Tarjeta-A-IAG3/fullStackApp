@@ -23,24 +23,25 @@ import {
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
-  { id: 0, name: "Soltero(a)" },
-  { id: 1, name: "En matrimonio" },
-  { id: 2, name: "En concubinato" },
-  { id: 3, name: "Otros" },
+  { id: null, name: "Sin especificar" },
+  { id: "soltero", name: "Soltero(a)" },
+  { id: "casado", name: "En matrimonio" },
+  { id: "concubinato", name: "En concubinato" },
+  { id: "otros", name: "Otros" },
 ];
 
-const bajaDescripciones = [
-  { id: "temporal", name: "Baja temporal del sistema" },
-  { id: "definitiva", name: "Baja definitiva del sistema" },
-  { id: "datosIncompletos", name: "Por datos incompletos" },
-  { id: "movimientosProhibidos", name: "Por movimientos prohibidos" },
-  { id: "", name: "-" },
-];
+// const bajaDescripciones = [
+//   { id: "temporal", name: "Baja temporal del sistema" },
+//   { id: "definitiva", name: "Baja definitiva del sistema" },
+//   { id: "datosIncompletos", name: "Por datos incompletos" },
+//   { id: "movimientosProhibidos", name: "Por movimientos prohibidos" },
+//   { id: "", name: "-" },
+// ];
 
-const estado = (idDescripcion) => {
-  const item = bajaDescripciones.find((d) => d.id === idDescripcion);
-  return item.name;
-};
+// const estado = (idDescripcion) => {
+//   const item = bajaDescripciones.find((d) => d.id === idDescripcion);
+//   return item.name;
+// };
 
 const AsignProductField = ({ record = {} }) => (
   <Button
@@ -78,17 +79,14 @@ export const ClientEdit = (props) => (
   <Edit title="Editar cliente" {...props}>
     <TabbedForm margin="normal">
       <FormTab label="persona">
-        <TextInput disabled fullWidth label="Id" source="id" />
         <TextInput disabled fullWidth label="DNI" source="dni" />
-        <BooleanInput fullWidth label="Cliente activo" source="activo" />
-        <SelectInput
-          fullWidth
-          label="Detalle de baja"
-          source="bajaDescripcion"
-          choices={bajaDescripciones}
-        />
         <TextInput fullWidth label="Nombre del cliente" source="nombre" />
         <TextInput fullWidth label="Apellido del cliente" source="apellido" />
+        <TextInput
+          fullWidth
+          label="Fecha de nacimiento"
+          source="fechaNacimiento"
+        />
         <SelectInput
           fullWidth
           label="Estado civil"
@@ -97,14 +95,10 @@ export const ClientEdit = (props) => (
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
+        <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        {/* <RichTextField fullWidth label="Detalle de baja" source="motivoBaja" /> */}
       </FormTab>
       <FormTab label="domicilio">
-        <TextInput
-          fullWidth
-          disabled
-          label="Id domicilio"
-          source="domicilio.id"
-        />
         <TextInput fullWidth label="Calle" source="domicilio.calle" />
         <NumberInput fullWidth label="Número" source="domicilio.numero" />
         <NumberInput fullWidth label="Piso" source="domicilio.piso" />
@@ -125,13 +119,7 @@ export const ClientEdit = (props) => (
         <TextInput fullWidth label="País" source="domicilio.pais" />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput
-          fullWidth
-          disabled
-          label="Id contacto"
-          source="contacto.id"
-        />
-        <TextInput fullWidth label="Email" source="contacto.mail" />
+        <TextInput fullWidth label="Email" source="contacto.email" />
         <NumberInput fullWidth label="Celular" source="contacto.celular" />
         <NumberInput fullWidth label="Teléfono" source="contacto.telefono" />
       </FormTab>
