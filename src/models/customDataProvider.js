@@ -34,9 +34,17 @@ export default {
       headers: headers,
     };
 
-    return fetch(url, options).then((response) => ({
-      data: response.json(),
-    }));
+    return fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => ({
+        data: result,
+        total: result.length,
+      }))
+      .catch((e) => ({
+        error: e.message,
+      }));
   },
 
   getOne: (resource, params) => {

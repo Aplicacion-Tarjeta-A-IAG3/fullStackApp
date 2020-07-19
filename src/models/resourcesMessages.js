@@ -32,5 +32,8 @@ const resourceMessages = {
       loading: "Cargando",
     },
   },
+  newRecords: {
+    "forEach is not a function": "No se encontraron datos",
+  },
 };
 export default resourceMessages;

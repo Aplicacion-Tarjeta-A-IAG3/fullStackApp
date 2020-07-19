@@ -64,10 +64,10 @@ export const ClientList = (props) => (
       />
       <EmailField source="contacto.mail" />
       <BooleanField label="Cliente activo" source="activo" />
-      <FunctionField
+      {/* <FunctionField
         label="Detalle de baja"
         render={(record) => estado(record.bajaDescripcion)}
-      />
+      /> */}
       <EditButton />
       <AsignProductField />
     </Datagrid>
