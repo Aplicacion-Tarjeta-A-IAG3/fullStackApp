@@ -17,7 +17,14 @@ import {
   PasswordInput,
   BooleanInput,
   SelectInput,
+  useListContext,
+  TopToolbar,
+  CreateButton,
+  Button,
+  Link,
+  sanitizeListRestProps,
 } from "react-admin";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
   { id: 0, name: "Soltero(a)" },
@@ -39,8 +46,25 @@ const estado = (idDescripcion) => {
   return item.name;
 };
 
+const ListActions = (props) => {
+  const { className, ...rest } = props;
+  const { basePath } = useListContext();
+  return (
+    <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
+      <CreateButton basePath={basePath} />
+      <Button
+        component={Link}
+        to={{ pathname: "/personas/asignar_producto" }}
+        label="Asignar Productos"
+      >
+        <CreditCardIcon />
+      </Button>
+    </TopToolbar>
+  );
+};
+
 export const ClientList = (props) => (
-  <List {...props} exporter={false}>
+  <List {...props} exporter={false} actions={<ListActions />}>
     <Datagrid>
       <TextField source="id" />
       <NumberField label="DNI" source="dni" />
