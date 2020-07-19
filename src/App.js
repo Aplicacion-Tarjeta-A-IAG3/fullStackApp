@@ -4,6 +4,7 @@ import customRoutes from "./utils/customRoutes";
 // API connection
 // import jsonServerProvider from "ra-data-json-server";
 import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
+import dataProvider from "./models/customDataProvider";
 // Authentication and Authorization
 import authProvider from "./models/authProvider";
 // Translations
@@ -31,6 +32,7 @@ const i18nProvider = polyglotI18nProvider(() => messages["es"]);
 // const dataProvider = jsonServerProvider(
 //   "http://african-express.us-e2.cloudhub.io/api/core"
 // );
+//const dataProvider = dataProvider;
 
 const App = () => (
   <Admin
@@ -62,20 +64,20 @@ const App = () => (
       ) : null,
       permissions === "persona" ? (
         <Resource
-          name="comercios"
-          list={BusinessList}
-          edit={BusinessEdit}
-          create={BusinessCreate}
-          icon={BusinessIcon}
+          name="consumosPersona"
+          // list={BusinessList}
+          // edit={BusinessEdit}
+          // create={BusinessCreate}
+          // icon={BusinessIcon}
         />
       ) : null,
       permissions === "comercio" ? (
         <Resource
-          name="comercios"
-          list={BusinessList}
-          edit={BusinessEdit}
-          create={BusinessCreate}
-          icon={BusinessIcon}
+          name="consumosComercio"
+          // list={BusinessList}
+          // edit={BusinessEdit}
+          // create={BusinessCreate}
+          // icon={BusinessIcon}
         />
       ) : null,
     ]}

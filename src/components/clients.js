@@ -47,6 +47,7 @@ const AsignProductField = ({ record = {} }) => (
     component={Link}
     to={{ pathname: `/personas/${record.id}/asignar_producto` }}
     label="Asignar Producto"
+    disabled={!record.activo}
   >
     <CreditCardIcon />
   </Button>
