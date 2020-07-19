@@ -1,0 +1,30 @@
+Para hacer el reporte de ultimos consumos necesitas la tarjeta para el usuario o el cuit para el comercio 
+
+1) Tomas el mes corriente desde el java o algun lugar y haces esto si es usuario:
+
+Buscar la tarjeta:
+
+SELECT *
+FROM Tarjeta 
+WHERE numero = 1111111111111111;
+
+Con eso sacas el idTarjeta para hacer esto:
+
+SELECT *
+FROM  Transaccion
+WHERE idTarjeta = 1 AND MONTH(time) = 5;
+
+
+2) Si es un comercio tomas el dia y mes del java y haces esto:
+
+Buscar el comercio:
+
+SELECT *
+FROM Comercio
+WHERE cuit = 123456;
+
+Con eso sacas el idComercio para hacer esto:
+
+SELECT *
+FROM Transaccion
+WHERE idComercio = 1 AND MONTH(time) = 5 AND DAY(time) = 22;
