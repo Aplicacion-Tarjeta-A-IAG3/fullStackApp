@@ -2,7 +2,16 @@ import { fetchUtils } from "react-admin";
 // import { stringify } from "query-string";
 
 const apiUrl = "http://african-express.us-e2.cloudhub.io/api/core";
-const httpClient = fetchUtils.fetchJson;
+// const httpClient = fetchUtils.fetchJson;
+
+const clientId = localStorage.getItem("clientId");
+const clientSecret = localStorage.getItem("clientSecret");
+
+const headers = {
+  "Content-Type": "application/json",
+  client_id: clientId,
+  client_secret: clientSecret,
+};
 
 export default {
   getList: (resource, params) => {
@@ -22,7 +31,7 @@ export default {
     // }));
     const options = {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: headers,
     };
 
     return fetch(url, options).then((response) => ({
@@ -33,7 +42,7 @@ export default {
   getOne: (resource, params) => {
     const options = {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: headers,
     };
 
     const url = `${apiUrl}/${resource}/${params.id}`;
@@ -43,24 +52,36 @@ export default {
     }));
   },
 
-  update: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`, {
+  update: (resource, params) => {
+    const options = {
       method: "PUT",
+      headers: headers,
       body: JSON.stringify(params.data),
-    }).then(({ json }) => ({ data: json })),
+    };
+    const url = `${apiUrl}/${resource}/${params.id}`;
+    return fetch(url, options).then(({ json }) => ({ data: json }));
+  },
 
-  create: (resource, params) =>
-    fetch(`${apiUrl}/${resource}`, {
+  create: (resource, params) => {
+    const options = {
       method: "POST",
+      headers: headers,
       body: JSON.stringify(params.data),
-    }).then(({ json }) => ({
+    };
+    const url = `${apiUrl}/${resource}`;
+    return fetch(url, options).then(({ json }) => ({
       data: { ...params.data, id: json.id },
-    })),
+    }));
+  },
 
-  delete: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`, {
+  delete: (resource, params) => {
+    const options = {
       method: "DELETE",
-    }).then(({ json }) => ({ data: json })),
+      headers: headers,
+    };
+    const url = `${apiUrl}/${resource}/${params.id}`;
+    return fetch(url, options).then(({ json }) => ({ data: json }));
+  },
 
   // getMany: (resource, params) => {
   //   const query = {
