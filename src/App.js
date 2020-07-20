@@ -15,10 +15,7 @@ import resourcesMessages from "./models/resourcesMessages";
 import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
-<<<<<<< HEAD
-=======
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
->>>>>>> master
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
