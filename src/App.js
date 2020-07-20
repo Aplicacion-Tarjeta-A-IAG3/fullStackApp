@@ -16,11 +16,8 @@ import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-<<<<<<< HEAD
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import CardTravelIcon from "@material-ui/icons/CardTravel";
-=======
->>>>>>> ea7525a... Added dashboard and transaccion page
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -30,7 +27,6 @@ import {
   BusinessEdit,
   BusinessCreate,
 } from "./components/businesses";
-<<<<<<< HEAD
 import { ProductList, ProductCreate, ProductEdit } from "./components/products";
 import { CardList } from "./components/cards"; //Componente de tarjetas
 import {
@@ -38,9 +34,6 @@ import {
   TransactionCreate,
   TransactionShow,
 } from "./components/transactions";
-=======
-import { TransactionList, TransactionCreate } from "./components/transactions";
->>>>>>> ea7525a... Added dashboard and transaccion page
 import Dashboard from "./components/dashboard";
 
 const messages = {
@@ -103,11 +96,7 @@ const App = () => (
         <Resource
           name="transacciones"
           list={TransactionList}
-<<<<<<< HEAD
           show={TransactionShow}
-=======
-          // edit={BusinessEdit}
->>>>>>> ea7525a... Added dashboard and transaccion page
           create={TransactionCreate}
           icon={AccountBalanceWalletIcon}
         />

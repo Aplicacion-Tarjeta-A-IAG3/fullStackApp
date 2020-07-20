@@ -4,6 +4,7 @@ import {
   Datagrid,
   TextField,
 <<<<<<< HEAD
+<<<<<<< HEAD
   TextInput,
   Create,
   NumberInput,
@@ -66,14 +67,13 @@ export const TransactionList = (props) => (
   Edit,
   TabbedForm,
   FormTab,
+=======
+>>>>>>> e23ba06... Connect create transacciones
   TextInput,
   Create,
-  BooleanField,
-  NumberField,
   NumberInput,
-  PasswordInput,
-  BooleanInput,
-  SelectInput,
+  SimpleForm,
+  DateInput,
 } from "react-admin";
 
 export const TransactionList = (props) => (
@@ -141,6 +141,7 @@ export const TransactionCreate = (props) => (
     </SimpleForm>
 =======
 export const TransactionCreate = (props) => (
+<<<<<<< HEAD
   <Create title="Realizar una transacción" {...props}>
     <TabbedForm margin="normal">
       <FormTab label="comercio">
@@ -183,5 +184,37 @@ export const TransactionCreate = (props) => (
       </FormTab>
     </TabbedForm>
 >>>>>>> ea7525a... Added dashboard and transaccion page
+=======
+  <Create title="Registrar una transacción" {...props}>
+    <SimpleForm>
+      <div
+        style={{
+          fontSize: "1.25em",
+          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif;"',
+          fontWeight: "500",
+          lineHeight: "1.6",
+          marginBottom: "1em",
+        }}
+      >
+        {"Postnet virtual"}
+      </div>
+      <TextInput fullWidth source="nombre" />
+      <TextInput fullWidth source="apellido" />
+      <NumberInput fullWidth required source="dni" />
+      <TextInput fullWidth source="comercio" />
+      <NumberInput fullWidth required source="cuit" />
+      <NumberInput fullWidth required source="tarjeta" />
+      <DateInput
+        fullWidth
+        required
+        label="Vencimiento"
+        source="vencimiento"
+        defaultValue={new Date()}
+      />
+      <NumberInput fullWidth required source="cvc" />
+      <NumberInput fullWidth required source="monto" />
+      <NumberInput fullWidth source="cuotas" />
+    </SimpleForm>
+>>>>>>> e23ba06... Connect create transacciones
   </Create>
 );
