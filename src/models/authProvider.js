@@ -20,12 +20,10 @@ const authProvider = {
       .then((data) => {
         console.log("2- data response: ", data);
         if (data.status === "OK") {
-          console.log("rol??-----1", data.rol);
-          const parsedRol = data.rol.slice(1, -1);
-          console.log("rol??-----2", parsedRol);
           localStorage.setItem("clientId", data.client_id);
           localStorage.setItem("clientSecret", data.client_secret);
           localStorage.setItem("permissions", data.rol);
+          localStorage.setItem("username", username);
           return Promise.resolve();
         }
         return Promise.reject();
@@ -35,6 +33,7 @@ const authProvider = {
     localStorage.removeItem("clientId");
     localStorage.removeItem("clientSecret");
     localStorage.removeItem("permissions");
+    localStorage.removeItem("username");
     return Promise.resolve();
   },
   checkError: ({ status }) => {
@@ -42,6 +41,7 @@ const authProvider = {
       localStorage.removeItem("clientId");
       localStorage.removeItem("clientSecret");
       localStorage.removeItem("permissions");
+      localStorage.removeItem("username");
       return Promise.reject();
     }
     return Promise.resolve();
