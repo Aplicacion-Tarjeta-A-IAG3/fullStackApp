@@ -4,13 +4,10 @@ import { fetchUtils } from "react-admin";
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 // const httpClient = fetchUtils.fetchJson;
 
-const clientId = localStorage.getItem("clientId");
-const clientSecret = localStorage.getItem("clientSecret");
-
 const headers = {
   "Content-Type": "application/json",
-  client_id: clientId,
-  client_secret: clientSecret,
+  client_id: localStorage.getItem("clientId"),
+  client_secret: localStorage.getItem("clientSecret"),
 };
 
 export default {
@@ -53,7 +50,7 @@ export default {
       headers: headers,
     };
 
-    const url = `${apiUrl}/${resource}/${params.id}`;
+    const url = `${apiUrl}/${resource}?id=${params.id}`;
 
     return fetch(url, options).then(({ json }) => ({
       data: json,
@@ -66,8 +63,12 @@ export default {
       headers: headers,
       body: JSON.stringify(params.data),
     };
-    const url = `${apiUrl}/${resource}/${params.id}`;
-    return fetch(url, options).then(({ json }) => ({ data: json }));
+    const url = `${apiUrl}/${resource}`;
+    return fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => ({ data: result }));
   },
 
   create: (resource, params) => {
@@ -77,9 +78,16 @@ export default {
       body: JSON.stringify(params.data),
     };
     const url = `${apiUrl}/${resource}`;
-    return fetch(url, options).then(({ json }) => ({
-      data: { ...params.data, id: json.id },
-    }));
+    return fetch(url, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((result) => ({
+        data: { ...params.data, id: result.id },
+      }))
+      .catch((e) => ({
+        error: e.message,
+      }));
   },
 
   delete: (resource, params) => {
