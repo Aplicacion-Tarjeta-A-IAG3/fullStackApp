@@ -3,20 +3,11 @@ import {
   List,
   Datagrid,
   TextField,
-  EmailField,
-  FunctionField,
-  EditButton,
-  Edit,
-  TabbedForm,
-  FormTab,
   TextInput,
   Create,
-  BooleanField,
-  NumberField,
   NumberInput,
-  PasswordInput,
-  BooleanInput,
-  SelectInput,
+  SimpleForm,
+  DateInput,
 } from "react-admin";
 
 export const TransactionList = (props) => (
@@ -30,46 +21,35 @@ export const TransactionList = (props) => (
 );
 
 export const TransactionCreate = (props) => (
-  <Create title="Realizar una transacción" {...props}>
-    <TabbedForm margin="normal">
-      <FormTab label="comercio">
-        <TextInput disabled fullWidth label="Id" source="id" />
-        <TextInput disabled fullWidth label="CUIT" source="cuit" />
-        <TextInput
-          fullWidth
-          label="Nombre del comercio"
-          source="nombreComercio"
-        />
-        <TextInput fullWidth label="Nombre del dueño" source="nombrePersona" />
-        <PasswordInput fullWidth label="Contraseña" source="password" />
-        <NumberInput fullWidth label="Puntos del cliente" source="puntos" />
-        <BooleanInput fullWidth label="Comercio activo" source="activo" />
-      </FormTab>
-      <FormTab label="domicilio">
-        <TextInput fullWidth label="Calle" source="domicilio.calle" />
-        <NumberInput fullWidth label="Número" source="domicilio.numero" />
-        <NumberInput fullWidth label="Piso" source="domicilio.piso" />
-        <TextInput
-          fullWidth
-          label="Departamento"
-          source="domicilio.departamento"
-        />
-        <TextInput fullWidth label="Barrio" source="domicilio.barrio" />
-        <TextInput
-          fullWidth
-          label="Código Postal"
-          source="domicilio.codigoPostal"
-        />
-        <TextInput fullWidth label="Ciudad" source="domicilio.ciudad" />
-        <TextInput fullWidth label="Localidad" source="domicilio.localidad" />
-        <TextInput fullWidth label="Provincia" source="domicilio.provincia" />
-        <TextInput fullWidth label="País" source="domicilio.pais" />
-      </FormTab>
-      <FormTab label="contacto">
-        <TextInput fullWidth label="Email" source="contacto.mail" />
-        <NumberInput fullWidth label="Celular" source="contacto.celular" />
-        <NumberInput fullWidth label="Teléfono" source="contacto.telefono" />
-      </FormTab>
-    </TabbedForm>
+  <Create title="Registrar una transacción" {...props}>
+    <SimpleForm>
+      <div
+        style={{
+          fontSize: "1.25em",
+          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif;"',
+          fontWeight: "500",
+          lineHeight: "1.6",
+          marginBottom: "1em",
+        }}
+      >
+        {"Postnet virtual"}
+      </div>
+      <TextInput fullWidth source="nombre" />
+      <TextInput fullWidth source="apellido" />
+      <NumberInput fullWidth required source="dni" />
+      <TextInput fullWidth source="comercio" />
+      <NumberInput fullWidth required source="cuit" />
+      <NumberInput fullWidth required source="tarjeta" />
+      <DateInput
+        fullWidth
+        required
+        label="Vencimiento"
+        source="vencimiento"
+        defaultValue={new Date()}
+      />
+      <NumberInput fullWidth required source="cvc" />
+      <NumberInput fullWidth required source="monto" />
+      <NumberInput fullWidth source="cuotas" />
+    </SimpleForm>
   </Create>
 );

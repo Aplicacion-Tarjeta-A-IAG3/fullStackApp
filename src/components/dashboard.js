@@ -5,8 +5,8 @@ import { Title } from "react-admin";
 export default ({ permissions }) => {
   const title = {
     admin: "Administrador",
-    persona: "Administrador",
-    comercio: "Administrador",
+    persona: "Cliente",
+    comercio: "Comercio",
   };
 
   const description = {
