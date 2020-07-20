@@ -16,6 +16,7 @@ import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -26,6 +27,7 @@ import {
   BusinessCreate,
 } from "./components/businesses";
 import { TransactionList, TransactionCreate } from "./components/transactions";
+import { CardList } from "./components/cards";
 import Dashboard from "./components/dashboard";
 
 const messages = {
@@ -68,11 +70,11 @@ const App = () => (
       ) : null,
       permissions === "cliente" ? (
         <Resource
-          name="consumosPersona"
-          // list={BusinessList}
+          name="tarjetas"
+          list={CardList}
           // edit={BusinessEdit}
           // create={BusinessCreate}
-          // icon={BusinessIcon}
+          icon={CreditCardIcon}
         />
       ) : null,
       permissions === "comercio" ? (
