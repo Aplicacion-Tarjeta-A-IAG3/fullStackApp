@@ -3,7 +3,7 @@ import { Admin, Resource } from "react-admin";
 import customRoutes from "./utils/customRoutes";
 // API connection
 // import jsonServerProvider from "ra-data-json-server";
-import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
+//import { myFakeDataProvider } from "./models/fakeDataProvider";//Fake data provider. Uncomment for testing.
 import dataProvider from "./models/customDataProvider";
 // Authentication and Authorization
 import authProvider from "./models/authProvider";
@@ -15,6 +15,7 @@ import resourcesMessages from "./models/resourcesMessages";
 import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -24,6 +25,7 @@ import {
   BusinessEdit,
   BusinessCreate,
 } from "./components/businesses";
+import { CardsDataList } from "./components/cards";
 
 const messages = {
   es: { ...spanishMessages, ...resourcesMessages },
@@ -62,13 +64,13 @@ const App = () => (
           icon={BusinessIcon}
         />
       ) : null,
-      permissions === "persona" ? (
+      permissions === "cliente" ? (
         <Resource
-          name="consumosPersona"
-          // list={BusinessList}
+          name="tarjetas"
+          list={CardsDataList}
           // edit={BusinessEdit}
           // create={BusinessCreate}
-          // icon={BusinessIcon}
+          icon={CreditCardIcon}
         />
       ) : null,
       permissions === "comercio" ? (
