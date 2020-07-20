@@ -5,7 +5,7 @@ import customRoutes from "./utils/customRoutes";
 import authProvider from "./models/authProvider";
 // API connection
 // import jsonServerProvider from "ra-data-json-server";
-import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
+//import { myFakeDataProvider } from "./models/fakeDataProvider";//Fake data provider. Uncomment for testing.
 import dataProvider from "./models/customDataProvider";
 // Translations
 import polyglotI18nProvider from "ra-i18n-polyglot";
@@ -27,8 +27,8 @@ import {
   BusinessCreate,
 } from "./components/businesses";
 import { TransactionList, TransactionCreate } from "./components/transactions";
-import { CardList } from "./components/cards";
 import Dashboard from "./components/dashboard";
+import { CardsDataList } from "./components/cards";
 
 const messages = {
   es: { ...spanishMessages, ...resourcesMessages },
@@ -71,7 +71,7 @@ const App = () => (
       permissions === "cliente" ? (
         <Resource
           name="tarjetas"
-          list={CardList}
+          list={CardsDataList}
           // edit={BusinessEdit}
           // create={BusinessCreate}
           icon={CreditCardIcon}
