@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { Redirect } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
+// import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
 import {
   Title,
   SimpleForm,
   SelectInput,
   Loading,
   NumberInput,
+  useRedirect,
+  useNotify,
 } from "react-admin";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
@@ -29,8 +32,11 @@ const AssignProduct = (props) => {
   // const [isLoaded, setIsLoaded] = useState(false);
   const [productsLoaded, setProductsLoaded] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
-  const [product, setProduct] = React.useState(null);
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [limite, setLimite] = useState(0);
+  const notify = useNotify();
+  const redirectTo = useRedirect();
 
   // const handleError = (msg) => {
   //   setIsLoaded(true);
@@ -38,8 +44,39 @@ const AssignProduct = (props) => {
   // };
 
   const handleSelectChange = (event) => {
-    console.log("select option", event.target.value);
     setProduct(event.target.value);
+  };
+
+  const handleLimite = (event) => {
+    setLimite(event.target.value);
+  };
+
+  const handleAssignProduct = async () => {
+    const data = {
+      activo: true,
+      adicional: false,
+      limite: parseInt(limite),
+      dni: currentUser[0].dni,
+      producto: product,
+    };
+
+    const headers = {
+      "Content-Type": "application/json",
+      client_id: localStorage.getItem("clientId"),
+      client_secret: localStorage.getItem("clientSecret"),
+    };
+
+    const options = {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(`${apiUrl}/tarjetas`, options);
+    const assigned = await response.json();
+    // console.log("data", assigned);
+    redirectTo("/personas");
+    notify("Producto asignado");
   };
 
   useEffect(() => {
@@ -51,7 +88,7 @@ const AssignProduct = (props) => {
 
       const response = await fetch(`${apiUrl}/personas?id=${userId}`, options);
       const data = await response.json();
-      console.log("user data", data);
+      // console.log("user data", data);
       setCurrentUser(data);
       setUserLoaded(true);
     };
@@ -72,7 +109,7 @@ const AssignProduct = (props) => {
     getProducts();
   }, []);
 
-  console.log("llega", currentUser, products);
+  // console.log("llega", currentUser, products);
 
   return (
     <div>
@@ -91,14 +128,14 @@ const AssignProduct = (props) => {
             </div>
             <div style={{ width: "30%" }}>
               <b>Dirección </b>
-              Avenida Santa Fe Nº 234, Piso 1, Dpto A
+              {`${currentUser[0].domicilio.calle} ${currentUser[0].domicilio.numero}, Piso ${currentUser[0].domicilio.piso}, Dpto ${currentUser[0].domicilio.departamento}`}
             </div>
           </CardContent>
           <hr />
           <CardHeader title="Asignar un producto" />
           <CardContent>
-            <SimpleForm>
-              <InputLabel id="producto-select-label">Productos</InputLabel>
+            <SimpleForm save={handleAssignProduct} redirect={"/personas"}>
+              {/* <InputLabel id="producto-select-label">Productos</InputLabel>
               <Select
                 labelId="producto-select-label"
                 id="producto-select"
@@ -109,14 +146,28 @@ const AssignProduct = (props) => {
                 fullWidth
               >
                 {products.map((product) => (
-                  <MenuItem value={product.id}>{product.nombre}</MenuItem>
+                  <MenuItem value={product.categoria}>
+                    {product.nombre}
+                  </MenuItem>
                 ))}
-              </Select>
+              </Select> */}
+              <SelectInput
+                label="Producto"
+                source="producto"
+                onChange={handleSelectChange}
+                choices={products.map((product) => ({
+                  id: product.categoria,
+                  name: product.nombre,
+                }))}
+                required
+                fullWidth
+              />
               <NumberInput
                 label="Límite de tarjeta"
                 source="limite"
                 required
                 fullWidth
+                onChange={handleLimite}
               />
             </SimpleForm>
           </CardContent>
