@@ -5,20 +5,24 @@ import { Title } from "react-admin";
 export default ({ permissions }) => {
   const title = {
     admin: "Administrador",
-    persona: "Administrador",
+    cliente: "Administrador",
     comercio: "Administrador",
   };
 
   const description = {
     admin:
       "Como administrador podrás administar a los clientes y los comercios",
-    persona: "Como cliente podrás consultar tus resumenes de tarjetas",
+    cliente: "Como cliente podrás consultar tus resumenes de tarjetas",
     comercio: "Como comercio podrás manejar las transacciones",
   };
   return (
     <Card>
       <Title title={`Bienvenido ${title[permissions]}`} />
-      <CardContent>{description[permissions]}</CardContent>
+      <CardContent>
+        <p>{description[permissions]}</p>
+        <p>Seguimos trabajando en esta sección.</p>
+        <p>Disculpe las molestias</p>
+      </CardContent>
     </Card>
   );
 };

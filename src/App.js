@@ -66,7 +66,7 @@ const App = () => (
           icon={BusinessIcon}
         />
       ) : null,
-      permissions === "persona" ? (
+      permissions === "cliente" ? (
         <Resource
           name="consumosPersona"
           // list={BusinessList}
