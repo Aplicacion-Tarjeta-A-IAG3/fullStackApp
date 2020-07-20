@@ -11,7 +11,7 @@ const resourceMessages = {
       },
     },
     personas: {
-      name: "Personas",
+      name: "Clientes",
       fields: {
         contacto: {
           mail: "Email",

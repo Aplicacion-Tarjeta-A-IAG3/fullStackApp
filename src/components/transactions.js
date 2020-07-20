@@ -3,20 +3,13 @@ import {
   List,
   Datagrid,
   TextField,
-  EmailField,
-  FunctionField,
-  EditButton,
-  Edit,
   TabbedForm,
   FormTab,
   TextInput,
   Create,
-  BooleanField,
-  NumberField,
   NumberInput,
   PasswordInput,
   BooleanInput,
-  SelectInput,
 } from "react-admin";
 
 export const TransactionList = (props) => (
