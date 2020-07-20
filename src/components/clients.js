@@ -25,6 +25,7 @@ import {
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
+  { id: "", name: "Sin especificar" },
   { id: "soltero", name: "Soltero(a)" },
   { id: "casado", name: "En matrimonio" },
   { id: "concubinato", name: "En concubinato" },
