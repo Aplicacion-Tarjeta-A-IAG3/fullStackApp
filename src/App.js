@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Admin, Resource } from "react-admin";
 import customRoutes from "./utils/customRoutes";
+// Authentication and Authorization
+import authProvider from "./models/authProvider";
 // API connection
 // import jsonServerProvider from "ra-data-json-server";
 //import { myFakeDataProvider } from "./models/fakeDataProvider";//Fake data provider. Uncomment for testing.
 import dataProvider from "./models/customDataProvider";
-// Authentication and Authorization
-import authProvider from "./models/authProvider";
 // Translations
 import polyglotI18nProvider from "ra-i18n-polyglot";
 import spanishMessages from "@blackbox-vision/ra-language-spanish";
@@ -15,6 +15,10 @@ import resourcesMessages from "./models/resourcesMessages";
 import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
+<<<<<<< HEAD
+=======
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+>>>>>>> master
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
@@ -26,6 +30,8 @@ import {
   BusinessCreate,
 } from "./components/businesses";
 import { CardsDataList } from "./components/cards";
+import { TransactionList, TransactionCreate } from "./components/transactions";
+import Dashboard from "./components/dashboard";
 
 const messages = {
   es: { ...spanishMessages, ...resourcesMessages },
@@ -38,6 +44,7 @@ const i18nProvider = polyglotI18nProvider(() => messages["es"]);
 
 const App = () => (
   <Admin
+    dashboard={Dashboard}
     customRoutes={customRoutes}
     loginPage={LoginPage}
     dataProvider={dataProvider}
@@ -75,11 +82,11 @@ const App = () => (
       ) : null,
       permissions === "comercio" ? (
         <Resource
-          name="consumosComercio"
-          // list={BusinessList}
+          name="transacciones"
+          list={TransactionList}
           // edit={BusinessEdit}
-          // create={BusinessCreate}
-          // icon={BusinessIcon}
+          create={TransactionCreate}
+          icon={AccountBalanceWalletIcon}
         />
       ) : null,
     ]}
