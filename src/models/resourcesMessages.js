@@ -26,6 +26,15 @@ const resourceMessages = {
         },
       },
     },
+    transacciones: {
+      name: "Transacciones",
+      fields: {
+        dni: "DNI del cliente",
+        cuit: "CUIT del comercio",
+        tarjeta: "Nro. de tarjeta",
+        cvc: "CVC",
+      },
+    },
   },
   app: {
     page: {

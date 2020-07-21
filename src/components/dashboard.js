@@ -5,14 +5,14 @@ import { Title } from "react-admin";
 export default ({ permissions }) => {
   const title = {
     admin: "Administrador",
-    cliente: "Administrador",
-    comercio: "Administrador",
+    persona: "Cliente",
+    comercio: "Comercio",
   };
 
   const description = {
     admin:
       "Como administrador podrás administar a los clientes y los comercios",
-    cliente: "Como cliente podrás consultar tus resumenes de tarjetas",
+    persona: "Como cliente podrás consultar tus resumenes de tarjetas",
     comercio: "Como comercio podrás manejar las transacciones",
   };
   return (
