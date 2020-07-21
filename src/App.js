@@ -5,7 +5,7 @@ import customRoutes from "./utils/customRoutes";
 import authProvider from "./models/authProvider";
 // API connection
 // import jsonServerProvider from "ra-data-json-server";
-import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
+// import { myFakeDataProvider } from "./models/fakeDataProvider"; //TODO: comment when the actual Backed API is connected
 import dataProvider from "./models/customDataProvider";
 // Translations
 import polyglotI18nProvider from "ra-i18n-polyglot";
@@ -17,6 +17,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
+import CardTravelIcon from "@material-ui/icons/CardTravel";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -27,7 +28,8 @@ import {
   BusinessCreate,
 } from "./components/businesses";
 import { TransactionList, TransactionCreate } from "./components/transactions";
-import { CardList } from "./components/cards";
+import { ProductList } from "./components/products";
+import { CardList } from "./components/cards"; //Componente de tarjetas
 import Dashboard from "./components/dashboard";
 
 const messages = {
@@ -66,6 +68,15 @@ const App = () => (
           edit={BusinessEdit}
           create={BusinessCreate}
           icon={BusinessIcon}
+        />
+      ) : null,
+      permissions === "admin" ? (
+        <Resource
+          name="productos"
+          list={ProductList}
+          // edit={BusinessEdit}
+          // create={BusinessCreate}
+          icon={CardTravelIcon}
         />
       ) : null,
       permissions === "cliente" ? (
