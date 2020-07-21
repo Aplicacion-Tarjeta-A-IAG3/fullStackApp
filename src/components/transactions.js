@@ -13,10 +13,31 @@ import {
   DateField,
   Show,
   SimpleShowLayout,
+  downloadCSV,
 } from "react-admin";
+import jsonExport from "jsonexport/dist";
+
+const exporter = (transactions) => {
+  const transactionsExport = transactions.map((transaction) => {
+    const { persona, tarjeta, comercio, ...forExport } = transaction; // omit backlinks and author
+    forExport.cliente = `${transaction.persona.nombre} ${transaction.persona.apellido}`;
+    forExport.comercio = transaction.comercio.nombre;
+    forExport.tarjeta = transaction.tarjeta.numero;
+    return forExport;
+  });
+  jsonExport(
+    transactionsExport,
+    {
+      headers: ["id", "title", "author_name", "body"], // order fields in the export
+    },
+    (err, csv) => {
+      downloadCSV(csv, "transacciones"); // download as 'transacciones.csv` file
+    }
+  );
+};
 
 export const TransactionList = (props) => (
-  <List {...props}>
+  <List exporter={exporter} {...props}>
     <Datagrid>
       <TextField source="id" />
       <TextField label="Tarjeta" source="tarjeta.numero" />
