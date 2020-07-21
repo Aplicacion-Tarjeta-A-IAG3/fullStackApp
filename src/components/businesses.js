@@ -18,7 +18,7 @@ import {
 } from "react-admin";
 
 export const BusinessList = (props) => (
-  <List {...props} exporter={false}>
+  <List {...props} exporter={false} bulkActionButtons={false}>
     <Datagrid>
       <TextField source="id" />
       <NumberField label="CUIT" source="cuit" />
