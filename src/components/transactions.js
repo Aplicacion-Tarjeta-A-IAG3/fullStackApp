@@ -14,8 +14,6 @@ export const TransactionList = (props) => (
   <List {...props}>
     <Datagrid>
       <TextField source="id" />
-      <TextField source="title" />
-      <TextField source="body" />
     </Datagrid>
   </List>
 );
