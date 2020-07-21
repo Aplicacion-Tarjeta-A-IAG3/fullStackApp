@@ -26,6 +26,7 @@ import {
   BusinessEdit,
   BusinessCreate,
 } from "./components/businesses";
+import { CardsDataList } from "./components/cards";
 import { TransactionList, TransactionCreate } from "./components/transactions";
 import Dashboard from "./components/dashboard";
 import { CardsDataList } from "./components/cards";
