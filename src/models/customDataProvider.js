@@ -1,4 +1,4 @@
-import { fetchUtils } from "react-admin";
+// import { fetchUtils } from "react-admin";
 // import { stringify } from "query-string";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
@@ -10,22 +10,22 @@ const headers = {
   client_secret: localStorage.getItem("clientSecret"),
 };
 
+const currentUsername = localStorage.getItem("username");
+const permissions = localStorage.getItem("permissions");
+
 export default {
   getList: (resource, params) => {
     // const { page, perPage } = params.pagination;
     // const { field, order } = params.sort;
-    // const query = {
-    //   sort: JSON.stringify([field, order]),
-    //   range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-    //   filter: JSON.stringify(params.filter),
-    // };
-    // const url = `${apiUrl}/${resource}?${stringify(query)}`;
-    const url = `${apiUrl}/${resource}`;
+    let url = `${apiUrl}/${resource}`;
 
-    // return httpClient(url).then(({ headers, json }) => ({
-    //   data: json,
-    //   total: parseInt(headers.get("content-range").split("/").pop(), 10),
-    // }));
+    //workaround to manage list of transactions
+    if (resource === "transacciones") {
+      const query =
+        permissions === "comercio" ? `?cuit=${currentUsername}` : "";
+      url = `${apiUrl}/resumenes${query}`;
+    }
+    console.log("url to get list", url);
     const options = {
       method: "GET",
       headers: headers,
