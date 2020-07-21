@@ -5,7 +5,7 @@ import { Title } from "react-admin";
 export default ({ permissions }) => {
   const title = {
     admin: "Administrador",
-    cliente: "Administrador",
+    cliente: "Cliente",
     comercio: "Administrador",
   };
 
