@@ -13,14 +13,6 @@ import {
   EditButton,
 } from "react-admin";
 
-// "id": 4,
-// "nombre": "gold1",
-// "tipo": "avanzada",
-// "categoria": "gold",
-// "requisitos": "ingresos mayores a $60.000",
-// "motivoBaja": "",
-// "activo": true
-
 export const ProductList = (props) => (
   <List {...props} bulkActionButtons={false} exporter={false}>
     <Datagrid>
