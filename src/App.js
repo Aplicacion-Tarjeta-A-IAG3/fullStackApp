@@ -28,7 +28,7 @@ import {
   BusinessCreate,
 } from "./components/businesses";
 import { TransactionList, TransactionCreate } from "./components/transactions";
-import { ProductList, ProductCreate } from "./components/products";
+import { ProductList, ProductCreate, ProductEdit } from "./components/products";
 import { CardList } from "./components/cards"; //Componente de tarjetas
 import Dashboard from "./components/dashboard";
 
@@ -74,8 +74,8 @@ const App = () => (
         <Resource
           name="productos"
           list={ProductList}
+          edit={ProductEdit}
           create={ProductCreate}
-          // edit={BusinessEdit}
           icon={CardTravelIcon}
         />
       ) : null,
