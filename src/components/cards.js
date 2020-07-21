@@ -19,40 +19,33 @@ const ShowStatementsField = ({ record = {} }) => (
     component={Link}
     to={{ pathname: `/tarjetas/${record.id}/mostrar_resumenes` }}
     label="Mostrar Resumenes"
-    disabled={!record.activo}
+    //disabled={!record.activo}
   >
     <CreditCardIcon />
   </Button>
 );
-
-export const CardsDataList = (props) => (
-  <List {...props} sort={{ field: "emision", order: "DESC" }} exporter={false}>
-    <Card>
+/* <Card>
       <CardHeader title="Datos Usuario" />
       <CardContent style={{ display: "flex" }}>
         <div style={{ width: "30%" }}>
-          <b>Nombre </b>
-          Juan Perez
+          <FunctionField
+            label="Nombre completo"
+            render={(record) => `${record.nombre} ${record.apellido}`}
+          />
+          <EmailField source="contacto.mail" />
         </div>
         <div style={{ width: "30%" }}>
           <b>DNI </b>
-          1233242
+          <NumberField label="DNI" source="dni" />
         </div>
         <div style={{ width: "30%" }}>
           <b>Dirección </b>
           Avenida Santa Fe Nº 234, Piso 1, Dpto A
         </div>
       </CardContent>
-    </Card>
-    <Datagrid>
-      <TextField source="id" />
-      <NumberField label="DNI" source="dni" />
-      <FunctionField
-        label="Nombre completo"
-        render={(record) => `${record.nombre} ${record.apellido}`}
-      />
-      <EmailField source="contacto.mail" />
-    </Datagrid>
+    </Card>*/
+export const CardsDataList = (props) => (
+  <List {...props} exporter={false}>
     <Datagrid>
       <TextField source="id" />
       <NumberField label="N° Tarjeta" source="tarjeta" />
