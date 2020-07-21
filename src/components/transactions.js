@@ -19,7 +19,7 @@ import jsonExport from "jsonexport/dist";
 
 const exporter = (transactions) => {
   const transactionsExport = transactions.map((transaction) => {
-    const { persona, tarjeta, comercio, ...forExport } = transaction; // omit backlinks and author
+    const { persona, tarjeta, comercio, detalle, ...forExport } = transaction; // omit persona, tarjeta, comercio and detalle
     forExport.cliente = `${transaction.persona.nombre} ${transaction.persona.apellido}`;
     forExport.comercio = transaction.comercio.nombre;
     forExport.tarjeta = transaction.tarjeta.numero;
@@ -28,7 +28,15 @@ const exporter = (transactions) => {
   jsonExport(
     transactionsExport,
     {
-      headers: ["id", "title", "author_name", "body"], // order fields in the export
+      headers: [
+        "id",
+        "monto",
+        "cuotas",
+        "fecha",
+        "cliente",
+        "comercio",
+        "tarjeta",
+      ],
     },
     (err, csv) => {
       downloadCSV(csv, "transacciones"); // download as 'transacciones.csv` file
