@@ -35,7 +35,6 @@ import {
   TransactionShow,
 } from "./components/transactions";
 import Dashboard from "./components/dashboard";
-import { CardsDataList } from "./components/cards";
 
 const messages = {
   es: { ...spanishMessages, ...resourcesMessages },

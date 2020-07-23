@@ -79,11 +79,11 @@ const headers = {
 const ShowStatements = (props) => {
   // console.log("props", props);
   const userId = props.match.params.id;
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUserCard, setCurrentUserCard] = useState(null);
   // const [error, setError] = useState(null);
   // const [isLoaded, setIsLoaded] = useState(false);
   const [statementsLoaded, setStatementsLoaded] = useState(false);
-  const [userLoaded, setUserLoaded] = useState(false);
+  const [userLoaded, setUserCardLoaded] = useState(false);
   const [statements, setStatements] = useState([]);
   //const [product, setProduct] = useState(null);
   //const [limite, setLimite] = useState(0);
@@ -106,7 +106,7 @@ const ShowStatements = (props) => {
     const data = {
       activo: true,
       adicional: false,
-      dni: currentUser[0].dni,
+      dni: currentUserCard[0].dni,
     };
 
     const headers = {
@@ -129,20 +129,20 @@ const ShowStatements = (props) => {
   };
 
   useEffect(() => {
-    const getUserData = async () => {
+    const getUserCardData = async () => {
       const options = {
         method: "GET",
         headers: headers,
       };
 
       const response = await fetch(
-        `${apiUrl}/resumenes?dni=${data.dni}`,
+        `${apiUrl}/resumenes?tarjeta=3652235632381571`,
         options
       );
       const data = await response.json();
       // console.log("user data", data);
-      setCurrentUser(data);
-      setUserLoaded(true);
+      setCurrentUserCard(data);
+      setUserCardLoaded(true);
     };
 
     const getStatements = async () => {
@@ -151,13 +151,16 @@ const ShowStatements = (props) => {
         headers: headers,
       };
 
-      const response = await fetch(`${apiUrl}/resumenes`, options);
+      const response = await fetch(
+        `${apiUrl}/resumenes?tarjeta=3652235632381571`,
+        options
+      );
       const data = await response.json();
       setStatements(data);
       setStatementsLoaded(true);
     };
 
-    getUserData();
+    getUserCardData();
     getStatements();
   }, []);
 
