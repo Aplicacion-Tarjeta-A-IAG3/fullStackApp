@@ -102,6 +102,38 @@ const AssignProduct = (props) => {
     notify("Producto asignado");
   };
 
+  useEffect(() => {
+    // request to initialize client data
+    const getClientData = async () => {
+      const options = {
+        method: "GET",
+        headers: headers,
+      };
+
+      const response = await fetch(`${apiUrl}/personas?id=${userId}`, options);
+      const data = await response.json();
+      // console.log("user data", data);
+      setCurrentUser(data);
+      setUserLoaded(true);
+    };
+
+    // request to initialize products select
+    const getProducts = async () => {
+      const options = {
+        method: "GET",
+        headers: headers,
+      };
+
+      const response = await fetch(`${apiUrl}/productos`, options);
+      const data = await response.json();
+      setProducts(data);
+      setProductsLoaded(true);
+    };
+
+    getClientData();
+    getProducts();
+  }, []);
+
   // console.log("llega", currentUser, products);
 
   return (
