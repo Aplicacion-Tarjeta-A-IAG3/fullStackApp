@@ -120,7 +120,7 @@ export const TransactionCreate = (props) => {
   }, []);
 
   return (
-    <Create title="Postnet virtual" {...props}>
+    <Create title="Posnet virtual" {...props}>
       <SimpleForm initialValues={defaultFormValue}>
         {localStorage.getItem("username") && (
           <div style={{ width: "100%" }}>
