@@ -7,11 +7,7 @@ import Background from "../utils/cards.jpg";
 export default ({ permissions }) => {
   const title = {
     admin: "Administrador",
-<<<<<<< HEAD
     cliente: "Cliente",
-=======
-    persona: "Cliente",
->>>>>>> e23ba06... Connect create transacciones
     comercio: "Comercio",
   };
 
