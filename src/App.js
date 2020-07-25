@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource, Loading } from "react-admin";
 import customRoutes from "./utils/customRoutes";
 // Authentication and Authorization
 import authProvider from "./models/authProvider";
@@ -45,64 +45,71 @@ const i18nProvider = polyglotI18nProvider(() => messages["es"]);
 // );
 //const dataProvider = dataProvider;
 
-const App = () => (
-  <Admin
-    dashboard={Dashboard}
-    customRoutes={customRoutes}
-    loginPage={LoginPage}
-    dataProvider={dataProvider}
-    authProvider={authProvider}
-    i18nProvider={i18nProvider}
-    theme={theme}
-  >
-    {(permissions) => [
-      permissions === "admin" ? (
-        <Resource
-          name="personas"
-          list={ClientList}
-          edit={ClientEdit}
-          create={ClientCreate}
-          icon={PersonIcon}
-        />
-      ) : null,
-      permissions === "admin" ? (
-        <Resource
-          name="comercios"
-          list={BusinessList}
-          edit={BusinessEdit}
-          create={BusinessCreate}
-          icon={BusinessIcon}
-        />
-      ) : null,
-      permissions === "admin" ? (
-        <Resource
-          name="productos"
-          list={ProductList}
-          edit={ProductEdit}
-          create={ProductCreate}
-          icon={CardTravelIcon}
-        />
-      ) : null,
-      permissions === "cliente" ? (
-        <Resource
-          name="tarjetas"
-          list={CardList}
-          // edit={BusinessEdit}
-          // create={BusinessCreate}
-          icon={CreditCardIcon}
-        />
-      ) : null,
-      permissions === "comercio" ? (
-        <Resource
-          name="transacciones"
-          list={TransactionList}
-          show={TransactionShow}
-          create={TransactionCreate}
-          icon={AccountBalanceWalletIcon}
-        />
-      ) : null,
-    ]}
-  </Admin>
-);
+const App = () =>
+  localStorage.getItem("username") ? (
+    <Admin
+      dashboard={Dashboard}
+      customRoutes={customRoutes}
+      loginPage={LoginPage}
+      dataProvider={dataProvider}
+      authProvider={authProvider}
+      i18nProvider={i18nProvider}
+      theme={theme}
+    >
+      {(permissions) => [
+        permissions === "admin" ? (
+          <Resource
+            name="personas"
+            list={ClientList}
+            edit={ClientEdit}
+            create={ClientCreate}
+            icon={PersonIcon}
+          />
+        ) : null,
+        permissions === "admin" ? (
+          <Resource
+            name="comercios"
+            list={BusinessList}
+            edit={BusinessEdit}
+            create={BusinessCreate}
+            icon={BusinessIcon}
+          />
+        ) : null,
+        permissions === "admin" ? (
+          <Resource
+            name="productos"
+            list={ProductList}
+            edit={ProductEdit}
+            create={ProductCreate}
+            icon={CardTravelIcon}
+          />
+        ) : null,
+        permissions === "cliente" ? (
+          <Resource
+            name="tarjetas"
+            list={CardList}
+            // edit={BusinessEdit}
+            // create={BusinessCreate}
+            icon={CreditCardIcon}
+          />
+        ) : null,
+        permissions === "comercio" ? (
+          <Resource
+            name="transacciones"
+            list={TransactionList}
+            // show={TransactionShow}
+            create={TransactionCreate}
+            icon={AccountBalanceWalletIcon}
+          />
+        ) : null,
+      ]}
+    </Admin>
+  ) : (
+    <Loading
+      fullWidth
+      loadingPrimary="Estamos cargando tu perfil"
+      loadingSecondary="¿Está tardando mucho? Refrescá la página y volvé a intentarlo por favor."
+    />
+  );
 
 export default App;

@@ -42,7 +42,7 @@ const resourceMessages = {
     },
     message: {
       loading:
-        "¿Está tardando mucho? Refresca la página y vuelve a intentarlo, por favor.",
+        "¿Está tardando mucho? Refrescá la página y volvé a intentarlo por favor.",
     },
   },
   newRecords: {
