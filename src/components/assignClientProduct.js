@@ -51,19 +51,13 @@ const AssignProduct = (props) => {
     setLimite(event.target.value);
   };
 
-  const handleAssignProduct = async () => {
+  const handleCreateTarjeta = async () => {
     const data = {
       activo: true,
       adicional: false,
       limite: parseInt(limite),
       dni: currentUser[0].dni,
       producto: product,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      client_id: localStorage.getItem("clientId"),
-      client_secret: localStorage.getItem("clientSecret"),
     };
 
     const options = {
@@ -80,7 +74,8 @@ const AssignProduct = (props) => {
   };
 
   useEffect(() => {
-    const getUserData = async () => {
+    // request to initialize client data
+    const getClientData = async () => {
       const options = {
         method: "GET",
         headers: headers,
@@ -93,6 +88,7 @@ const AssignProduct = (props) => {
       setUserLoaded(true);
     };
 
+    // request to initialize products select
     const getProducts = async () => {
       const options = {
         method: "GET",
@@ -105,7 +101,7 @@ const AssignProduct = (props) => {
       setProductsLoaded(true);
     };
 
-    getUserData();
+    getClientData();
     getProducts();
   }, []);
 
@@ -134,31 +130,17 @@ const AssignProduct = (props) => {
           <hr />
           <CardHeader title="Asignar un producto" />
           <CardContent>
-            <SimpleForm save={handleAssignProduct} redirect={"/personas"}>
-              {/* <InputLabel id="producto-select-label">Productos</InputLabel>
-              <Select
-                labelId="producto-select-label"
-                id="producto-select"
-                label="Producto"
-                value={product}
-                onChange={handleSelectChange}
-                required
-                fullWidth
-              >
-                {products.map((product) => (
-                  <MenuItem value={product.categoria}>
-                    {product.nombre}
-                  </MenuItem>
-                ))}
-              </Select> */}
+            <SimpleForm save={handleCreateTarjeta} redirect={"/personas"}>
               <SelectInput
                 label="Producto"
                 source="producto"
                 onChange={handleSelectChange}
-                choices={products.map((product) => ({
-                  id: product.categoria,
-                  name: product.nombre,
-                }))}
+                choices={products
+                  .filter((product) => product.activo)
+                  .map((product) => ({
+                    id: product.nombre,
+                    name: `${product.nombre} (${product.categoria})`,
+                  }))}
                 required
                 fullWidth
               />
