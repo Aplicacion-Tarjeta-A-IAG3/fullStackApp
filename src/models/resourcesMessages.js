@@ -40,6 +40,10 @@ const resourceMessages = {
     page: {
       loading: "Cargando",
     },
+    message: {
+      loading:
+        "¿Está tardando mucho? Refresca la página y vuelve a intentarlo, por favor.",
+    },
   },
   newRecords: {
     "forEach is not a function": "No se encontraron datos",

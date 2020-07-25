@@ -123,7 +123,7 @@ export const TransactionCreate = (props) => {
     <Create title="Posnet virtual" {...props}>
       <SimpleForm initialValues={defaultFormValue}>
         {localStorage.getItem("username") && (
-          <div style={{ width: "100%" }}>
+          <div fullWidth>
             <h5>Datos del cliente</h5>
             <NumberInput fullWidth required label="DNI" source="dni" />
             <TextInput fullWidth source="nombre" />
@@ -157,7 +157,11 @@ export const TransactionCreate = (props) => {
           </div>
         )}
         {!localStorage.getItem("username") && (
-          <Loading loadingPrimary="Si toma mucho tiempo, refresca la página." />
+          <Loading
+            fullWidth
+            loadingPrimary="app.page.loading"
+            loadingSecondary="app.message.loading"
+          />
         )}
       </SimpleForm>
     </Create>
