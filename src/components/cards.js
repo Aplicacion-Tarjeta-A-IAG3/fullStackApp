@@ -47,7 +47,6 @@ const ShowStatementsField = ({ record = {} }) => (
 export const CardsDataList = (props) => (
   <List {...props} exporter={false}>
     <Datagrid>
-      <TextField source="id" />
       <NumberField label="N° Tarjeta" source="tarjeta" />
       <TextField label="Categoría" source="producto" />
       <NumberField label="Limite" source="limite" />

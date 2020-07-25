@@ -25,6 +25,11 @@ export default {
         permissions === "comercio" ? `?cuit=${currentUsername}` : "";
       url = `${apiUrl}/resumenes${query}`;
     }
+    //workaround to manage list of client cards
+    if (resource === "tarjetas") {
+      const query = permissions === "cliente" ? `?dni=${currentUsername}` : "";
+      url = `${apiUrl}/tarjetas${query}`;
+    }
     console.log("url to get list", url);
     const options = {
       method: "GET",

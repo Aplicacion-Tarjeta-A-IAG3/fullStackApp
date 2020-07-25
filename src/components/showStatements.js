@@ -1,54 +1,3 @@
-/*
-  console.log("props", props);
-  const userId = props.match.params.id;
-  const [user, setUser] = React.useState(null);
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  // const [statement, setStatement] = React.useState(null);
-
-  const [statements, setStatements] = useState([]);
-
-  const handleError = (msg) => {
-    setIsLoaded(true);
-    setError(msg);
-  };
-
-  const handleGetUser = (data) => {
-    setIsLoaded(true);
-    setUser(data);
-  };
-
-  const handleGetStatements = (data) => {
-    setIsLoaded(true);
-    setStatements(data);
-  };
-
-  useEffect(() => {
-    // get user
-    fetch(
-      `http://african-express.us-e2.cloudhub.io/api/core/personas/${userId}`
-    )
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          console.log("get user", result);
-          handleGetUser(result);
-        },
-        (error) => handleError(error)
-      );
-    // get statements
-    fetch(`http://african-express.us-e2.cloudhub.io/api/core/resumenes`)
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          console.log("get tarjeta", result);
-          handleGetStatements(result);
-        },
-        (error) => handleError(error)
-      );
-  }, [userId]);
-*/
-
 import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -78,12 +27,12 @@ const headers = {
 
 const ShowStatements = (props) => {
   // console.log("props", props);
-  const userId = props.match.params.id;
-  const [currentUserCard, setCurrentUserCard] = useState(null);
+  const cardId = props.match.params.id;
+  const [currentCard, setCurrentCard] = useState(null);
   // const [error, setError] = useState(null);
   // const [isLoaded, setIsLoaded] = useState(false);
   const [statementsLoaded, setStatementsLoaded] = useState(false);
-  const [userLoaded, setUserCardLoaded] = useState(false);
+  const [cardLoaded, setCardLoaded] = useState(false);
   const [statements, setStatements] = useState([]);
   //const [product, setProduct] = useState(null);
   //const [limite, setLimite] = useState(0);
@@ -106,7 +55,7 @@ const ShowStatements = (props) => {
     const data = {
       activo: true,
       adicional: false,
-      dni: currentUserCard[0].dni,
+      dni: currentCard[0].dni,
     };
 
     const headers = {
@@ -129,20 +78,17 @@ const ShowStatements = (props) => {
   };
 
   useEffect(() => {
-    const getUserCardData = async () => {
+    const getCardData = async () => {
       const options = {
         method: "GET",
         headers: headers,
       };
 
-      const response = await fetch(
-        `${apiUrl}/resumenes?tarjeta=3652235632381571`,
-        options
-      );
+      const response = await fetch(`${apiUrl}/tarjetas?id=${cardId}`, options);
       const data = await response.json();
       // console.log("user data", data);
-      setCurrentUserCard(data);
-      setUserCardLoaded(true);
+      setCurrentCard(data);
+      setCardLoaded(true);
     };
 
     const getStatements = async () => {
@@ -151,37 +97,34 @@ const ShowStatements = (props) => {
         headers: headers,
       };
 
-      const response = await fetch(
-        `${apiUrl}/resumenes?tarjeta=3652235632381571`,
-        options
-      );
+      const response = await fetch(`${apiUrl}/resumenes?tarjeta=`, options);
       const data = await response.json();
       setStatements(data);
       setStatementsLoaded(true);
     };
 
-    getUserCardData();
+    getCardData();
     getStatements();
   }, []);
 
   return (
     <div>
       <Title title="Ver Resumen" />
-      {statementsLoaded && userLoaded && (
+      {statementsLoaded && cardLoaded && (
         <Card>
           <CardHeader title="Resumen de Cuenta" />
           <CardContent style={{ display: "flex" }}>
             <div style={{ width: "30%" }}>
               <b>Nombre </b>
-              Juan Perez
+              {`${currentCard[0].nombre} ${currentCard[0].apellido}`}
             </div>
             <div style={{ width: "30%" }}>
               <b>DNI </b>
-              1233242
+              {currentCard[0].dni}
             </div>
             <div style={{ width: "30%" }}>
-              <b>Dirección </b>
-              Avenida Santa Fe Nº 234, Piso 1, Dpto A
+              <b>Producto </b>
+              {currentCard[0].producto}
             </div>
           </CardContent>
           <hr />
