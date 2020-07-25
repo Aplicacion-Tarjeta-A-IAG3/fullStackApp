@@ -124,6 +124,14 @@ export const TransactionCreate = (props) => {
       <SimpleForm initialValues={defaultFormValue}>
         {localStorage.getItem("username") && (
           <div fullWidth>
+            <h5>Datos del comercio</h5>
+            <NumberInput fullWidth disabled label="CUIT" source="cuit" />
+            <TextInput
+              fullWidth
+              disabled
+              label="Nombre del comercio"
+              source="comercio"
+            />
             <h5>Datos del cliente</h5>
             <NumberInput fullWidth required label="DNI" source="dni" />
             <TextInput fullWidth source="nombre" />
@@ -146,14 +154,6 @@ export const TransactionCreate = (props) => {
             <h5>Datos de la venta</h5>
             <NumberInput fullWidth required source="monto" />
             <NumberInput fullWidth source="cuotas" />
-            <h5>Datos del comercio</h5>
-            <NumberInput fullWidth disabled label="CUIT" source="cuit" />
-            <TextInput
-              fullWidth
-              disabled
-              label="Nombre del comercio"
-              source="comercio"
-            />
           </div>
         )}
         {!localStorage.getItem("username") && (
