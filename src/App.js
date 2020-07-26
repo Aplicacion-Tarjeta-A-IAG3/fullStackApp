@@ -15,9 +15,10 @@ import resourcesMessages from "./models/resourcesMessages";
 import theme from "./utils/theme";
 import PersonIcon from "@material-ui/icons/Person";
 import BusinessIcon from "@material-ui/icons/Business";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import CardTravelIcon from "@material-ui/icons/CardTravel";
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import MoneyIcon from "@material-ui/icons/Money";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -100,7 +101,7 @@ const App = () =>
             list={BalanceList}
             // show={BalanceShow}
             // create={TransactionCreate}
-            icon={AccountBalanceWalletIcon}
+            icon={MoneyIcon}
           />
         ) : null,
         permissions === "comercio" ? (
@@ -109,7 +110,7 @@ const App = () =>
             list={TransactionList}
             // show={TransactionShow}
             create={TransactionCreate}
-            icon={AccountBalanceWalletIcon}
+            icon={AttachMoneyIcon}
           />
         ) : null,
       ]}
