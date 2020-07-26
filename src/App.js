@@ -32,8 +32,9 @@ import { CardList } from "./components/cards"; //Componente de tarjetas
 import {
   TransactionList,
   TransactionCreate,
-  TransactionShow,
+  // TransactionShow,
 } from "./components/transactions";
+import { BalanceList } from "./components/balances";
 import Dashboard from "./components/dashboard";
 
 const messages = {
@@ -91,6 +92,15 @@ const App = () =>
             // edit={BusinessEdit}
             // create={BusinessCreate}
             icon={CreditCardIcon}
+          />
+        ) : null,
+        permissions === "comercio" ? (
+          <Resource
+            name="resumenes"
+            list={BalanceList}
+            // show={BalanceShow}
+            // create={TransactionCreate}
+            icon={AccountBalanceWalletIcon}
           />
         ) : null,
         permissions === "comercio" ? (
