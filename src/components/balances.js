@@ -11,6 +11,7 @@ import {
   SimpleShowLayout,
   downloadCSV,
 } from "react-admin";
+import { Card, CardContent, CardHeader } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 
 const exporter = (transactions) => {
@@ -42,19 +43,32 @@ const exporter = (transactions) => {
 
 export const BalanceList = (props) => (
   <List exporter={exporter} {...props}>
-    <Datagrid>
-      <TextField source="id" />
-      <TextField label="Tarjeta" source="tarjeta.numero" />
-      <FunctionField
-        label="Nombre del cliente"
-        render={(record) =>
-          `${record.persona.nombre} ${record.persona.apellido}`
-        }
-      />
-      <TextField label="Nombre del comercio" source="comercio.nombre" />
-      <NumberField label="Monto" source="monto" />
-      <DateField label="Fecha de transacción" source="fecha" />
-    </Datagrid>
+    <div>
+      <Card>
+        <CardHeader title="Resumen" />
+        <CardContent>
+          <div>
+            <b>Total de ingresos del día: </b> 111111
+          </div>
+          <div>
+            <b>Algo más?: </b> 111111
+          </div>
+        </CardContent>
+      </Card>
+      <Datagrid>
+        <TextField source="id" />
+        <TextField label="Tarjeta" source="tarjeta.numero" />
+        <FunctionField
+          label="Nombre del cliente"
+          render={(record) =>
+            `${record.persona.nombre} ${record.persona.apellido}`
+          }
+        />
+        <TextField label="Nombre del comercio" source="comercio.nombre" />
+        <NumberField label="Monto" source="monto" />
+        <DateField label="Fecha de transacción" source="fecha" />
+      </Datagrid>
+    </div>
   </List>
 );
 
