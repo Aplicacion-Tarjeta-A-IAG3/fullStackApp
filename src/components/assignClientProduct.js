@@ -38,6 +38,37 @@ const AssignProduct = (props) => {
   const notify = useNotify();
   const redirectTo = useRedirect();
 
+  useEffect(() => {
+    // request to initialize client data
+    const getClientData = async () => {
+      const options = {
+        method: "GET",
+        headers: headers,
+      };
+
+      const response = await fetch(`${apiUrl}/personas?id=${userId}`, options);
+      const data = await response.json();
+      // console.log("user data", data);
+      setCurrentUser(data);
+      setUserLoaded(true);
+    };
+
+    // request to initialize products select
+    const getProducts = async () => {
+      const options = {
+        method: "GET",
+        headers: headers,
+      };
+
+      const response = await fetch(`${apiUrl}/productos`, options);
+      const data = await response.json();
+      setProducts(data);
+      setProductsLoaded(true);
+    };
+
+    getClientData();
+    getProducts();
+  }, []);
   // const handleError = (msg) => {
   //   setIsLoaded(true);
   //   setError(msg);
@@ -51,19 +82,13 @@ const AssignProduct = (props) => {
     setLimite(event.target.value);
   };
 
-  const handleAssignProduct = async () => {
+  const handleCreateTarjeta = async () => {
     const data = {
       activo: true,
       adicional: false,
       limite: parseInt(limite),
       dni: currentUser[0].dni,
       producto: product,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      client_id: localStorage.getItem("clientId"),
-      client_secret: localStorage.getItem("clientSecret"),
     };
 
     const options = {
@@ -78,36 +103,6 @@ const AssignProduct = (props) => {
     redirectTo("/personas");
     notify("Producto asignado");
   };
-
-  useEffect(() => {
-    const getUserData = async () => {
-      const options = {
-        method: "GET",
-        headers: headers,
-      };
-
-      const response = await fetch(`${apiUrl}/personas?id=${userId}`, options);
-      const data = await response.json();
-      // console.log("user data", data);
-      setCurrentUser(data);
-      setUserLoaded(true);
-    };
-
-    const getProducts = async () => {
-      const options = {
-        method: "GET",
-        headers: headers,
-      };
-
-      const response = await fetch(`${apiUrl}/productos`, options);
-      const data = await response.json();
-      setProducts(data);
-      setProductsLoaded(true);
-    };
-
-    getUserData();
-    getProducts();
-  }, []);
 
   // console.log("llega", currentUser, products);
 
@@ -134,31 +129,17 @@ const AssignProduct = (props) => {
           <hr />
           <CardHeader title="Asignar un producto" />
           <CardContent>
-            <SimpleForm save={handleAssignProduct} redirect={"/personas"}>
-              {/* <InputLabel id="producto-select-label">Productos</InputLabel>
-              <Select
-                labelId="producto-select-label"
-                id="producto-select"
-                label="Producto"
-                value={product}
-                onChange={handleSelectChange}
-                required
-                fullWidth
-              >
-                {products.map((product) => (
-                  <MenuItem value={product.categoria}>
-                    {product.nombre}
-                  </MenuItem>
-                ))}
-              </Select> */}
+            <SimpleForm save={handleCreateTarjeta} redirect={"/personas"}>
               <SelectInput
                 label="Producto"
                 source="producto"
                 onChange={handleSelectChange}
-                choices={products.map((product) => ({
-                  id: product.categoria,
-                  name: product.nombre,
-                }))}
+                choices={products
+                  .filter((product) => product.activo)
+                  .map((product) => ({
+                    id: product.nombre,
+                    name: `${product.nombre} (${product.categoria})`,
+                  }))}
                 required
                 fullWidth
               />
