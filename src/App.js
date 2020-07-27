@@ -88,7 +88,7 @@ const App = () => (
       permissions === "cliente" ? (
         <Resource
           name="tarjetas"
-          list={CardList}
+          list={CardsDataList}
           // edit={BusinessEdit}
           // create={BusinessCreate}
           icon={CreditCardIcon}
