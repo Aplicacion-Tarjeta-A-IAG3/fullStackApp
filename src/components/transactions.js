@@ -15,6 +15,7 @@ import {
   SimpleShowLayout,
   downloadCSV,
   Loading,
+  SelectInput,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
 
@@ -24,6 +25,11 @@ const headers = {
   client_id: localStorage.getItem("clientId"),
   client_secret: localStorage.getItem("clientSecret"),
 };
+
+const cuotasChoices = [...Array(12).keys()].map((a, i) => ({
+  id: i + 1,
+  name: i + 1,
+}));
 
 const exporter = (transactions) => {
   const transactionsExport = transactions.map((transaction) => {
@@ -153,7 +159,7 @@ export const TransactionCreate = (props) => {
             <NumberInput fullWidth required label="CVC" source="cvc" />
             <h5>Datos de la venta</h5>
             <NumberInput fullWidth required source="monto" />
-            <NumberInput fullWidth source="cuotas" />
+            <SelectInput fullWidth source="cuotas" choices={cuotasChoices} />
           </div>
         )}
         {!localStorage.getItem("username") && (
