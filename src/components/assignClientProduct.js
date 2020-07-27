@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -10,7 +9,6 @@ import {
   Title,
   SimpleForm,
   SelectInput,
-  Loading,
   NumberInput,
   useRedirect,
   useNotify,
@@ -99,7 +97,7 @@ const AssignProduct = (props) => {
 
     const response = await fetch(`${apiUrl}/tarjetas`, options);
     const assigned = await response.json();
-    // console.log("data", assigned);
+    console.log("data", assigned);
     redirectTo("/personas");
     notify("Producto asignado");
   };
