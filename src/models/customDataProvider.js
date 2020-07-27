@@ -12,6 +12,10 @@ const headers = {
 
 const currentUsername = localStorage.getItem("username");
 const permissions = localStorage.getItem("permissions");
+const getListExceptions = ["resumenes", "transacciones", "tarjetas"];
+let query = "";
+if (permissions === "comercio") query = `?cuit=${currentUsername}`;
+if (permissions === "cliente") query = `?dni=${currentUsername}`;
 
 export default {
   getList: (resource, params) => {
@@ -20,10 +24,8 @@ export default {
     let url = `${apiUrl}/${resource}`;
 
     //workaround to manage list of transactions
-    if (resource === "transacciones") {
-      const query =
-        permissions === "comercio" ? `?cuit=${currentUsername}` : "";
-      url = `${apiUrl}/resumenes${query}`;
+    if (getListExceptions.includes(resource)) {
+      url += `${query}`;
     }
     //workaround to manage list of client cards
     if (resource === "tarjetas") {
