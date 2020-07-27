@@ -87,9 +87,7 @@ const App = () =>
         permissions === "cliente" ? (
           <Resource
             name="tarjetas"
-            list={CardList}
-            // edit={BusinessEdit}
-            // create={BusinessCreate}
+            list={CardsDataList}
             icon={CreditCardIcon}
           />
         ) : null,
@@ -97,7 +95,7 @@ const App = () =>
           <Resource
             name="transacciones"
             list={TransactionList}
-            // show={TransactionShow}
+            //show={TransactionShow}
             create={TransactionCreate}
             icon={AccountBalanceWalletIcon}
           />

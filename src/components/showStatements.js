@@ -3,19 +3,29 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import {
+  List,
+  Datagrid,
+  TextField,
+  TextInput,
+  Create,
+  NumberInput,
+  DateInput,
+  FunctionField,
+  NumberField,
+  DateField,
+  Show,
+  SimpleShowLayout,
+  downloadCSV,
   Title,
   SimpleForm,
   SelectInput,
   Loading,
-  NumberInput,
-  TextField,
   RichTextField,
-  NumberField,
   useShowController,
-  SimpleShowLayout,
   useRedirect,
   useNotify,
 } from "react-admin";
+import jsonExport from "jsonexport/dist";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 
@@ -25,8 +35,35 @@ const headers = {
   client_secret: localStorage.getItem("clientSecret"),
 };
 
+const exporter = (transactions) => {
+  const transactionsExport = transactions.map((transaction) => {
+    const { persona, tarjeta, comercio, detalle, ...forExport } = transaction; // omit persona, tarjeta, comercio and detalle
+    forExport.cliente = `${transaction.persona.nombre} ${transaction.persona.apellido}`;
+    forExport.comercio = transaction.comercio.nombre;
+    forExport.tarjeta = transaction.tarjeta.numero;
+    return forExport;
+  });
+  jsonExport(
+    transactionsExport,
+    {
+      headers: [
+        "id",
+        "monto",
+        "cuotas",
+        "fecha",
+        "cliente",
+        "comercio",
+        "tarjeta",
+      ],
+    },
+    (err, csv) => {
+      downloadCSV(csv, "resumen"); // download as 'resumen.csv` file
+    }
+  );
+};
+
 const ShowStatements = (props) => {
-  // console.log("props", props);
+  console.log("props", props);
   const cardId = props.match.params.id;
   const [currentCard, setCurrentCard] = useState(null);
   // const [error, setError] = useState(null);
@@ -72,7 +109,7 @@ const ShowStatements = (props) => {
 
     const response = await fetch(`${apiUrl}/resumenes`, options);
     const assigned = await response.json();
-    // console.log("data", assigned);
+    console.log("data", assigned);
     redirectTo("/tarjetas");
     notify("Volviendo...");
   };
@@ -84,9 +121,9 @@ const ShowStatements = (props) => {
         headers: headers,
       };
 
-      const response = await fetch(`${apiUrl}/tarjetas?id=${cardId}`, options);
+      const response = await fetch(`${apiUrl}/tarjetas?id=${7}`, options);
       const data = await response.json();
-      // console.log("user data", data);
+      console.log("user cards data", data);
       setCurrentCard(data);
       setCardLoaded(true);
     };
@@ -97,8 +134,12 @@ const ShowStatements = (props) => {
         headers: headers,
       };
 
-      const response = await fetch(`${apiUrl}/resumenes?tarjeta=`, options);
+      const response = await fetch(
+        `${apiUrl}/resumenes?tarjeta=3652235632381571`,
+        options
+      );
       const data = await response.json();
+      console.log("card statement data", data);
       setStatements(data);
       setStatementsLoaded(true);
     };

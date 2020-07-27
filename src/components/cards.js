@@ -24,26 +24,7 @@ const ShowStatementsField = ({ record = {} }) => (
     <CreditCardIcon />
   </Button>
 );
-/* <Card>
-      <CardHeader title="Datos Usuario" />
-      <CardContent style={{ display: "flex" }}>
-        <div style={{ width: "30%" }}>
-          <FunctionField
-            label="Nombre completo"
-            render={(record) => `${record.nombre} ${record.apellido}`}
-          />
-          <EmailField source="contacto.mail" />
-        </div>
-        <div style={{ width: "30%" }}>
-          <b>DNI </b>
-          <NumberField label="DNI" source="dni" />
-        </div>
-        <div style={{ width: "30%" }}>
-          <b>Dirección </b>
-          Avenida Santa Fe Nº 234, Piso 1, Dpto A
-        </div>
-      </CardContent>
-    </Card>*/
+
 export const CardsDataList = (props) => (
   <List {...props} exporter={false}>
     <Datagrid>
