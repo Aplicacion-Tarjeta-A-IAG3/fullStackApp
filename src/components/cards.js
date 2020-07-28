@@ -1,14 +1,34 @@
 import * as React from "react";
-import { Title } from "react-admin";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import {
+  List,
+  Datagrid,
+  TextField,
+  NumberField,
+  Button,
+  Link,
+} from "react-admin";
+import CreditCardIcon from "@material-ui/icons/CreditCard";
+
+const ShowStatementsField = ({ record = {} }) => (
+  <Button
+    component={Link}
+    to={{ pathname: `/tarjetas/${record.id}/mostrar_resumen` }}
+    label="Ver Resumen"
+    //disabled={!record.activo}
+  >
+    <CreditCardIcon />
+  </Button>
+);
 
 export const CardList = (props) => (
-  <Card>
-    <Title title="Mis tarjetas" />
-    <CardContent>
-      <p>Seguimos trabajando en esta sección.</p>
-      <p>Disculpe las molestias</p>
-    </CardContent>
-  </Card>
+  <List {...props} exporter={false}>
+    <Datagrid>
+      <NumberField label="N° Tarjeta" source="tarjeta" />
+      <TextField label="Categoría" source="producto" />
+      <NumberField label="Limite" source="limite" />
+      <NumberField label="Saldo" source="saldo" />
+      <TextField label="Vencimiento" source="vencimiento" />
+      <ShowStatementsField />
+    </Datagrid>
+  </List>
 );
