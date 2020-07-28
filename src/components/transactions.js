@@ -59,19 +59,28 @@ const exporter = (transactions) => {
 };
 
 export const TransactionList = (props) => (
-  <List exporter={exporter} {...props}>
+  <List
+    exporter={false}
+    {...props}
+    bulkActionButtons={false}
+    title="Lista de transacciones del día"
+  >
     <Datagrid>
       <TextField source="id" />
-      <TextField label="Tarjeta" source="tarjeta.numero" />
-      <FunctionField
-        label="Nombre del cliente"
-        render={(record) =>
-          `${record.persona.nombre} ${record.persona.apellido}`
-        }
+      <NumberField
+        label="Monto"
+        source="monto"
+        options={{
+          style: "currency",
+          currency: "ARS",
+          maximumSignificantDigits: 2,
+        }}
       />
-      <TextField label="Nombre del comercio" source="comercio.nombre" />
-      <NumberField label="Monto" source="monto" />
-      <DateField label="Fecha de transacción" source="fecha" />
+      <TextField label="Tarjeta" source="tarjeta" />
+      <TextField label="Tipo de transacción" source="tipo" />
+      <TextField label="Nombre del cliente" source="cliente" />
+      <TextField label="Nombre del comercio" source="comercio" />
+      <TextField label="CUIT del comercio" source="cuit" />
     </Datagrid>
   </List>
 );

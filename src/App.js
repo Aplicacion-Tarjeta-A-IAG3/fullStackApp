@@ -97,7 +97,7 @@ const App = () => (
       permissions === "comercio" ? (
         <Resource
           name="resumenes"
-          list={BalanceList}
+          // list={BalanceList}
           // show={BalanceShow}
           // create={TransactionCreate}
           icon={MoneyIcon}

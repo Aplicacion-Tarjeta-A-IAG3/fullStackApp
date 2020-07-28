@@ -115,7 +115,7 @@ export const ClientEdit = (props) => (
           source="puntos"
         />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
-        {/* <RichTextField fullWidth label="Detalle de baja" source="motivoBaja" /> */}
+        <TextField fullWidth label="Detalle de baja" source="motivoBaja" />
       </FormTab>
       <FormTab label="domicilio">
         <TextInput fullWidth required label="Calle" source="domicilio.calle" />
