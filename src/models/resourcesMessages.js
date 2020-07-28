@@ -27,7 +27,7 @@ const resourceMessages = {
       },
     },
     transacciones: {
-      name: "Transacciones",
+      name: "Transacciones del día",
       fields: {
         dni: "DNI del cliente",
         cuit: "CUIT del comercio",

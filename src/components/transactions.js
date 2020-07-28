@@ -59,7 +59,12 @@ const exporter = (transactions) => {
 };
 
 export const TransactionList = (props) => (
-  <List exporter={false} {...props} bulkActionButtons={false}>
+  <List
+    exporter={false}
+    {...props}
+    bulkActionButtons={false}
+    title="Lista de transacciones del día"
+  >
     <Datagrid>
       <TextField source="id" />
       <NumberField
