@@ -22,6 +22,7 @@ import {
   DateField,
   DateInput,
 } from "react-admin";
+import { number, minValue, maxValue, email } from "react-admin";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
@@ -76,6 +77,9 @@ export const ClientList = (props) => (
     </Datagrid>
   </List>
 );
+
+const validateDni = [number(), minValue(7), maxValue(9)];
+const validateEmail = email();
 
 export const ClientEdit = (props) => (
   <Edit title="Editar cliente" {...props}>
@@ -164,7 +168,13 @@ export const ClientEdit = (props) => (
         <TextInput fullWidth required label="País" source="domicilio.pais" />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput fullWidth required label="Email" source="contacto.email" />
+        <TextInput
+          fullWidth
+          required
+          label="Email"
+          source="contacto.email"
+          validate={validateEmail}
+        />
         <TextInput
           fullWidth
           required
@@ -186,7 +196,13 @@ export const ClientCreate = (props) => (
   <Create title="Crear nuevo cliente" {...props}>
     <TabbedForm margin="normal">
       <FormTab label="persona">
-        <NumberInput fullWidth required label="DNI" source="dni" />
+        <NumberInput
+          fullWidth
+          required
+          label="DNI"
+          source="dni"
+          validate={validateDni}
+        />
         <TextInput
           fullWidth
           required
@@ -268,7 +284,13 @@ export const ClientCreate = (props) => (
         <TextInput fullWidth required label="País" source="domicilio.pais" />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput fullWidth required label="Email" source="contacto.email" />
+        <TextInput
+          fullWidth
+          required
+          label="Email"
+          source="contacto.email"
+          validate={validateEmail}
+        />
         <TextInput
           fullWidth
           required
