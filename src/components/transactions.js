@@ -8,16 +8,10 @@ import {
   NumberInput,
   SimpleForm,
   DateInput,
-  FunctionField,
   NumberField,
-  DateField,
-  Show,
-  SimpleShowLayout,
-  downloadCSV,
   Loading,
   SelectInput,
 } from "react-admin";
-import jsonExport from "jsonexport/dist";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 const headers = {
@@ -30,33 +24,6 @@ const cuotasChoices = [...Array(12).keys()].map((a, i) => ({
   id: i + 1,
   name: i + 1,
 }));
-
-const exporter = (transactions) => {
-  const transactionsExport = transactions.map((transaction) => {
-    const { persona, tarjeta, comercio, detalle, ...forExport } = transaction; // omit persona, tarjeta, comercio and detalle
-    forExport.cliente = `${transaction.persona.nombre} ${transaction.persona.apellido}`;
-    forExport.comercio = transaction.comercio.nombre;
-    forExport.tarjeta = transaction.tarjeta.numero;
-    return forExport;
-  });
-  jsonExport(
-    transactionsExport,
-    {
-      headers: [
-        "id",
-        "monto",
-        "cuotas",
-        "fecha",
-        "cliente",
-        "comercio",
-        "tarjeta",
-      ],
-    },
-    (err, csv) => {
-      downloadCSV(csv, "transacciones"); // download as 'transacciones.csv` file
-    }
-  );
-};
 
 export const TransactionList = (props) => (
   <List
@@ -83,28 +50,6 @@ export const TransactionList = (props) => (
       <TextField label="CUIT del comercio" source="cuit" />
     </Datagrid>
   </List>
-);
-
-export const TransactionShow = (props) => (
-  <Show {...props}>
-    <SimpleShowLayout>
-      <h5>Datos de la transacción</h5>
-      <NumberField label="Monto" source="monto" />
-      <NumberInput label="Cuotas" fullWidth source="cuotas" />
-      <DateField label="Fecha de transacción" source="fecha" />
-      <TextField label="Detalle" source="detalle" />
-      <h5>Datos del cliente</h5>
-      <NumberField label="DNI" source="persona.dni" />
-      <TextField label="Nombre" source="persona.nombre" />
-      <TextField label="Apellido" source="persona.apellido" />
-      <h5>Datos de la tarjeta</h5>
-      <NumberField label="Número" source="tarjeta.numero" />
-      <DateField label="Vencimiento" source="tarjeta.fechaVencimiento" />
-      <h5>Datos del comercio</h5>
-      <NumberField label="CUIT" source="comercio.cuit" />
-      <TextField label="Nombre" source="comercio.nombre" />
-    </SimpleShowLayout>
-  </Show>
 );
 
 export const TransactionCreate = (props) => {
