@@ -30,12 +30,7 @@ import {
 } from "./components/businesses";
 import { ProductList, ProductCreate, ProductEdit } from "./components/products";
 import { CardList } from "./components/cards"; //Componente de tarjetas
-import {
-  TransactionList,
-  TransactionCreate,
-  // TransactionShow,
-} from "./components/transactions";
-import { BalanceList } from "./components/balances";
+import { TransactionList, TransactionCreate } from "./components/transactions";
 import Dashboard from "./components/dashboard";
 
 const messages = {
@@ -107,7 +102,6 @@ const App = () => (
         <Resource
           name="transacciones"
           list={TransactionList}
-          // show={TransactionShow}
           create={TransactionCreate}
           icon={AttachMoneyIcon}
         />
