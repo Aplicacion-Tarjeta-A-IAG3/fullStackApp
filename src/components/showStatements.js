@@ -6,22 +6,12 @@ import {
   List,
   Datagrid,
   TextField,
-  TextInput,
-  Create,
-  NumberInput,
-  DateInput,
   FunctionField,
   NumberField,
   DateField,
-  Show,
-  SimpleShowLayout,
+  SimpleForm,
   downloadCSV,
   Title,
-  SimpleForm,
-  SelectInput,
-  Loading,
-  RichTextField,
-  useShowController,
   useRedirect,
   useNotify,
 } from "react-admin";
@@ -65,51 +55,39 @@ const exporter = (transactions) => {
 const ShowStatements = (props) => {
   console.log("props", props);
   const cardId = props.match.params.id;
+  console.log("card id", cardId);
+  const cardNumber = props.match.params.tarjeta;
+  console.log("card number", cardNumber);
   const [currentCard, setCurrentCard] = useState(null);
+  const [statements, setStatements] = useState(null);
   // const [error, setError] = useState(null);
   // const [isLoaded, setIsLoaded] = useState(false);
   const [statementsLoaded, setStatementsLoaded] = useState(false);
   const [cardLoaded, setCardLoaded] = useState(false);
-  const [statements, setStatements] = useState([]);
-  //const [product, setProduct] = useState(null);
-  //const [limite, setLimite] = useState(0);
   const notify = useNotify();
   const redirectTo = useRedirect();
+
   // const handleError = (msg) => {
   //   setIsLoaded(true);
   //   setError(msg);
   // };
-  /*
-  const handleSelectChange = (event) => {
-    setProduct(event.target.value);
-  };
 
-  const handleLimite = (event) => {
-    setLimite(event.target.value);
-  };
-*/
-  const handleShowStatement = async () => {
-    const data = {
+  const handleStatementShowed = async () => {
+    /* const data = {
       activo: true,
       adicional: false,
       dni: currentCard[0].dni,
     };
 
-    const headers = {
-      "Content-Type": "application/json",
-      client_id: localStorage.getItem("clientId"),
-      client_secret: localStorage.getItem("clientSecret"),
-    };
-
     const options = {
-      method: "POST",
+      method: "GET",
       headers: headers,
       body: JSON.stringify(data),
     };
 
     const response = await fetch(`${apiUrl}/resumenes`, options);
     const assigned = await response.json();
-    console.log("data", assigned);
+    console.log("data", assigned);*/
     redirectTo("/tarjetas");
     notify("Volviendo...");
   };
@@ -121,7 +99,7 @@ const ShowStatements = (props) => {
         headers: headers,
       };
 
-      const response = await fetch(`${apiUrl}/tarjetas?id=${7}`, options);
+      const response = await fetch(`${apiUrl}/tarjetas?id=${cardId}`, options);
       const data = await response.json();
       console.log("user cards data", data);
       setCurrentCard(data);
@@ -135,7 +113,7 @@ const ShowStatements = (props) => {
       };
 
       const response = await fetch(
-        `${apiUrl}/resumenes?tarjeta=3652235632381571`,
+        `${apiUrl}/resumenes?tarjeta=${cardNumber}`,
         options
       );
       const data = await response.json();
@@ -150,27 +128,56 @@ const ShowStatements = (props) => {
 
   return (
     <div>
-      <Title title="Ver Resumen" />
+      <Title title="Ultimo Resumen" />
       {statementsLoaded && cardLoaded && (
-        <Card>
-          <CardHeader title="Resumen de Cuenta" />
-          <CardContent style={{ display: "flex" }}>
-            <div style={{ width: "30%" }}>
-              <b>Nombre </b>
-              {`${currentCard[0].nombre} ${currentCard[0].apellido}`}
-            </div>
-            <div style={{ width: "30%" }}>
-              <b>DNI </b>
-              {currentCard[0].dni}
-            </div>
-            <div style={{ width: "30%" }}>
-              <b>Producto </b>
-              {currentCard[0].producto}
-            </div>
-          </CardContent>
-          <hr />
-          <CardHeader title="Detalle" />
-        </Card>
+        <List exporter={exporter} {...props}>
+          <div>
+            <Card>
+              <CardHeader title="Resumen de Cuenta" />
+              <CardContent style={{ display: "flex" }}>
+                <div style={{ width: "30%" }}>
+                  <h5>
+                    <b>Nombre </b>
+                    {`${currentCard[0].nombre} ${currentCard[0].apellido}`}
+                  </h5>
+                </div>
+                <div style={{ width: "30%" }}>
+                  <h5>
+                    <b>DNI </b>
+                    {currentCard[0].dni}
+                  </h5>
+                </div>
+                <div style={{ width: "30%" }}>
+                  <h5>
+                    <b>Producto </b>
+                    {currentCard[0].producto}
+                  </h5>
+                </div>
+              </CardContent>
+              <hr />
+              <CardHeader title="Detalle" />
+              <CardContent>
+                <SimpleForm
+                  save={handleStatementShowed}
+                  redirect={"/tarjetas"}
+                ></SimpleForm>
+              </CardContent>
+            </Card>
+            <Datagrid>
+              <TextField source="id" />
+              <TextField label="Tarjeta" source="tarjeta.numero" />
+              <FunctionField
+                label="Nombre del cliente"
+                render={(record) =>
+                  `${record.persona.nombre} ${record.persona.apellido}`
+                }
+              />
+              <TextField label="Nombre del comercio" source="comercio.nombre" />
+              <NumberField label="Monto" source="monto" />
+              <DateField label="Fecha de transacción" source="fecha" />
+            </Datagrid>
+          </div>
+        </List>
       )}
     </div>
   );

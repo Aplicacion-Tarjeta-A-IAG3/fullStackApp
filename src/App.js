@@ -29,11 +29,11 @@ import {
   BusinessCreate,
 } from "./components/businesses";
 import { ProductList, ProductCreate, ProductEdit } from "./components/products";
-import { CardsDataList } from "./components/cards"; //Componente de tarjetas
+import { CardList } from "./components/cards"; //Componente de tarjetas
 import {
   TransactionList,
   TransactionCreate,
-  // TransactionShow,
+  TransactionShow,
 } from "./components/transactions";
 import { BalanceList } from "./components/balances";
 import Dashboard from "./components/dashboard";
@@ -88,10 +88,19 @@ const App = () => (
       permissions === "cliente" ? (
         <Resource
           name="tarjetas"
-          list={CardsDataList}
+          list={CardList}
           // edit={BusinessEdit}
           // create={BusinessCreate}
           icon={CreditCardIcon}
+        />
+      ) : null,
+      permissions === "cliente" ? (
+        <Resource
+          name="consumos"
+          list={TransactionList}
+          // edit={BusinessEdit}
+          // create={BusinessCreate}
+          icon={AttachMoneyIcon}
         />
       ) : null,
       permissions === "comercio" ? (

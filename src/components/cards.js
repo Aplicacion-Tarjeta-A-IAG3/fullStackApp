@@ -1,13 +1,8 @@
 import * as React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
 import {
   List,
   Datagrid,
   TextField,
-  EmailField,
-  FunctionField,
   NumberField,
   Button,
   Link,
@@ -17,15 +12,15 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 const ShowStatementsField = ({ record = {} }) => (
   <Button
     component={Link}
-    to={{ pathname: `/tarjetas/${record.id}/mostrar_resumenes` }}
-    label="Mostrar Resumenes"
+    to={{ pathname: `/tarjetas/${record.id}/mostrar_resumen` }}
+    label="Ver Resumen"
     //disabled={!record.activo}
   >
     <CreditCardIcon />
   </Button>
 );
 
-export const CardsDataList = (props) => (
+export const CardList = (props) => (
   <List {...props} exporter={false}>
     <Datagrid>
       <NumberField label="N° Tarjeta" source="tarjeta" />
