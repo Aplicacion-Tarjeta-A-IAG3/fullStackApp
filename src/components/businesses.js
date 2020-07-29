@@ -72,17 +72,25 @@ export const BusinessEdit = (props) => (
           required
           label="Nombre del comercio"
           source="nombre"
+          validate={validateText}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
       </FormTab>
       <FormTab label="domicilio">
-        <TextInput fullWidth required label="Calle" source="domicilio.calle" />
+        <TextInput
+          fullWidth
+          required
+          label="Calle"
+          source="domicilio.calle"
+          validate={validateText}
+        />
         <NumberInput
           fullWidth
           required
           label="Número"
           source="domicilio.numero"
+          validate={validateNumber}
         />
         <NumberInput fullWidth label="Piso" source="domicilio.piso" />
         <TextInput
@@ -95,46 +103,65 @@ export const BusinessEdit = (props) => (
           required
           label="Barrio"
           source="domicilio.barrio"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Código Postal"
           source="domicilio.codigoPostal"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Ciudad"
           source="domicilio.ciudad"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Localidad"
           source="domicilio.localidad"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Provincia"
           source="domicilio.provincia"
+          validate={validateText}
         />
-        <TextInput fullWidth required label="País" source="domicilio.pais" />
+        <TextInput
+          fullWidth
+          required
+          label="País"
+          source="domicilio.pais"
+          validate={validateText}
+        />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput fullWidth required label="Email" source="contacto.email" />
+        <TextInput
+          fullWidth
+          required
+          label="Email"
+          source="contacto.email"
+          validate={validateEmail}
+        />
         <TextInput
           fullWidth
           required
           label="Celular"
           source="contacto.celular"
+          validate={validatePhone}
         />
         <TextInput
           fullWidth
           required
           label="Teléfono"
           source="contacto.telefono"
+          validate={validatePhone}
         />
       </FormTab>
     </TabbedForm>
