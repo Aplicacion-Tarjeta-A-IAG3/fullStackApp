@@ -63,7 +63,7 @@ const validatePhone = [
 ];
 
 export const BusinessEdit = (props) => (
-  <Edit title="Editar establecimiento" {...props}>
+  <Edit undoable={false} title="Editar establecimiento" {...props}>
     <TabbedForm margin="normal">
       <FormTab label="comercio">
         <NumberInput disabled required fullWidth label="CUIT" source="cuit" />
@@ -142,7 +142,7 @@ export const BusinessEdit = (props) => (
 );
 
 export const BusinessCreate = (props) => (
-  <Create title="Crear nuevo establecimiento" {...props}>
+  <Create undoable={false} title="Crear nuevo establecimiento" {...props}>
     <TabbedForm margin="normal" validate={validateCreation}>
       <FormTab label="comercio">
         <NumberInput
