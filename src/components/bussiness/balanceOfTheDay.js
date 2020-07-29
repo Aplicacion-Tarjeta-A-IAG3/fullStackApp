@@ -42,6 +42,41 @@ const columns = ["Id", "Monto", "Tipo", "Detalle del movimiento", "Fecha"];
 const options = {
   filterType: "checkbox",
   pagination: false,
+  selectableRows: "none",
+  textLabels: {
+    body: {
+      noMatch: "No se encontraron registros",
+      toolTip: "Ordenar",
+      columnHeaderTooltip: (column) => `Ordenar por ${column.label}`,
+    },
+    pagination: {
+      next: "Siguiente",
+      previous: "Anterior",
+      rowsPerPage: "Filas por página:",
+      displayRows: "de",
+    },
+    toolbar: {
+      search: "Buscar",
+      downloadCsv: "Descargar CSV",
+      print: "Imprimir",
+      viewColumns: "Ver Columnas",
+      filterTable: "Filtrar Tabla",
+    },
+    filter: {
+      all: "Todos",
+      title: "FILTROS",
+      reset: "LIMPIAR FILTROS",
+    },
+    viewColumns: {
+      title: "Mostrar Columnas",
+      titleAria: "Mostrar/Esconder Columnas",
+    },
+    selectedRows: {
+      text: "filas(s) seleccionadas",
+      delete: "Borrar",
+      deleteAria: "Borrar Filas Seleccionadas",
+    },
+  },
 };
 
 const months = {
