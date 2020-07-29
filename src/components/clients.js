@@ -32,11 +32,8 @@ import {
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
-  { id: "", name: "Sin especificar" },
-  { id: "soltero", name: "Soltero(a)" },
-  { id: "casado", name: "En matrimonio" },
-  { id: "concubinato", name: "En concubinato" },
-  { id: "otros", name: "Otros" },
+  { id: false, name: "Soltero(a)" },
+  { id: true, name: "Casado(a)" },
 ];
 
 // const bajaDescripciones = [
@@ -86,18 +83,12 @@ export const ClientList = (props) => (
 
 // !! this is necessary to validate values' lengths for NumberInput components
 const validateCreation = (values) => {
+  console.log("values", values);
   const errors = {};
-  const {
-    dni,
-    contacto: { telefono, celular },
-  } = values;
+  const { dni } = values;
   const dniRegex = new RegExp(/^[0-9]{7,8}$/);
-  const phoneRegex = new RegExp(/^[0-9]{10,12}$/);
   if (!dniRegex.test(dni)) {
     errors.dni = ["Número de DNI inválido"];
-  }
-  if (!phoneRegex.test(telefono) || !phoneRegex.test(celular)) {
-    errors.tarjeta = ["Número de telefono inválido"];
   }
   return errors;
 };
@@ -301,6 +292,7 @@ export const ClientCreate = (props) => (
           source="estadoCivil"
           choices={estadosCiviles}
           validate={required("No puede estar vacío")}
+          defaultValue={false}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput
