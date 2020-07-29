@@ -16,9 +16,9 @@ import {
 } from "react-admin";
 import { required, minLength } from "react-admin";
 
-const ProductToolbar = ({ resource, ...props }) => (
+const ProductsToolbar = ({ resource, ...props }) => (
   <Toolbar {...props}>
-    <SaveButton redirect="show" submitOnEnter={false} />
+    <SaveButton redirect="list" submitOnEnter={false} />
   </Toolbar>
 );
 
@@ -40,7 +40,7 @@ const validateBoolean = [required()];
 
 export const ProductCreate = (props) => (
   <Create undoable="false" title="Nuevo producto" {...props}>
-    <SimpleForm toolbar={<ProductToolbar />} redirect="list">
+    <SimpleForm toolbar={<ProductsToolbar />} redirect="list">
       <TextInput fullWidth required source="nombre" validate={validateText} />
       <TextInput fullWidth required source="tipo" validate={validateText} />
       <TextInput
@@ -68,7 +68,7 @@ export const ProductCreate = (props) => (
 
 export const ProductEdit = (props) => (
   <Edit undoable={false} {...props}>
-    <SimpleForm toolbar={<ProductToolbar />} redirect="list">
+    <SimpleForm toolbar={<ProductsToolbar />} redirect="list">
       <NumberInput fullWidth disabled source="id" />
       <TextInput fullWidth required source="nombre" validate={validateText} />
       <TextInput fullWidth required source="tipo" validate={validateText} />
