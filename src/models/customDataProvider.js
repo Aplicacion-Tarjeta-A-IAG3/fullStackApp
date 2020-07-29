@@ -82,9 +82,11 @@ export default {
           return Promise.reject("serverResponseError");
         }
       })
-      .then(({ json }) => ({
-        data: json,
-      }))
+      .then((result) => {
+        return {
+          data: result,
+        };
+      })
       .catch((e) => {
         throw e.message;
       });
