@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const columns = ["Monto", "Tipo", "Detalle del movimiento", "Fecha"];
+const columns = ["Monto (AR$)", "Tipo", "Detalle del movimiento", "Fecha"];
 
 // TODO: delete this example
 // const data = [
