@@ -76,7 +76,7 @@ export const ClientList = (props) => (
 
 // !! this is necessary to validate values' lengths for NumberInput components
 const validateCreation = (values) => {
-  console.log("values", values);
+  // console.log("values", values);
   const errors = {};
   const { dni } = values;
   const dniRegex = new RegExp(/^[0-9]{7,8}$/);

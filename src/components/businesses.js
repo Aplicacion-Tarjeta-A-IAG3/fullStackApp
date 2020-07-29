@@ -33,7 +33,7 @@ export const BusinessList = (props) => (
 
 // !! this is necessary to validate values' lengths for NumberInput components
 const validateCreation = (values) => {
-  console.log("values", values);
+  // console.log("values", values);
   const errors = {};
   const { cuit } = values;
   const cuitRegex = new RegExp(/^[0-9]{10,11}$/);
