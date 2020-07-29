@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const columns = ["Id", "Monto", "Tipo", "Detalle del movimiento", "Fecha"];
+const columns = ["Monto", "Tipo", "Detalle del movimiento", "Fecha"];
 
 // TODO: delete this example
 // const data = [
@@ -143,8 +143,7 @@ export default function BalanceOfTheDay(props) {
           fees: totalComisiones,
         });
         setRows(
-          pagos.map(({ id, monto, tipoTransaccion, detalle, fecha }) => [
-            id,
+          pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
             monto,
             tipoTransaccion,
             detalle,
