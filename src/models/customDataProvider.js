@@ -27,7 +27,7 @@ export default {
     if (getListExceptions.includes(resource)) {
       url += `${query}`;
     }
-    console.log("url to get list", url);
+    console.log("solicitud a: ", url);
     const options = {
       method: "GET",
       headers: headers,
@@ -35,15 +35,27 @@ export default {
 
     return fetch(url, options)
       .then((response) => {
-        return response.json();
+        try {
+          let json = response.json();
+          // console.log("JSON??", json);
+          if (response.status >= 200 && response.status < 300) {
+            return Promise.resolve(json);
+          } else {
+            // console.log("llega?", json);
+            return json.then(Promise.reject.bind(Promise));
+          }
+        } catch (err) {
+          console.error(err);
+          return Promise.reject("serverResponseError");
+        }
       })
       .then((result) => ({
         data: result,
         total: result.length,
       }))
-      .catch((e) => ({
-        error: e.message,
-      }));
+      .catch((e) => {
+        throw e.message;
+      });
   },
 
   getOne: (resource, params) => {
@@ -54,9 +66,30 @@ export default {
 
     const url = `${apiUrl}/${resource}?id=${params.id}`;
 
-    return fetch(url, options).then(({ json }) => ({
-      data: json,
-    }));
+    return fetch(url, options)
+      .then((response) => {
+        try {
+          let json = response.json();
+          // console.log("JSON??", json);
+          if (response.status >= 200 && response.status < 300) {
+            return Promise.resolve(json);
+          } else {
+            // console.log("llega?", json);
+            return json.then(Promise.reject.bind(Promise));
+          }
+        } catch (err) {
+          console.error(err);
+          return Promise.reject("serverResponseError");
+        }
+      })
+      .then((result) => {
+        return {
+          data: result,
+        };
+      })
+      .catch((e) => {
+        throw e.message;
+      });
   },
 
   update: (resource, params) => {
@@ -68,9 +101,26 @@ export default {
     const url = `${apiUrl}/${resource}`;
     return fetch(url, options)
       .then((response) => {
-        return response.json();
+        try {
+          let json = response.json();
+          // console.log("JSON??", json);
+          if (response.status >= 200 && response.status < 300) {
+            return Promise.resolve(json);
+          } else {
+            // console.log("llega?", json);
+            return json.then(Promise.reject.bind(Promise));
+          }
+        } catch (err) {
+          console.error(err);
+          return Promise.reject("serverResponseError");
+        }
       })
-      .then((result) => ({ data: result }));
+      .then((result) => ({
+        data: result,
+      }))
+      .catch((e) => {
+        throw e.message;
+      });
   },
 
   create: (resource, params) => {
@@ -82,7 +132,19 @@ export default {
     const url = `${apiUrl}/${resource}`;
     return fetch(url, options)
       .then((response) => {
-        return response.json();
+        try {
+          let json = response.json();
+          // console.log("JSON??", json);
+          if (response.status >= 200 && response.status < 300) {
+            return Promise.resolve(json);
+          } else {
+            // console.log("llega?", json);
+            return json.then(Promise.reject.bind(Promise));
+          }
+        } catch (err) {
+          console.error(err);
+          return Promise.reject("serverResponseError");
+        }
       })
       .then((result) => {
         if (resource === "resumenes") {
@@ -99,19 +161,19 @@ export default {
           data: { ...params.data, id: result.id },
         };
       })
-      .catch((e) => ({
-        error: e.message,
-      }));
+      .catch((e) => {
+        throw e.message;
+      });
   },
 
-  delete: (resource, params) => {
-    const options = {
-      method: "DELETE",
-      headers: headers,
-    };
-    const url = `${apiUrl}/${resource}/${params.id}`;
-    return fetch(url, options).then(({ json }) => ({ data: json }));
-  },
+  // delete: (resource, params) => {
+  //   const options = {
+  //     method: "DELETE",
+  //     headers: headers,
+  //   };
+  //   const url = `${apiUrl}/${resource}/${params.id}`;
+  //   return fetch(url, options).then(({ json }) => ({ data: json }));
+  // },
 
   // getMany: (resource, params) => {
   //   const query = {

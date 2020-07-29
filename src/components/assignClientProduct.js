@@ -12,6 +12,9 @@ import {
   NumberInput,
   useRedirect,
   useNotify,
+  required,
+  number,
+  minValue,
 } from "react-admin";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
@@ -140,6 +143,7 @@ const AssignProduct = (props) => {
                   }))}
                 required
                 fullWidth
+                validate={required("Campo obligatorio")}
               />
               <NumberInput
                 label="Límite de tarjeta"
@@ -147,6 +151,11 @@ const AssignProduct = (props) => {
                 required
                 fullWidth
                 onChange={handleLimite}
+                validate={[
+                  required("Campo obligatorio"),
+                  number("Campo numérico"),
+                  minValue(10000),
+                ]}
               />
             </SimpleForm>
           </CardContent>

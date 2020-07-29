@@ -11,7 +11,16 @@ import {
   TextInput,
   BooleanInput,
   EditButton,
+  Toolbar,
+  SaveButton,
 } from "react-admin";
+import { required, minLength } from "react-admin";
+
+const ProductsToolbar = ({ resource, ...props }) => (
+  <Toolbar {...props}>
+    <SaveButton redirect="list" submitOnEnter={false} />
+  </Toolbar>
+);
 
 export const ProductList = (props) => (
   <List {...props} bulkActionButtons={false} exporter={false}>
@@ -26,27 +35,62 @@ export const ProductList = (props) => (
   </List>
 );
 
+const validateText = [required("No puede estar vacío"), minLength(4)];
+const validateBoolean = [required()];
+
 export const ProductCreate = (props) => (
-  <Create title="Nuevo producto" {...props}>
-    <SimpleForm>
-      <TextInput fullWidth required source="nombre" />
-      <TextInput fullWidth required source="tipo" />
-      <TextInput fullWidth required source="categoria" />
-      <TextInput fullWidth required multiline source="requisitos" />
-      <BooleanInput fullWidth required source="activo" />
+  <Create undoable="false" title="Nuevo producto" {...props}>
+    <SimpleForm toolbar={<ProductsToolbar />} redirect="list">
+      <TextInput fullWidth required source="nombre" validate={validateText} />
+      <TextInput fullWidth required source="tipo" validate={validateText} />
+      <TextInput
+        fullWidth
+        required
+        source="categoria"
+        validate={validateText}
+      />
+      <TextInput
+        fullWidth
+        required
+        multiline
+        source="requisitos"
+        validate={validateText}
+      />
+      <BooleanInput
+        fullWidth
+        required
+        source="activo"
+        validate={validateBoolean}
+      />
     </SimpleForm>
   </Create>
 );
 
 export const ProductEdit = (props) => (
-  <Edit {...props}>
-    <SimpleForm>
+  <Edit undoable={false} {...props}>
+    <SimpleForm toolbar={<ProductsToolbar />} redirect="list">
       <NumberInput fullWidth disabled source="id" />
-      <TextInput fullWidth required source="nombre" />
-      <TextInput fullWidth required source="tipo" />
-      <TextInput fullWidth required source="categoria" />
-      <TextInput fullWidth required multiline source="requisitos" />
-      <BooleanInput fullWidth required source="activo" />
+      <TextInput fullWidth required source="nombre" validate={validateText} />
+      <TextInput fullWidth required source="tipo" validate={validateText} />
+      <TextInput
+        fullWidth
+        required
+        source="categoria"
+        validate={validateText}
+      />
+      <TextInput
+        fullWidth
+        required
+        multiline
+        source="requisitos"
+        validate={validateText}
+      />
+      <BooleanInput
+        fullWidth
+        required
+        source="activo"
+        validate={validateBoolean}
+      />
     </SimpleForm>
   </Edit>
 );

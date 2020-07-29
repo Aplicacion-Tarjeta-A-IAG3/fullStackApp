@@ -12,6 +12,7 @@ import {
   Loading,
   SelectInput,
 } from "react-admin";
+import { required, number, minValue, minLength, maxLength } from "react-admin";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 const headers = {
@@ -22,7 +23,7 @@ const headers = {
 
 const cuotasChoices = [...Array(12).keys()].map((a, i) => ({
   id: i + 1,
-  name: i + 1,
+  name: (i + 1).toString(),
 }));
 
 export const TransactionList = (props) => (
@@ -52,8 +53,52 @@ export const TransactionList = (props) => (
   </List>
 );
 
+// !! this is necessary to validate values' lengths for NumberInput components
+const validateCreation = (values) => {
+  const errors = {};
+  const { dni, tarjeta, cvc } = values;
+  const dniRegex = new RegExp(/^[0-9]{7,8}$/);
+  const cardRegex = new RegExp(/^\d{16}$/);
+  const cvcRegex = new RegExp(/^\d{3}$/);
+  if (!dniRegex.test(dni)) {
+    errors.dni = ["Número de DNI inválido"];
+  }
+  if (!cardRegex.test(tarjeta)) {
+    errors.tarjeta = [
+      "Ingresar número de tarjeta válido. (16 dígitos, sin espacios, sin símbolos)",
+    ];
+  }
+  if (!cvcRegex.test(cvc)) {
+    errors.cvc = ["Ingresar CVC válido. (3 dígitos)"];
+  }
+  return errors;
+};
+
 export const TransactionCreate = (props) => {
   const [defaultFormValue, setDefaultFormValue] = React.useState({});
+
+  const validateDni = [
+    required("No puede estar vacío"),
+    number("Debe ser un número"),
+  ];
+  const validateText = [
+    required("No puede estar vacío"),
+    minLength(4),
+    maxLength(50),
+  ];
+  const validateCard = [
+    required("No puede estar vacío"),
+    number("No puede contener letras"),
+  ];
+  const validateCvc = [
+    required("No puede estar vacío"),
+    number("No puede contener letras"),
+  ];
+  const validateNumber = [
+    required("No puede estar vacío"),
+    number("Debe ser un número"),
+    minValue(1),
+  ];
 
   React.useEffect(() => {
     const username = localStorage.getItem("username");
@@ -81,39 +126,52 @@ export const TransactionCreate = (props) => {
 
   return (
     <Create title="Posnet virtual" {...props}>
-      <SimpleForm initialValues={defaultFormValue}>
+      <SimpleForm initialValues={defaultFormValue} validate={validateCreation}>
         {localStorage.getItem("username") && (
-          <div fullWidth>
-            <h5>Datos del comercio</h5>
-            <NumberInput fullWidth disabled label="CUIT" source="cuit" />
-            <TextInput
-              fullWidth
-              disabled
-              label="Nombre del comercio"
-              source="comercio"
-            />
-            <h5>Datos del cliente</h5>
-            <NumberInput fullWidth required label="DNI" source="dni" />
-            <TextInput fullWidth source="nombre" />
-            <TextInput fullWidth source="apellido" />
-            <h5>Datos de la tarjeta</h5>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "#dbdacc",
+              padding: "1em",
+              borderRadius: "5px",
+            }}
+          >
+            <h4>Datos del comercio</h4>
+            <NumberInput disabled label="CUIT" source="cuit" />
+            <TextInput disabled label="Nombre del comercio" source="comercio" />
+            <h4>Datos del cliente</h4>
             <NumberInput
-              fullWidth
+              required
+              label="DNI"
+              source="dni"
+              validate={validateDni}
+            />
+            <TextInput required source="nombre" validate={validateText} />
+            <TextInput required source="apellido" validate={validateText} />
+            <h4>Datos de la tarjeta</h4>
+            <NumberInput
               required
               label="Número de tarjeta"
               source="tarjeta"
+              validate={validateCard}
             />
             <DateInput
-              fullWidth
               required
               label="Vencimiento"
               source="vencimiento"
               defaultValue={new Date()}
+              validate={required("No debe estar vacío")}
             />
-            <NumberInput fullWidth required label="CVC" source="cvc" />
-            <h5>Datos de la venta</h5>
-            <NumberInput fullWidth required source="monto" />
-            <SelectInput fullWidth source="cuotas" choices={cuotasChoices} />
+            <NumberInput
+              required
+              label="CVC"
+              source="cvc"
+              validate={validateCvc}
+            />
+            <h4>Datos de la venta</h4>
+            <NumberInput required source="monto" validate={validateNumber} />
+            <SelectInput source="cuotas" choices={cuotasChoices} />
           </div>
         )}
         {!localStorage.getItem("username") && (
