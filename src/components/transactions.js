@@ -128,45 +128,35 @@ export const TransactionCreate = (props) => {
     <Create title="Posnet virtual" {...props}>
       <SimpleForm initialValues={defaultFormValue} validate={validateCreation}>
         {localStorage.getItem("username") && (
-          <div style={{ width: "100%" }}>
-            <h5>Datos del comercio</h5>
-            <NumberInput fullWidth disabled label="CUIT" source="cuit" />
-            <TextInput
-              fullWidth
-              disabled
-              label="Nombre del comercio"
-              source="comercio"
-            />
-            <h5>Datos del cliente</h5>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "#dbdacc",
+              padding: "1em",
+              borderRadius: "5px",
+            }}
+          >
+            <h4>Datos del comercio</h4>
+            <NumberInput disabled label="CUIT" source="cuit" />
+            <TextInput disabled label="Nombre del comercio" source="comercio" />
+            <h4>Datos del cliente</h4>
             <NumberInput
-              fullWidth
               required
               label="DNI"
               source="dni"
               validate={validateDni}
             />
-            <TextInput
-              fullWidth
-              required
-              source="nombre"
-              validate={validateText}
-            />
-            <TextInput
-              fullWidth
-              required
-              source="apellido"
-              validate={validateText}
-            />
-            <h5>Datos de la tarjeta</h5>
+            <TextInput required source="nombre" validate={validateText} />
+            <TextInput required source="apellido" validate={validateText} />
+            <h4>Datos de la tarjeta</h4>
             <NumberInput
-              fullWidth
               required
               label="Número de tarjeta"
               source="tarjeta"
               validate={validateCard}
             />
             <DateInput
-              fullWidth
               required
               label="Vencimiento"
               source="vencimiento"
@@ -174,20 +164,14 @@ export const TransactionCreate = (props) => {
               validate={required("No debe estar vacío")}
             />
             <NumberInput
-              fullWidth
               required
               label="CVC"
               source="cvc"
               validate={validateCvc}
             />
-            <h5>Datos de la venta</h5>
-            <NumberInput
-              fullWidth
-              required
-              source="monto"
-              validate={validateNumber}
-            />
-            <SelectInput fullWidth source="cuotas" choices={cuotasChoices} />
+            <h4>Datos de la venta</h4>
+            <NumberInput required source="monto" validate={validateNumber} />
+            <SelectInput source="cuotas" choices={cuotasChoices} />
           </div>
         )}
         {!localStorage.getItem("username") && (
