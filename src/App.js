@@ -18,7 +18,6 @@ import BusinessIcon from "@material-ui/icons/Business";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import CardTravelIcon from "@material-ui/icons/CardTravel";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import MoneyIcon from "@material-ui/icons/Money";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -87,15 +86,6 @@ const App = () => (
           // edit={BusinessEdit}
           // create={BusinessCreate}
           icon={CreditCardIcon}
-        />
-      ) : null,
-      permissions === "comercio" ? (
-        <Resource
-          name="resumenes"
-          // list={BalanceList}
-          // show={BalanceShow}
-          // create={TransactionCreate}
-          icon={MoneyIcon}
         />
       ) : null,
       permissions === "comercio" ? (
