@@ -19,17 +19,22 @@ import {
   SelectInput,
   Button,
   Link,
-  DateField,
   DateInput,
+  Toolbar,
+  SaveButton,
 } from "react-admin";
+import { number, minValue, email, required, minLength } from "react-admin";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
+const ClientsToolbar = ({ resource, ...props }) => (
+  <Toolbar {...props}>
+    <SaveButton redirect="list" submitOnEnter={false} />
+  </Toolbar>
+);
+
 const estadosCiviles = [
-  { id: "", name: "Sin especificar" },
-  { id: "soltero", name: "Soltero(a)" },
-  { id: "casado", name: "En matrimonio" },
-  { id: "concubinato", name: "En concubinato" },
-  { id: "otros", name: "Otros" },
+  { id: false, name: "Soltero(a)" },
+  { id: true, name: "Casado(a)" },
 ];
 
 // const bajaDescripciones = [
@@ -77,28 +82,67 @@ export const ClientList = (props) => (
   </List>
 );
 
+// !! this is necessary to validate values' lengths for NumberInput components
+const validateCreation = (values) => {
+  // console.log("values", values);
+  const errors = {};
+  const { dni } = values;
+  const dniRegex = new RegExp(/^[0-9]{7,8}$/);
+  if (!dniRegex.test(dni)) {
+    errors.dni = ["Número de DNI inválido"];
+  }
+  return errors;
+};
+
+const validateDni = [
+  required("No puede estar vacío"),
+  number("Debe ser un numero"),
+];
+const validateEmail = [
+  required("No puede estar vacío"),
+  email("Debe ser un email válido"),
+];
+const validateText = [required("No puede estar vacío"), minLength(2)];
+const validateNumber = [
+  required("No puede estar vacío"),
+  number("Debe ser un numero"),
+  minValue(1),
+];
+const validatePoints = [
+  required("No puede estar vacío"),
+  number("Debe ser un numero"),
+  minValue(0),
+];
+const validatePhone = [
+  required("No puede estar vacío"),
+  number("Debe ser un numero"),
+];
+
 export const ClientEdit = (props) => (
-  <Edit title="Editar cliente" {...props}>
-    <TabbedForm margin="normal">
+  <Edit undoable={false} title="Editar cliente" {...props}>
+    <TabbedForm margin="normal" toolbar={<ClientsToolbar />}>
       <FormTab label="persona">
-        <NumberInput disabled required fullWidth label="DNI" source="dni" />
+        <NumberInput disabled fullWidth label="DNI" source="dni" />
         <TextInput
           fullWidth
           required
           label="Nombre del cliente"
           source="nombre"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Apellido del cliente"
           source="apellido"
+          validate={validateText}
         />
-        <DateField
+        <DateInput
           fullWidth
           required
           label="Fecha de nacimiento"
           source="fechaNacimiento"
+          validate={required("No puede estar vacío")}
         />
         <SelectInput
           fullWidth
@@ -106,6 +150,7 @@ export const ClientEdit = (props) => (
           label="Estado civil"
           source="estadoCivil"
           choices={estadosCiviles}
+          validate={required("No puede estar vacío")}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput
@@ -113,17 +158,25 @@ export const ClientEdit = (props) => (
           required
           label="Puntos del cliente"
           source="puntos"
+          validate={validatePoints}
         />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
         <TextField fullWidth label="Detalle de baja" source="motivoBaja" />
       </FormTab>
       <FormTab label="domicilio">
-        <TextInput fullWidth required label="Calle" source="domicilio.calle" />
+        <TextInput
+          fullWidth
+          required
+          label="Calle"
+          source="domicilio.calle"
+          validate={validateText}
+        />
         <NumberInput
           fullWidth
           required
           label="Número"
           source="domicilio.numero"
+          validate={validateNumber}
         />
         <NumberInput fullWidth label="Piso" source="domicilio.piso" />
         <TextInput
@@ -136,46 +189,65 @@ export const ClientEdit = (props) => (
           required
           label="Barrio"
           source="domicilio.barrio"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Código Postal"
           source="domicilio.codigoPostal"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Ciudad"
           source="domicilio.ciudad"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Localidad"
           source="domicilio.localidad"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Provincia"
           source="domicilio.provincia"
+          validate={validateText}
         />
-        <TextInput fullWidth required label="País" source="domicilio.pais" />
+        <TextInput
+          fullWidth
+          required
+          label="País"
+          source="domicilio.pais"
+          validate={validateText}
+        />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput fullWidth required label="Email" source="contacto.email" />
+        <TextInput
+          fullWidth
+          required
+          label="Email"
+          source="contacto.email"
+          validate={validateEmail}
+        />
         <TextInput
           fullWidth
           required
           label="Celular"
           source="contacto.celular"
+          validate={validatePhone}
         />
         <TextInput
           fullWidth
           required
           label="Teléfono"
           source="contacto.telefono"
+          validate={validatePhone}
         />
       </FormTab>
     </TabbedForm>
@@ -183,27 +255,40 @@ export const ClientEdit = (props) => (
 );
 
 export const ClientCreate = (props) => (
-  <Create title="Crear nuevo cliente" {...props}>
-    <TabbedForm margin="normal">
+  <Create undoable={false} title="Crear nuevo cliente" {...props}>
+    <TabbedForm
+      margin="normal"
+      validate={validateCreation}
+      toolbar={<ClientsToolbar />}
+    >
       <FormTab label="persona">
-        <NumberInput fullWidth required label="DNI" source="dni" />
+        <NumberInput
+          fullWidth
+          required
+          label="DNI"
+          source="dni"
+          validate={validateDni}
+        />
         <TextInput
           fullWidth
           required
           label="Nombre del cliente"
           source="nombre"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Apellido del cliente"
           source="apellido"
+          validate={validateText}
         />
         <DateInput
           fullWidth
           required
           label="Fecha de nacimiento."
           source="fechaNacimiento"
+          validate={required("No puede estar vacío")}
         />
         <SelectInput
           fullWidth
@@ -211,6 +296,8 @@ export const ClientCreate = (props) => (
           label="Estado civil"
           source="estadoCivil"
           choices={estadosCiviles}
+          validate={required("No puede estar vacío")}
+          defaultValue={false}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput
@@ -218,16 +305,24 @@ export const ClientCreate = (props) => (
           required
           label="Puntos del cliente"
           source="puntos"
+          validate={validatePoints}
         />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
       </FormTab>
       <FormTab label="domicilio">
-        <TextInput fullWidth required label="Calle" source="domicilio.calle" />
+        <TextInput
+          fullWidth
+          required
+          label="Calle"
+          source="domicilio.calle"
+          validate={validateText}
+        />
         <NumberInput
           fullWidth
           required
           label="Número"
           source="domicilio.numero"
+          validate={validateNumber}
         />
         <NumberInput fullWidth label="Piso" source="domicilio.piso" />
         <TextInput
@@ -240,46 +335,65 @@ export const ClientCreate = (props) => (
           required
           label="Barrio"
           source="domicilio.barrio"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Código Postal"
           source="domicilio.codigoPostal"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Ciudad"
           source="domicilio.ciudad"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Localidad"
           source="domicilio.localidad"
+          validate={validateText}
         />
         <TextInput
           fullWidth
           required
           label="Provincia"
           source="domicilio.provincia"
+          validate={validateText}
         />
-        <TextInput fullWidth required label="País" source="domicilio.pais" />
+        <TextInput
+          fullWidth
+          required
+          label="País"
+          source="domicilio.pais"
+          validate={validateText}
+        />
       </FormTab>
       <FormTab label="contacto">
-        <TextInput fullWidth required label="Email" source="contacto.email" />
+        <TextInput
+          fullWidth
+          required
+          label="Email"
+          source="contacto.email"
+          validate={validateEmail}
+        />
         <TextInput
           fullWidth
           required
           label="Celular"
           source="contacto.celular"
+          validate={validatePhone}
         />
         <TextInput
           fullWidth
           required
           label="Teléfono"
           source="contacto.telefono"
+          validate={validatePhone}
         />
       </FormTab>
     </TabbedForm>
