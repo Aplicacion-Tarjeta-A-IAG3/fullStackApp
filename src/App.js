@@ -18,7 +18,6 @@ import BusinessIcon from "@material-ui/icons/Business";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import CardTravelIcon from "@material-ui/icons/CardTravel";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import MoneyIcon from "@material-ui/icons/Money";
 import LoginPage from "./components/login";
 // Resources Components (CRUD)
 //import { UserList, UserEdit, UserCreate } from "./components/users"; // TODO: remove this when api is done
@@ -30,12 +29,7 @@ import {
 } from "./components/businesses";
 import { ProductList, ProductCreate, ProductEdit } from "./components/products";
 import { CardList } from "./components/cards"; //Componente de tarjetas
-import {
-  TransactionList,
-  TransactionCreate,
-  TransactionShow,
-} from "./components/transactions";
-import { BalanceList } from "./components/balances";
+import { TransactionList, TransactionCreate } from "./components/transactions";
 import Dashboard from "./components/dashboard";
 
 const messages = {
@@ -105,18 +99,8 @@ const App = () => (
       ) : null,
       permissions === "comercio" ? (
         <Resource
-          name="resumenes"
-          list={BalanceList}
-          // show={BalanceShow}
-          // create={TransactionCreate}
-          icon={MoneyIcon}
-        />
-      ) : null,
-      permissions === "comercio" ? (
-        <Resource
           name="transacciones"
           list={TransactionList}
-          // show={TransactionShow}
           create={TransactionCreate}
           icon={AttachMoneyIcon}
         />

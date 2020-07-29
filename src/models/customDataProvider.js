@@ -89,9 +89,21 @@ export default {
       .then((response) => {
         return response.json();
       })
-      .then((result) => ({
-        data: { ...params.data, id: result.id },
-      }))
+      .then((result) => {
+        if (resource === "resumenes") {
+          const resulMap = result.map((r) => ({
+            ...params.data,
+            id: r.id,
+          }));
+
+          return {
+            data: resulMap,
+          };
+        }
+        return {
+          data: { ...params.data, id: result.id },
+        };
+      })
       .catch((e) => ({
         error: e.message,
       }));
