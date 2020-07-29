@@ -20,9 +20,17 @@ import {
   Button,
   Link,
   DateInput,
+  Toolbar,
+  SaveButton,
 } from "react-admin";
 import { number, minValue, email, required, minLength } from "react-admin";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
+
+const ClientsToolbar = ({ resource, ...props }) => (
+  <Toolbar {...props}>
+    <SaveButton redirect="list" submitOnEnter={false} />
+  </Toolbar>
+);
 
 const estadosCiviles = [
   { id: false, name: "Soltero(a)" },
@@ -76,7 +84,7 @@ export const ClientList = (props) => (
 
 // !! this is necessary to validate values' lengths for NumberInput components
 const validateCreation = (values) => {
-  console.log("values", values);
+  // console.log("values", values);
   const errors = {};
   const { dni } = values;
   const dniRegex = new RegExp(/^[0-9]{7,8}$/);
@@ -112,7 +120,7 @@ const validatePhone = [
 
 export const ClientEdit = (props) => (
   <Edit undoable={false} title="Editar cliente" {...props}>
-    <TabbedForm margin="normal">
+    <TabbedForm margin="normal" toolbar={<ClientsToolbar />}>
       <FormTab label="persona">
         <NumberInput disabled fullWidth label="DNI" source="dni" />
         <TextInput
@@ -248,7 +256,11 @@ export const ClientEdit = (props) => (
 
 export const ClientCreate = (props) => (
   <Create undoable={false} title="Crear nuevo cliente" {...props}>
-    <TabbedForm margin="normal" validate={validateCreation}>
+    <TabbedForm
+      margin="normal"
+      validate={validateCreation}
+      toolbar={<ClientsToolbar />}
+    >
       <FormTab label="persona">
         <NumberInput
           fullWidth
