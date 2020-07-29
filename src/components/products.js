@@ -27,7 +27,7 @@ export const ProductList = (props) => (
 );
 
 export const ProductCreate = (props) => (
-  <Create title="Nuevo producto" {...props}>
+  <Create undoable="false" title="Nuevo producto" {...props}>
     <SimpleForm>
       <TextInput fullWidth required source="nombre" />
       <TextInput fullWidth required source="tipo" />
@@ -39,7 +39,7 @@ export const ProductCreate = (props) => (
 );
 
 export const ProductEdit = (props) => (
-  <Edit {...props}>
+  <Edit undoable={false} {...props}>
     <SimpleForm>
       <NumberInput fullWidth disabled source="id" />
       <TextInput fullWidth required source="nombre" />
