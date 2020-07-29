@@ -48,5 +48,9 @@ const resourceMessages = {
   newRecords: {
     "forEach is not a function": "No se encontraron datos",
   },
+  serverResponseError:
+    "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
+  "Unexpected token E in JSON at position 0":
+    "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
 };
 export default resourceMessages;
