@@ -12,14 +12,7 @@ import {
   Loading,
   SelectInput,
 } from "react-admin";
-import {
-  required,
-  number,
-  minValue,
-  minLength,
-  maxLength,
-  regex,
-} from "react-admin";
+import { required, number, minValue, minLength, maxLength } from "react-admin";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 const headers = {

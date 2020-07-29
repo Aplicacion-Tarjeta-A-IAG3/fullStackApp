@@ -19,7 +19,6 @@ import {
   SelectInput,
   Button,
   Link,
-  DateField,
   DateInput,
 } from "react-admin";
 import {
@@ -29,7 +28,6 @@ import {
   email,
   required,
   minLength,
-  maxLength,
 } from "react-admin";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
