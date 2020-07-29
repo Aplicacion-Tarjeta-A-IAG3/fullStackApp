@@ -15,8 +15,16 @@ import {
   NumberInput,
   PasswordInput,
   BooleanInput,
+  Toolbar,
+  SaveButton,
 } from "react-admin";
 import { number, minValue, email, required, minLength } from "react-admin";
+
+const BusinessesToolbar = ({ resource, ...props }) => (
+  <Toolbar {...props}>
+    <SaveButton redirect="list" submitOnEnter={false} />
+  </Toolbar>
+);
 
 export const BusinessList = (props) => (
   <List {...props} exporter={false} bulkActionButtons={false}>
@@ -64,7 +72,7 @@ const validatePhone = [
 
 export const BusinessEdit = (props) => (
   <Edit undoable={false} title="Editar establecimiento" {...props}>
-    <TabbedForm margin="normal">
+    <TabbedForm margin="normal" toolbar={<BusinessesToolbar />}>
       <FormTab label="comercio">
         <NumberInput disabled required fullWidth label="CUIT" source="cuit" />
         <TextInput
@@ -170,7 +178,11 @@ export const BusinessEdit = (props) => (
 
 export const BusinessCreate = (props) => (
   <Create undoable={false} title="Crear nuevo establecimiento" {...props}>
-    <TabbedForm margin="normal" validate={validateCreation}>
+    <TabbedForm
+      margin="normal"
+      validate={validateCreation}
+      toolbar={<BusinessesToolbar />}
+    >
       <FormTab label="comercio">
         <NumberInput
           required
