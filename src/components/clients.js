@@ -21,14 +21,7 @@ import {
   Link,
   DateInput,
 } from "react-admin";
-import {
-  number,
-  minValue,
-  maxValue,
-  email,
-  required,
-  minLength,
-} from "react-admin";
+import { number, minValue, email, required, minLength } from "react-admin";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const estadosCiviles = [
@@ -118,7 +111,7 @@ const validatePhone = [
 ];
 
 export const ClientEdit = (props) => (
-  <Edit title="Editar cliente" {...props}>
+  <Edit undoable={false} title="Editar cliente" {...props}>
     <TabbedForm margin="normal">
       <FormTab label="persona">
         <NumberInput disabled fullWidth label="DNI" source="dni" />
@@ -254,7 +247,7 @@ export const ClientEdit = (props) => (
 );
 
 export const ClientCreate = (props) => (
-  <Create title="Crear nuevo cliente" {...props}>
+  <Create undoable={false} title="Crear nuevo cliente" {...props}>
     <TabbedForm margin="normal" validate={validateCreation}>
       <FormTab label="persona">
         <NumberInput
