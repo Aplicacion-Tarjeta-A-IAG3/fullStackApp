@@ -52,5 +52,7 @@ const resourceMessages = {
     "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
   "Unexpected token E in JSON at position 0":
     "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
+  "Bad request":
+    "¡Ha ocurrido un error! No se guardaron los cambios. [Respuesta del servidor: 'Bad Request']",
 };
 export default resourceMessages;
