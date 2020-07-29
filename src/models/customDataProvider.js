@@ -68,9 +68,22 @@ export default {
     const url = `${apiUrl}/${resource}`;
     return fetch(url, options)
       .then((response) => {
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          return { error: response.status, r: response.json() };
+        }
       })
-      .then((result) => ({ data: result }));
+      .then((result) => {
+        if (result.error) {
+          return { error: result.r.message };
+        } else {
+          return { data: result };
+        }
+      })
+      .catch((e) => ({
+        error: e.message,
+      }));
   },
 
   create: (resource, params) => {
