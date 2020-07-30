@@ -23,7 +23,7 @@ import {
   Toolbar,
   SaveButton,
 } from "react-admin";
-import { number, minValue, email, required, minLength } from "react-admin";
+import formValidations from "../models/formValidations";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 
 const ClientsToolbar = ({ resource, ...props }) => (
@@ -36,19 +36,6 @@ const estadosCiviles = [
   { id: false, name: "Soltero(a)" },
   { id: true, name: "Casado(a)" },
 ];
-
-// const bajaDescripciones = [
-//   { id: "temporal", name: "Baja temporal del sistema" },
-//   { id: "definitiva", name: "Baja definitiva del sistema" },
-//   { id: "datosIncompletos", name: "Por datos incompletos" },
-//   { id: "movimientosProhibidos", name: "Por movimientos prohibidos" },
-//   { id: "", name: "-" },
-// ];
-
-// const estado = (idDescripcion) => {
-//   const item = bajaDescripciones.find((d) => d.id === idDescripcion);
-//   return item.name;
-// };
 
 const AsignProductField = ({ record = {} }) => (
   <Button
@@ -94,30 +81,6 @@ const validateCreation = (values) => {
   return errors;
 };
 
-const validateDni = [
-  required("No puede estar vacío"),
-  number("Debe ser un numero"),
-];
-const validateEmail = [
-  required("No puede estar vacío"),
-  email("Debe ser un email válido"),
-];
-const validateText = [required("No puede estar vacío"), minLength(2)];
-const validateNumber = [
-  required("No puede estar vacío"),
-  number("Debe ser un numero"),
-  minValue(1),
-];
-const validatePoints = [
-  required("No puede estar vacío"),
-  number("Debe ser un numero"),
-  minValue(0),
-];
-const validatePhone = [
-  required("No puede estar vacío"),
-  number("Debe ser un numero"),
-];
-
 export const ClientEdit = (props) => (
   <Edit undoable={false} title="Editar cliente" {...props}>
     <TabbedForm margin="normal" toolbar={<ClientsToolbar />}>
@@ -125,40 +88,35 @@ export const ClientEdit = (props) => (
         <NumberInput disabled fullWidth label="DNI" source="dni" />
         <TextInput
           fullWidth
-          required
           label="Nombre del cliente"
           source="nombre"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Apellido del cliente"
           source="apellido"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <DateInput
           fullWidth
-          required
           label="Fecha de nacimiento"
           source="fechaNacimiento"
-          validate={required("No puede estar vacío")}
+          validate={formValidations.validateRequired}
         />
         <SelectInput
           fullWidth
-          required
           label="Estado civil"
           source="estadoCivil"
           choices={estadosCiviles}
-          validate={required("No puede estar vacío")}
+          validate={formValidations.validateRequired}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput
           fullWidth
-          required
           label="Puntos del cliente"
           source="puntos"
-          validate={validatePoints}
+          validate={formValidations.validatePoints}
         />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
         <TextField fullWidth label="Detalle de baja" source="motivoBaja" />
@@ -166,17 +124,15 @@ export const ClientEdit = (props) => (
       <FormTab label="domicilio">
         <TextInput
           fullWidth
-          required
           label="Calle"
           source="domicilio.calle"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <NumberInput
           fullWidth
-          required
           label="Número"
           source="domicilio.numero"
-          validate={validateNumber}
+          validate={formValidations.validateNumber}
         />
         <NumberInput fullWidth label="Piso" source="domicilio.piso" />
         <TextInput
@@ -186,68 +142,59 @@ export const ClientEdit = (props) => (
         />
         <TextInput
           fullWidth
-          required
           label="Barrio"
           source="domicilio.barrio"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Código Postal"
           source="domicilio.codigoPostal"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Ciudad"
           source="domicilio.ciudad"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Localidad"
           source="domicilio.localidad"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Provincia"
           source="domicilio.provincia"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="País"
           source="domicilio.pais"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
       </FormTab>
       <FormTab label="contacto">
         <TextInput
           fullWidth
-          required
           label="Email"
           source="contacto.email"
-          validate={validateEmail}
+          validate={formValidations.validateEmail}
         />
         <TextInput
           fullWidth
-          required
           label="Celular"
           source="contacto.celular"
-          validate={validatePhone}
+          validate={formValidations.validatePhone}
         />
         <TextInput
           fullWidth
-          required
           label="Teléfono"
           source="contacto.telefono"
-          validate={validatePhone}
+          validate={formValidations.validatePhone}
         />
       </FormTab>
     </TabbedForm>
@@ -264,65 +211,57 @@ export const ClientCreate = (props) => (
       <FormTab label="persona">
         <NumberInput
           fullWidth
-          required
           label="DNI"
           source="dni"
-          validate={validateDni}
+          validate={formValidations.validateDni}
         />
         <TextInput
           fullWidth
-          required
           label="Nombre del cliente"
           source="nombre"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Apellido del cliente"
           source="apellido"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <DateInput
           fullWidth
-          required
           label="Fecha de nacimiento."
           source="fechaNacimiento"
-          validate={required("No puede estar vacío")}
+          validate={formValidations.validateRequired}
         />
         <SelectInput
           fullWidth
-          required
           label="Estado civil"
           source="estadoCivil"
           choices={estadosCiviles}
-          validate={required("No puede estar vacío")}
+          validate={formValidations.validateRequired}
           defaultValue={false}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput
           fullWidth
-          required
           label="Puntos del cliente"
           source="puntos"
-          validate={validatePoints}
+          validate={formValidations.validatePoints}
         />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
       </FormTab>
       <FormTab label="domicilio">
         <TextInput
           fullWidth
-          required
           label="Calle"
           source="domicilio.calle"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <NumberInput
           fullWidth
-          required
           label="Número"
           source="domicilio.numero"
-          validate={validateNumber}
+          validate={formValidations.validateNumber}
         />
         <NumberInput fullWidth label="Piso" source="domicilio.piso" />
         <TextInput
@@ -332,68 +271,59 @@ export const ClientCreate = (props) => (
         />
         <TextInput
           fullWidth
-          required
           label="Barrio"
           source="domicilio.barrio"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Código Postal"
           source="domicilio.codigoPostal"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Ciudad"
           source="domicilio.ciudad"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Localidad"
           source="domicilio.localidad"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="Provincia"
           source="domicilio.provincia"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
         <TextInput
           fullWidth
-          required
           label="País"
           source="domicilio.pais"
-          validate={validateText}
+          validate={formValidations.validateText}
         />
       </FormTab>
       <FormTab label="contacto">
         <TextInput
           fullWidth
-          required
           label="Email"
           source="contacto.email"
-          validate={validateEmail}
+          validate={formValidations.validateEmail}
         />
         <TextInput
           fullWidth
-          required
           label="Celular"
           source="contacto.celular"
-          validate={validatePhone}
+          validate={formValidations.validatePhone}
         />
         <TextInput
           fullWidth
-          required
           label="Teléfono"
           source="contacto.telefono"
-          validate={validatePhone}
+          validate={formValidations.validatePhone}
         />
       </FormTab>
     </TabbedForm>
