@@ -15,6 +15,7 @@ import MUIDataTable from "mui-datatables";
 import TodayIcon from "@material-ui/icons/Today";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import Rotate90DegreesCcwIcon from "@material-ui/icons/Rotate90DegreesCcw";
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import MoneyIcon from "@material-ui/icons/Money";
 import {
   currencyParser,
@@ -61,26 +62,26 @@ export default function BusinessDailyBalance(props) {
         headers: headers,
       };
 
-      const url = `${apiUrl}/transacciones/diario?cuit=${username}`;
+      const url = `${apiUrl}/transacciones/diario?cuit=${9827352865}`;
 
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
       const dataResult = await result.json();
       if (result.status === 200) {
         const {
-          esResumen,
-          resumenDelDia,
+          movimientosDelDia,
           total,
           totalComisiones,
           totalSinComisiones,
+          fechaPago,
           pagos,
         } = dataResult;
         setResumen({
-          isBalance: esResumen,
-          day: isDefined(resumenDelDia) ? resumenDelDia : "-",
+          day: isDefined(movimientosDelDia) ? movimientosDelDia : "-",
           netTotal: currencyParser(total),
           grossTotal: currencyParser(totalSinComisiones),
           fees: currencyParser(totalComisiones),
+          payDay: isDefined(fechaPago) ? fechaPago : "-",
         });
         setRows(
           pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
@@ -115,14 +116,14 @@ export default function BusinessDailyBalance(props) {
                 <ListItemIcon>
                   <TodayIcon />
                 </ListItemIcon>
-                <ListItemText secondary="Día" primary={resumen.day} />
+                <ListItemText secondary="Hoy" primary={resumen.day} />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <LibraryBooksIcon />
                 </ListItemIcon>
                 <ListItemText
-                  secondary="Total de transacciones"
+                  secondary="Total en movimientos"
                   primary={resumen.grossTotal}
                 />
               </ListItem>
@@ -130,18 +131,24 @@ export default function BusinessDailyBalance(props) {
                 <ListItemIcon>
                   <Rotate90DegreesCcwIcon />
                 </ListItemIcon>
-                <ListItemText
-                  secondary="Total de comisiones"
-                  primary={resumen.fees}
-                />
+                <ListItemText secondary="Comisiones" primary={resumen.fees} />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <MoneyIcon />
                 </ListItemIcon>
                 <ListItemText
-                  secondary="Total a recibir"
+                  secondary="Total a depositar"
                   primary={resumen.netTotal}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <EventAvailableIcon />
+                </ListItemIcon>
+                <ListItemText
+                  secondary="Fecha a depositar"
+                  primary={resumen.payDay}
                 />
               </ListItem>
             </List>
