@@ -93,7 +93,7 @@ const months = {
 
 const username = localStorage.getItem("username");
 
-export default function BalanceOfTheDay(props) {
+export default function ClientMonthlyBalance(props) {
   const classes = useStyles();
   const [cards, setCards] = React.useState([]);
   const [card, setCard] = React.useState(null);

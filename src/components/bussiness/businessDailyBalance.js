@@ -96,7 +96,7 @@ const months = {
 
 const username = localStorage.getItem("username");
 
-export default function BalanceOfTheDay(props) {
+export default function BusinessDailyBalance(props) {
   const classes = useStyles();
   const [resumen, setResumen] = React.useState({
     isBalance: false,

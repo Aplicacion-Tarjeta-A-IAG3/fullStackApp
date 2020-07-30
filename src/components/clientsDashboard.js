@@ -5,7 +5,7 @@ import { Paper, Tabs, Tab, Typography, Box } from "@material-ui/core";
 import MoneyIcon from "@material-ui/icons/Money";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
-import BalanceOfTheMonth from "./clients/balanceOfTheMonth";
+import ClientMonthlyBalance from "./clients/clientMonthlyBalance";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,7 +82,7 @@ export default function ClientsDashboard() {
         />
       </Tabs>
       <TabPanel value={value} index={0} style={{ minHeight: "400px" }}>
-        <BalanceOfTheMonth />
+        <ClientMonthlyBalance />
       </TabPanel>
       <TabPanel value={value} index={1} style={{ minHeight: "400px" }}>
         Resumenes
