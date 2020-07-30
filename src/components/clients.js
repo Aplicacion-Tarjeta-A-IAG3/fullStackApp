@@ -49,7 +49,12 @@ const AsignProductField = ({ record = {} }) => (
 );
 
 export const ClientList = (props) => (
-  <List {...props} exporter={false} bulkActionButtons={false}>
+  <List
+    {...props}
+    exporter={false}
+    bulkActionButtons={false}
+    pagination={false}
+  >
     <Datagrid>
       <TextField source="id" />
       <NumberField label="DNI" source="dni" />

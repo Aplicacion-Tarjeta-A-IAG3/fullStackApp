@@ -27,7 +27,12 @@ const BusinessesToolbar = ({ resource, ...props }) => (
 );
 
 export const BusinessList = (props) => (
-  <List {...props} exporter={false} bulkActionButtons={false}>
+  <List
+    {...props}
+    exporter={false}
+    bulkActionButtons={false}
+    pagination={false}
+  >
     <Datagrid>
       <TextField source="id" />
       <NumberField label="CUIT" source="cuit" />
