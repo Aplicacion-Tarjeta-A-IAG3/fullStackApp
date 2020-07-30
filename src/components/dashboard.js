@@ -5,6 +5,7 @@ import { Title } from "react-admin";
 // import Background from "../utils/still-working.jpg";
 import Background from "../utils/cards.jpg";
 import BusinessDashboard from "./bussinessDashboard";
+import ClientsDashboard from "./clientsDashboard";
 
 export default ({ permissions }) => {
   const title = {
@@ -18,7 +19,7 @@ export default ({ permissions }) => {
     "Administrar los comercios",
     "Administrar los productos",
   ];
-  const persona = [
+  const cliente = [
     "Administrar tus tarjetas",
     "Consultar tu resumen del mes",
     "Descargar tus resúmenes",
@@ -41,7 +42,8 @@ export default ({ permissions }) => {
         }}
       >
         {permissions === "comercio" && <BusinessDashboard />}
-        {permissions !== "comercio" && (
+        {permissions === "cliente" && <ClientsDashboard />}
+        {permissions !== "comercio" && permissions !== "cliente" && (
           <div
             style={{
               color: "#fff",
@@ -61,7 +63,7 @@ export default ({ permissions }) => {
             )}
             {permissions === "cliente" && (
               <ul style={{ listStyle: "none" }}>
-                {persona.map((i) => (
+                {cliente.map((i) => (
                   <li key={`perm-${i}`}>{i}</li>
                 ))}
               </ul>
