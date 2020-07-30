@@ -40,11 +40,11 @@ const username = localStorage.getItem("username");
 export default function BusinessDailyBalance(props) {
   const classes = useStyles();
   const [resumen, setResumen] = React.useState({
-    isBalance: false,
-    day: 0,
+    day: "-",
     netTotal: 0,
     grossTotal: 0,
     fees: 0,
+    payDay: "-",
   });
   const [rows, setRows] = React.useState([]);
 
