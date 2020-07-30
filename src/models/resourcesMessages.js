@@ -48,6 +48,8 @@ const resourceMessages = {
     message: {
       loading:
         "¿Está tardando mucho? Refrescá la página y volvé a intentarlo por favor.",
+      invalid_form:
+        "Datos incorrectos o incompletos. Por favor verifique el formulario y las pestañas",
     },
   },
   newRecords: {
@@ -62,7 +64,7 @@ const resourceMessages = {
   emptyValidation: "No puede estar vacío",
   numericValidation: "Debe ser numérico",
   emailValidation: "Email inválido",
-  "El formulario no es válido. Por favor verifique si hay errores":
+  invalid_form:
     "Datos incorrectos o incompletos. Por favor verifique el formulario y las pestañas",
 };
 export default resourceMessages;

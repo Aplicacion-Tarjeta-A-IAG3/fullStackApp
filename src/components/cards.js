@@ -1,26 +1,5 @@
 import * as React from "react";
-import {
-  List,
-  Datagrid,
-  TextField,
-  NumberField,
-  Button,
-  Link,
-} from "react-admin";
-import CreditCardIcon from "@material-ui/icons/CreditCard";
-
-const ShowStatementsField = ({ record = {} }) => (
-  <Button
-    component={Link}
-    to={{
-      pathname: `/tarjetas/${record.id}/mostrar_resumen/${record.tarjeta}`,
-    }}
-    label="Ver Resumen"
-    //disabled={!record.activo}
-  >
-    <CreditCardIcon />
-  </Button>
-);
+import { List, Datagrid, TextField, NumberField } from "react-admin";
 
 export const CardList = (props) => (
   <List
@@ -51,7 +30,6 @@ export const CardList = (props) => (
         }}
       />
       <TextField label="Vencimiento" source="vencimiento" />
-      {/* <ShowStatementsField /> */}
     </Datagrid>
   </List>
 );
