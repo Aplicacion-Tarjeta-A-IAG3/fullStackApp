@@ -13,6 +13,7 @@ import {
   EditButton,
   Toolbar,
   SaveButton,
+  FormDataConsumer,
 } from "react-admin";
 import { required, minLength } from "react-admin";
 
@@ -90,12 +91,14 @@ export const ProductEdit = (props) => (
         source="requisitos"
         validate={validateText}
       />
-      <BooleanInput
-        fullWidth
-        required
-        source="activo"
-        validate={validateBoolean}
-      />
+      <BooleanInput fullWidth label="Producto activo" source="activo" />
+      <FormDataConsumer fullWidth>
+        {({ formData, ...rest }) =>
+          !formData.activo && (
+            <TextInput label="Detalle de baja" source="motivoBaja" {...rest} />
+          )
+        }
+      </FormDataConsumer>
     </SimpleForm>
   </Edit>
 );
