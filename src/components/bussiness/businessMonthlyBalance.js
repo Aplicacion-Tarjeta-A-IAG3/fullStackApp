@@ -20,6 +20,7 @@ import {
   currencyParser,
   monthsMapper,
   balanceTableOptions,
+  isDefined,
 } from "../../utils/helpers";
 // import { businessBalanceProvider } from "../../models/balanceProvider"; // TODO: use request from provider
 
@@ -78,7 +79,7 @@ export default function BusinessMonthlyBalance(props) {
         } = dataResult;
         setResumen({
           isBalance: esResumen,
-          month: resumenDelMes ? resumenDelMes : "-",
+          month: isDefined(resumenDelMes) ? resumenDelMes : 0,
           netTotal: currencyParser(total),
           grossTotal: currencyParser(totalSinComisiones),
           fees: currencyParser(totalComisiones),

@@ -24,6 +24,7 @@ import {
   currencyParser,
   monthsMapper,
   balanceTableOptions,
+  isDefined,
 } from "../../utils/helpers";
 // import { businessBalanceProvider } from "../../models/balanceProvider"; // TODO: use request from provider
 
@@ -100,10 +101,10 @@ export default function ClientMonthlyBalance(props) {
           consumosDelMes,
         } = dataResult;
         setResumen({
-          month: resumenDelMes ? resumenDelMes : "-",
+          month: isDefined(resumenDelMes) ? resumenDelMes : 0,
           monthTotal: currencyParser(totaldelMes),
           debtTotal: currencyParser(totalAdeudado),
-          myPoints: totalPuntosMes.puntos ? totalPuntosMes.puntos : "-",
+          myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
         });
         setRows(
           consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -158,10 +159,10 @@ export default function ClientMonthlyBalance(props) {
         consumosDelMes,
       } = dataResult;
       setResumen({
-        month: resumenDelMes ? resumenDelMes : "-",
+        month: isDefined(resumenDelMes) ? resumenDelMes : 0,
         monthTotal: currencyParser(totaldelMes),
         debtTotal: currencyParser(totalAdeudado),
-        myPoints: totalPuntosMes.puntos ? totalPuntosMes.puntos : "-",
+        myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
       });
       setRows(
         consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [

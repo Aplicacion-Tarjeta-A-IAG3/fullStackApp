@@ -16,7 +16,11 @@ import TodayIcon from "@material-ui/icons/Today";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import Rotate90DegreesCcwIcon from "@material-ui/icons/Rotate90DegreesCcw";
 import MoneyIcon from "@material-ui/icons/Money";
-import { currencyParser, balanceTableOptions } from "../../utils/helpers";
+import {
+  currencyParser,
+  balanceTableOptions,
+  isDefined,
+} from "../../utils/helpers";
 // import { businessBalanceProvider } from "../../models/balanceProvider"; // TODO: use request from provider
 
 const useStyles = makeStyles((theme) => ({
@@ -73,7 +77,7 @@ export default function BusinessDailyBalance(props) {
         } = dataResult;
         setResumen({
           isBalance: esResumen,
-          day: resumenDelDia ? resumenDelDia : "-",
+          day: isDefined(resumenDelDia) ? resumenDelDia : "-",
           netTotal: currencyParser(total),
           grossTotal: currencyParser(totalSinComisiones),
           fees: currencyParser(totalComisiones),

@@ -1,12 +1,32 @@
-export const currencyParser = (number) =>
-  Number.isNaN(number)
-    ? "-"
-    : number.toLocaleString("de-DE", {
-        style: "currency",
-        currency: "ARS",
-      });
+export const currencyParser = (number) => {
+  let parsedNum = "-";
+  console.log("number 1", number);
+  if (number && number !== "undefined" && !isPromise(number)) {
+    console.log("number 2", number, number.then);
+    parsedNum = number.toLocaleString("de-DE", {
+      style: "currency",
+      currency: "ARS",
+    });
+  }
+  console.log("PARSED?", number, parsedNum);
+  return parsedNum;
+};
+
+export const isDefined = (v) => {
+  return (
+    v &&
+    v !== "undefined" &&
+    Object.prototype.toString.call(v) !== "[object Promise]"
+  );
+};
+
+const isPromise = (p) => {
+  console.log("es p?", p);
+  return p && Object.prototype.toString.call(p) === "[object Promise]";
+};
 
 export const monthsMapper = {
+  0: "-",
   1: "Enero",
   2: "Febrero",
   3: "Marzo",
