@@ -34,7 +34,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
-const columns = ["Monto (AR$)", "Tipo", "Detalle", "Fecha"];
+const columns = [
+  "Monto (AR$)",
+  "Tipo",
+  "Detalle",
+  "Fecha ingreso venta",
+  "Fecha a depositar",
+];
 const username = localStorage.getItem("username");
 
 export default function BusinessDailyBalance(props) {
@@ -89,6 +95,7 @@ export default function BusinessDailyBalance(props) {
             tipoTransaccion,
             detalle,
             fecha,
+            isDefined(fechaPago) ? fechaPago : "-",
           ])
         );
         // console.log("business data:", dataResult);
