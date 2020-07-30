@@ -62,7 +62,7 @@ export default function BusinessDailyBalance(props) {
         headers: headers,
       };
 
-      const url = `${apiUrl}/transacciones/diario?cuit=${9827352865}`;
+      const url = `${apiUrl}/transacciones/diario?cuit=${username}`;
 
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
