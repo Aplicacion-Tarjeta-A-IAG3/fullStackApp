@@ -10,6 +10,7 @@ import {
 const formValidation = {
   validateRequired: [required("emptyValidation")],
   validateDni: [required("emptyValidation"), number("numericValidation")],
+  validateCuit: [required("emptyValidation"), number("numericValidation")],
   validateText: [required("emptyValidation"), minLength(4), maxLength(50)],
   validateCard: [required("emptyValidation"), number("numericValidation")],
   validateCvc: [required("emptyValidation"), number("numericValidation")],
