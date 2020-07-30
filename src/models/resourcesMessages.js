@@ -13,6 +13,7 @@ const resourceMessages = {
     personas: {
       name: "Clientes",
       fields: {
+        dni: "DNI",
         contacto: {
           mail: "Email",
         },
@@ -60,5 +61,8 @@ const resourceMessages = {
     "¡Ha ocurrido un error! No se guardaron los cambios. [Respuesta del servidor: 'Bad Request']",
   emptyValidation: "No puede estar vacío",
   numericValidation: "Debe ser numérico",
+  emailValidation: "Email inválido",
+  "El formulario no es válido. Por favor verifique si hay errores":
+    "Datos incorrectos o incompletos. Por favor verifique el formulario y las pestañas",
 };
 export default resourceMessages;
