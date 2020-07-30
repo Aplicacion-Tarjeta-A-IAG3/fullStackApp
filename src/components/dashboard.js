@@ -43,7 +43,7 @@ export default ({ permissions }) => {
       >
         {permissions === "comercio" && <BusinessDashboard />}
         {permissions === "cliente" && <ClientsDashboard />}
-        {permissions !== "comercio" && permissions !== "cliente" && (
+        {permissions === "admin" && (
           <div
             style={{
               color: "#fff",
@@ -51,8 +51,7 @@ export default ({ permissions }) => {
               padding: "1em",
             }}
           >
-            <h2>Disculpe las molestias</h2>
-            <p>Seguimos trabajando para mejorar la web.</p>
+            <h5>Seguimos trabajando para mejorar la web.</h5>
             <p>Desde el menú podrás:</p>
             {permissions === "admin" && (
               <ul style={{ listStyle: "none" }}>

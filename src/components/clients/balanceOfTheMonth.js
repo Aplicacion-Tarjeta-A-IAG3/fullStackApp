@@ -129,11 +129,11 @@ export default function BalanceOfTheDay(props) {
       if (result.status === 200) {
         setCards(dataResult);
         setCard(dataResult[0].tarjeta);
-        console.log("client data:", dataResult);
-        console.log("client pagos:", dataResult[0]);
+        // console.log("client data:", dataResult);
+        // console.log("client pagos:", dataResult[0]);
         fillCardData(dataResult[0].tarjeta);
       } else {
-        console.error(`response from the server: ${dataResult.message}`);
+        console.log(`response from the server: ${dataResult.message}`);
       }
     };
 
@@ -141,7 +141,7 @@ export default function BalanceOfTheDay(props) {
       const url = `${apiUrl}/resumenes?tarjeta=${tarjeta}`;
 
       const result = await fetch(url, requestOptions);
-      console.log("balance status", result.status);
+      // console.log("balance status", result.status);
       const dataResult = await result.json();
       if (result.status === 200) {
         const {
@@ -155,7 +155,7 @@ export default function BalanceOfTheDay(props) {
           month: resumenDelMes,
           monthTotal: totaldelMes,
           debtTotal: totalAdeudado,
-          myPoints: totalPuntosMes,
+          myPoints: totalPuntosMes.puntos,
         });
         setRows(
           consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -165,10 +165,10 @@ export default function BalanceOfTheDay(props) {
             fecha,
           ])
         );
-        console.log("client data:", dataResult);
-        console.log("client pagos:", dataResult.pagos);
+        // console.log("client data:", dataResult);
+        // console.log("client pagos:", dataResult.pagos);
       } else {
-        console.error(`response from the server: ${dataResult.message}`);
+        console.log(`response from the server: ${dataResult.message}`);
         // TODO: add error flash notification
       }
     };
@@ -178,7 +178,7 @@ export default function BalanceOfTheDay(props) {
 
   const handleChange = (event) => {
     const tarjeta = event.target.value;
-    console.log("TARJETA??", tarjeta);
+    // console.log("TARJETA??", tarjeta);
     setCard(tarjeta);
     getCardBalance(tarjeta);
   };
@@ -198,9 +198,8 @@ export default function BalanceOfTheDay(props) {
 
   const getCardBalance = async (tarjeta) => {
     const url = `${apiUrl}/resumenes?tarjeta=${tarjeta}`;
-
     const result = await fetch(url, requestOptions);
-    console.log("balance status", result.status);
+    // console.log("balance status", result.status);
     const dataResult = await result.json();
     if (result.status === 200) {
       const {
@@ -220,7 +219,7 @@ export default function BalanceOfTheDay(props) {
           style: "currency",
           currency: "ARS",
         }),
-        myPoints: totalPuntosMes,
+        myPoints: totalPuntosMes.puntos,
       });
       setRows(
         consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -230,10 +229,10 @@ export default function BalanceOfTheDay(props) {
           fecha,
         ])
       );
-      console.log("client data:", dataResult);
-      console.log("client pagos:", dataResult.pagos);
+      // console.log("client data:", dataResult);
+      // console.log("client pagos:", dataResult.pagos);
     } else {
-      console.error(`response from the server: ${dataResult.message}`);
+      console.log(`response from the server: ${dataResult.message}`);
       // TODO: add error flash notification
     }
   };
