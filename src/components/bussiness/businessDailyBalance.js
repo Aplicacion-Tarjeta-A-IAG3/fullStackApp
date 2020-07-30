@@ -121,7 +121,7 @@ export default function BusinessDailyBalance(props) {
         headers: headers,
       };
 
-      const url = `${apiUrl}/resumenes?cuit=${username}`;
+      const url = `${apiUrl}/transacciones/diario?cuit=${username}`;
 
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
@@ -129,7 +129,7 @@ export default function BusinessDailyBalance(props) {
       if (result.status === 200) {
         const {
           esResumen,
-          resumenDelMes,
+          resumenDelDia,
           total,
           totalComisiones,
           totalSinComisiones,
@@ -137,7 +137,7 @@ export default function BusinessDailyBalance(props) {
         } = dataResult;
         setResumen({
           isBalance: esResumen,
-          month: resumenDelMes,
+          day: resumenDelDia,
           netTotal: total.toLocaleString("de-DE", {
             style: "currency",
             currency: "ARS",
@@ -184,7 +184,7 @@ export default function BusinessDailyBalance(props) {
                 <ListItemIcon>
                   <TodayIcon />
                 </ListItemIcon>
-                <ListItemText secondary="Mes" primary={months[resumen.month]} />
+                <ListItemText secondary="Día" primary={resumen.day} />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
