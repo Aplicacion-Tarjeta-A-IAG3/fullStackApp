@@ -10,7 +10,6 @@ import {
   ListItemText,
   ListItemIcon,
   makeStyles,
-  Select,
   FormControl,
   InputLabel,
   NativeSelect,
@@ -21,6 +20,12 @@ import TodayIcon from "@material-ui/icons/Today";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import Rotate90DegreesCcwIcon from "@material-ui/icons/Rotate90DegreesCcw";
 import MoneyIcon from "@material-ui/icons/Money";
+import {
+  currencyParser,
+  monthsMapper,
+  balanceTableOptions,
+  isDefined,
+} from "../../utils/helpers";
 // import { businessBalanceProvider } from "../../models/balanceProvider"; // TODO: use request from provider
 
 const useStyles = makeStyles((theme) => ({
@@ -35,65 +40,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = ["Monto (AR$)", "Comercio", "Detalle", "Fecha"];
-
-const options = {
-  filterType: "checkbox",
-  pagination: false,
-  selectableRows: "none",
-  textLabels: {
-    body: {
-      noMatch: "No se encontraron registros",
-      toolTip: "Ordenar",
-      columnHeaderTooltip: (column) => `Ordenar por ${column.label}`,
-    },
-    pagination: {
-      next: "Siguiente",
-      previous: "Anterior",
-      rowsPerPage: "Filas por página:",
-      displayRows: "de",
-    },
-    toolbar: {
-      search: "Buscar",
-      downloadCsv: "Descargar CSV",
-      print: "Imprimir",
-      viewColumns: "Ver Columnas",
-      filterTable: "Filtrar Tabla",
-    },
-    filter: {
-      all: "Todos",
-      title: "FILTROS",
-      reset: "LIMPIAR FILTROS",
-    },
-    viewColumns: {
-      title: "Mostrar Columnas",
-      titleAria: "Mostrar/Esconder Columnas",
-    },
-    selectedRows: {
-      text: "filas(s) seleccionadas",
-      delete: "Borrar",
-      deleteAria: "Borrar Filas Seleccionadas",
-    },
-  },
-};
-
-const months = {
-  1: "Enero",
-  2: "Febrero",
-  3: "Marzo",
-  4: "Abril",
-  5: "Mayo",
-  6: "Junio",
-  7: "Julio",
-  8: "Agosto",
-  9: "Septiembre",
-  10: "Octubre",
-  11: "Noviembre",
-  12: "Diciembre",
-};
-
 const username = localStorage.getItem("username");
 
-export default function BalanceOfTheDay(props) {
+export default function ClientMonthlyBalance(props) {
   const classes = useStyles();
   const [cards, setCards] = React.useState([]);
   const [card, setCard] = React.useState(null);
@@ -129,11 +78,11 @@ export default function BalanceOfTheDay(props) {
       if (result.status === 200) {
         setCards(dataResult);
         setCard(dataResult[0].tarjeta);
-        console.log("client data:", dataResult);
-        console.log("client pagos:", dataResult[0]);
+        // console.log("client data:", dataResult);
+        // console.log("client pagos:", dataResult[0]);
         fillCardData(dataResult[0].tarjeta);
       } else {
-        console.error(`response from the server: ${dataResult.message}`);
+        console.log(`response from the server: ${dataResult.message}`);
       }
     };
 
@@ -141,7 +90,7 @@ export default function BalanceOfTheDay(props) {
       const url = `${apiUrl}/resumenes?tarjeta=${tarjeta}`;
 
       const result = await fetch(url, requestOptions);
-      console.log("balance status", result.status);
+      // console.log("balance status", result.status);
       const dataResult = await result.json();
       if (result.status === 200) {
         const {
@@ -152,10 +101,10 @@ export default function BalanceOfTheDay(props) {
           consumosDelMes,
         } = dataResult;
         setResumen({
-          month: resumenDelMes,
-          monthTotal: totaldelMes,
-          debtTotal: totalAdeudado,
-          myPoints: totalPuntosMes,
+          month: isDefined(resumenDelMes) ? resumenDelMes : 0,
+          monthTotal: currencyParser(totaldelMes),
+          debtTotal: currencyParser(totalAdeudado),
+          myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
         });
         setRows(
           consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -165,10 +114,10 @@ export default function BalanceOfTheDay(props) {
             fecha,
           ])
         );
-        console.log("client data:", dataResult);
-        console.log("client pagos:", dataResult.pagos);
+        // console.log("client data:", dataResult);
+        // console.log("client pagos:", dataResult.pagos);
       } else {
-        console.error(`response from the server: ${dataResult.message}`);
+        console.log(`response from the server: ${dataResult.message}`);
         // TODO: add error flash notification
       }
     };
@@ -178,7 +127,7 @@ export default function BalanceOfTheDay(props) {
 
   const handleChange = (event) => {
     const tarjeta = event.target.value;
-    console.log("TARJETA??", tarjeta);
+    // console.log("TARJETA??", tarjeta);
     setCard(tarjeta);
     getCardBalance(tarjeta);
   };
@@ -198,9 +147,8 @@ export default function BalanceOfTheDay(props) {
 
   const getCardBalance = async (tarjeta) => {
     const url = `${apiUrl}/resumenes?tarjeta=${tarjeta}`;
-
     const result = await fetch(url, requestOptions);
-    console.log("balance status", result.status);
+    // console.log("balance status", result.status);
     const dataResult = await result.json();
     if (result.status === 200) {
       const {
@@ -211,16 +159,10 @@ export default function BalanceOfTheDay(props) {
         consumosDelMes,
       } = dataResult;
       setResumen({
-        month: resumenDelMes,
-        monthTotal: totaldelMes.toLocaleString("de-DE", {
-          style: "currency",
-          currency: "ARS",
-        }),
-        debtTotal: totalAdeudado.toLocaleString("de-DE", {
-          style: "currency",
-          currency: "ARS",
-        }),
-        myPoints: totalPuntosMes,
+        month: isDefined(resumenDelMes) ? resumenDelMes : 0,
+        monthTotal: currencyParser(totaldelMes),
+        debtTotal: currencyParser(totalAdeudado),
+        myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
       });
       setRows(
         consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -230,10 +172,10 @@ export default function BalanceOfTheDay(props) {
           fecha,
         ])
       );
-      console.log("client data:", dataResult);
-      console.log("client pagos:", dataResult.pagos);
+      // console.log("client data:", dataResult);
+      // console.log("client pagos:", dataResult.pagos);
     } else {
-      console.error(`response from the server: ${dataResult.message}`);
+      console.log(`response from the server: ${dataResult.message}`);
       // TODO: add error flash notification
     }
   };
@@ -252,7 +194,10 @@ export default function BalanceOfTheDay(props) {
                 <ListItemIcon>
                   <TodayIcon />
                 </ListItemIcon>
-                <ListItemText secondary="Mes" primary={months[resumen.month]} />
+                <ListItemText
+                  secondary="Mes"
+                  primary={monthsMapper[resumen.month]}
+                />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
@@ -304,6 +249,7 @@ export default function BalanceOfTheDay(props) {
               {cards.length > 0 &&
                 cards.map((card) => (
                   <option
+                    key={card.tarjeta}
                     value={card.tarjeta}
                   >{`${card.producto} (Límite: ${card.limite})`}</option>
                 ))}
@@ -318,7 +264,7 @@ export default function BalanceOfTheDay(props) {
         title={"Movimientos"}
         data={rows}
         columns={columns}
-        options={options}
+        options={balanceTableOptions}
       />
     </Container>
   );

@@ -5,7 +5,8 @@ import { Paper, Tabs, Tab, Typography, Box } from "@material-ui/core";
 import MoneyIcon from "@material-ui/icons/Money";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
-import BalanceOfTheDay from "./bussiness/balanceOfTheDay";
+import BusinessDailyBalance from "./bussiness/businessDailyBalance";
+import BusinessMonthlyBalance from "./bussiness/businessMonthlyBalance";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,27 +68,31 @@ export default function BusinessDashboard() {
         aria-label="business dashboard"
         centered
       >
-        <Tab label="Resumen del mes" icon={<MoneyIcon />} {...a11yProps(0)} />
+        <Tab label="Resumen del día" icon={<MoneyIcon />} {...a11yProps(0)} />
+        <Tab label="Resumen del mes" icon={<MoneyIcon />} {...a11yProps(1)} />
         <Tab
           disabled
           label="Resúmenes anteriores"
           icon={<GetAppIcon />}
-          {...a11yProps(1)}
+          {...a11yProps(2)}
         />
         <Tab
           disabled
           label="Mi Perfil"
           icon={<PersonPinIcon />}
-          {...a11yProps(2)}
+          {...a11yProps(3)}
         />
       </Tabs>
       <TabPanel value={value} index={0} style={{ minHeight: "400px" }}>
-        <BalanceOfTheDay />
+        <BusinessDailyBalance />
       </TabPanel>
       <TabPanel value={value} index={1} style={{ minHeight: "400px" }}>
-        Resumenes
+        <BusinessMonthlyBalance />
       </TabPanel>
       <TabPanel value={value} index={2} style={{ minHeight: "400px" }}>
+        Resumenes
+      </TabPanel>
+      <TabPanel value={value} index={3} style={{ minHeight: "400px" }}>
         Mi perfil
       </TabPanel>
     </Paper>
