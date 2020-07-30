@@ -115,7 +115,12 @@ export const TransactionCreate = (props) => {
             }}
           >
             <h4>Datos del comercio</h4>
-            <NumberInput disabled label="CUIT" source="cuit" />
+            <NumberInput
+              disabled
+              label="CUIT"
+              source="cuit"
+              validate={formValidation.validateCuit}
+            />
             <TextInput disabled label="Nombre del comercio" source="comercio" />
             <h4>Datos del cliente</h4>
             <NumberInput
