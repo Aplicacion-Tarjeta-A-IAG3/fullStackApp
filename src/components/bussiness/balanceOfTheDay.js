@@ -138,9 +138,18 @@ export default function BalanceOfTheDay(props) {
         setResumen({
           isBalance: esResumen,
           month: resumenDelMes,
-          netTotal: total,
-          grossTotal: totalSinComisiones,
-          fees: totalComisiones,
+          netTotal: total.toLocaleString("de-DE", {
+            style: "currency",
+            currency: "ARS",
+          }),
+          grossTotal: totalSinComisiones.toLocaleString("de-DE", {
+            style: "currency",
+            currency: "ARS",
+          }),
+          fees: totalComisiones.toLocaleString("de-DE", {
+            style: "currency",
+            currency: "ARS",
+          }),
         });
         setRows(
           pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [

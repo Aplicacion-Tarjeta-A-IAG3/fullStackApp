@@ -179,7 +179,63 @@ export default function BalanceOfTheDay(props) {
   const handleChange = (event) => {
     const tarjeta = event.target.value;
     console.log("TARJETA??", tarjeta);
-    setCard(event.target.value);
+    setCard(tarjeta);
+    getCardBalance(tarjeta);
+  };
+
+  const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
+
+  const headers = {
+    "Content-Type": "application/json",
+    client_id: localStorage.getItem("clientId"),
+    client_secret: localStorage.getItem("clientSecret"),
+  };
+
+  const requestOptions = {
+    method: "GET",
+    headers: headers,
+  };
+
+  const getCardBalance = async (tarjeta) => {
+    const url = `${apiUrl}/resumenes?tarjeta=${tarjeta}`;
+
+    const result = await fetch(url, requestOptions);
+    console.log("balance status", result.status);
+    const dataResult = await result.json();
+    if (result.status === 200) {
+      const {
+        totalPuntosMes,
+        resumenDelMes,
+        totalAdeudado,
+        totaldelMes,
+        consumosDelMes,
+      } = dataResult;
+      setResumen({
+        month: resumenDelMes,
+        monthTotal: totaldelMes.toLocaleString("de-DE", {
+          style: "currency",
+          currency: "ARS",
+        }),
+        debtTotal: totalAdeudado.toLocaleString("de-DE", {
+          style: "currency",
+          currency: "ARS",
+        }),
+        myPoints: totalPuntosMes,
+      });
+      setRows(
+        consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
+          monto,
+          comercio,
+          detalle,
+          fecha,
+        ])
+      );
+      console.log("client data:", dataResult);
+      console.log("client pagos:", dataResult.pagos);
+    } else {
+      console.error(`response from the server: ${dataResult.message}`);
+      // TODO: add error flash notification
+    }
   };
 
   return (
