@@ -12,7 +12,9 @@ import CreditCardIcon from "@material-ui/icons/CreditCard";
 const ShowStatementsField = ({ record = {} }) => (
   <Button
     component={Link}
-    to={{ pathname: `/tarjetas/${record.id}/mostrar_resumen` }}
+    to={{
+      pathname: `/tarjetas/${record.id}/mostrar_resumen/${record.tarjeta}`,
+    }}
     label="Ver Resumen"
     //disabled={!record.activo}
   >
@@ -21,14 +23,30 @@ const ShowStatementsField = ({ record = {} }) => (
 );
 
 export const CardList = (props) => (
-  <List {...props} exporter={false}>
+  <List {...props} exporter={false} bulkActionButtons={false}>
     <Datagrid>
-      <NumberField label="N° Tarjeta" source="tarjeta" />
+      <TextField label="N° Tarjeta" source="tarjeta" />
       <TextField label="Categoría" source="producto" />
-      <NumberField label="Limite" source="limite" />
-      <NumberField label="Saldo" source="saldo" />
+      <NumberField
+        label="Limite"
+        source="limite"
+        options={{
+          style: "currency",
+          currency: "ARS",
+          significantDigits: 2,
+        }}
+      />
+      <NumberField
+        label="Saldo"
+        source="saldo"
+        options={{
+          style: "currency",
+          currency: "ARS",
+          significantDigits: 2,
+        }}
+      />
       <TextField label="Vencimiento" source="vencimiento" />
-      <ShowStatementsField />
+      {/* <ShowStatementsField /> */}
     </Datagrid>
   </List>
 );

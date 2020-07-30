@@ -25,33 +25,6 @@ const headers = {
   client_secret: localStorage.getItem("clientSecret"),
 };
 
-const exporter = (transactions) => {
-  const transactionsExport = transactions.map((transaction) => {
-    const { persona, tarjeta, comercio, detalle, ...forExport } = transaction; // omit persona, tarjeta, comercio and detalle
-    forExport.cliente = `${transaction.persona.nombre} ${transaction.persona.apellido}`;
-    forExport.comercio = transaction.comercio.nombre;
-    forExport.tarjeta = transaction.tarjeta.numero;
-    return forExport;
-  });
-  jsonExport(
-    transactionsExport,
-    {
-      headers: [
-        "id",
-        "monto",
-        "cuotas",
-        "fecha",
-        "cliente",
-        "comercio",
-        "tarjeta",
-      ],
-    },
-    (err, csv) => {
-      downloadCSV(csv, "resumen"); // download as 'resumen.csv` file
-    }
-  );
-};
-
 const ShowStatements = (props) => {
   console.log("props", props);
   const cardId = props.match.params.id;
@@ -64,33 +37,11 @@ const ShowStatements = (props) => {
   // const [isLoaded, setIsLoaded] = useState(false);
   const [statementsLoaded, setStatementsLoaded] = useState(false);
   const [cardLoaded, setCardLoaded] = useState(false);
-  const notify = useNotify();
-  const redirectTo = useRedirect();
 
   // const handleError = (msg) => {
   //   setIsLoaded(true);
   //   setError(msg);
   // };
-
-  const handleStatementShowed = async () => {
-    /* const data = {
-      activo: true,
-      adicional: false,
-      dni: currentCard[0].dni,
-    };
-
-    const options = {
-      method: "GET",
-      headers: headers,
-      body: JSON.stringify(data),
-    };
-
-    const response = await fetch(`${apiUrl}/resumenes`, options);
-    const assigned = await response.json();
-    console.log("data", assigned);*/
-    redirectTo("/tarjetas");
-    notify("Volviendo...");
-  };
 
   useEffect(() => {
     const getCardData = async () => {
@@ -130,7 +81,7 @@ const ShowStatements = (props) => {
     <div>
       <Title title="Ultimo Resumen" />
       {statementsLoaded && cardLoaded && (
-        <List exporter={exporter} {...props}>
+        <List exporter={false} {...props}>
           <div>
             <Card>
               <CardHeader title="Resumen de Cuenta" />
@@ -156,12 +107,6 @@ const ShowStatements = (props) => {
               </CardContent>
               <hr />
               <CardHeader title="Detalle" />
-              <CardContent>
-                <SimpleForm
-                  save={handleStatementShowed}
-                  redirect={"/tarjetas"}
-                ></SimpleForm>
-              </CardContent>
             </Card>
             <Datagrid>
               <TextField source="id" />

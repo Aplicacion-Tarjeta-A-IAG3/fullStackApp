@@ -88,15 +88,6 @@ const App = () => (
           icon={CreditCardIcon}
         />
       ) : null,
-      permissions === "cliente" ? (
-        <Resource
-          name="consumos"
-          list={TransactionList}
-          // edit={BusinessEdit}
-          // create={BusinessCreate}
-          icon={AttachMoneyIcon}
-        />
-      ) : null,
       permissions === "comercio" ? (
         <Resource
           name="transacciones"
