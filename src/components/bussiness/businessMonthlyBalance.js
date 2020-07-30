@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const columns = ["Monto (AR$)", "Tipo", "Detalle del movimiento", "Fecha"];
+const columns = ["Monto (AR$)", "Tipo", "Detalle", "Fecha"];
 
 // TODO: delete this example
 // const data = [
@@ -173,7 +173,10 @@ export default function BusinessMonthlyBalance(props) {
   return (
     <Container fullwidth>
       <Card>
-        <CardHeader title="Resumen" />
+        <CardHeader
+          title="Detalles de tu resumen"
+          style={{ backgroundColor: "#455A64", color: "#fff" }}
+        />
         <CardContent>
           <div className={classes.demo}>
             <List style={{ display: "flex" }}>
@@ -215,6 +218,7 @@ export default function BusinessMonthlyBalance(props) {
         </CardContent>
       </Card>
       <Divider />
+      <br />
       <MUIDataTable
         title={"Movimientos"}
         data={rows}
