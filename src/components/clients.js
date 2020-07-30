@@ -33,8 +33,8 @@ const ClientsToolbar = ({ resource, ...props }) => (
 );
 
 const estadosCiviles = [
-  { id: false, name: "Soltero(a)" },
-  { id: true, name: "Casado(a)" },
+  { id: "false", name: "Soltero(a)" },
+  { id: "true", name: "Casado(a)" },
 ];
 
 const AsignProductField = ({ record = {} }) => (
