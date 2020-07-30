@@ -22,6 +22,7 @@ import {
   DateInput,
   Toolbar,
   SaveButton,
+  FormDataConsumer,
 } from "react-admin";
 import formValidations from "../models/formValidations";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
@@ -124,7 +125,17 @@ export const ClientEdit = (props) => (
           validate={formValidations.validatePoints}
         />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
-        <TextField fullWidth label="Detalle de baja" source="motivoBaja" />
+        <FormDataConsumer fullWidth>
+          {({ formData, ...rest }) =>
+            !formData.activo && (
+              <TextInput
+                label="Detalle de baja"
+                source="motivoBaja"
+                {...rest}
+              />
+            )
+          }
+        </FormDataConsumer>
       </FormTab>
       <FormTab label="domicilio">
         <TextInput

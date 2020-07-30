@@ -17,6 +17,7 @@ import {
   BooleanInput,
   Toolbar,
   SaveButton,
+  FormDataConsumer,
 } from "react-admin";
 import { number, minValue, email, required, minLength } from "react-admin";
 
@@ -89,6 +90,17 @@ export const BusinessEdit = (props) => (
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <BooleanInput fullWidth label="Cliente activo" source="activo" />
+        <FormDataConsumer fullWidth>
+          {({ formData, ...rest }) =>
+            !formData.activo && (
+              <TextInput
+                label="Detalle de baja"
+                source="motivoBaja"
+                {...rest}
+              />
+            )
+          }
+        </FormDataConsumer>
       </FormTab>
       <FormTab label="domicilio">
         <TextInput
