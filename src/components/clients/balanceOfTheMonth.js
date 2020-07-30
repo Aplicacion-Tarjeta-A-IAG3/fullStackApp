@@ -10,6 +10,11 @@ import {
   ListItemText,
   ListItemIcon,
   makeStyles,
+  Select,
+  FormControl,
+  InputLabel,
+  NativeSelect,
+  FormHelperText,
 } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import TodayIcon from "@material-ui/icons/Today";
@@ -123,12 +128,12 @@ export default function BalanceOfTheDay(props) {
       const dataResult = await result.json();
       if (result.status === 200) {
         setCards(dataResult);
-        setCard(dataResult[0]);
+        setCard(dataResult[0].tarjeta);
         console.log("client data:", dataResult);
         console.log("client pagos:", dataResult[0]);
         fillCardData(dataResult[0].tarjeta);
       } else {
-        throw new Error(`response from the server: ${dataResult.message}`);
+        console.error(`response from the server: ${dataResult.message}`);
       }
     };
 
@@ -163,7 +168,7 @@ export default function BalanceOfTheDay(props) {
         console.log("client data:", dataResult);
         console.log("client pagos:", dataResult.pagos);
       } else {
-        throw new Error(`response from the server: ${dataResult.message}`);
+        console.error(`response from the server: ${dataResult.message}`);
         // TODO: add error flash notification
       }
     };
@@ -171,10 +176,19 @@ export default function BalanceOfTheDay(props) {
     getCardsData();
   }, []);
 
+  const handleChange = (event) => {
+    const tarjeta = event.target.value;
+    console.log("TARJETA??", tarjeta);
+    setCard(event.target.value);
+  };
+
   return (
-    <Container fullwidth>
+    <Container>
       <Card>
-        <CardHeader title="Resumen" />
+        <CardHeader
+          title="Detalles de tu resumen"
+          style={{ backgroundColor: "#455A64", color: "#fff" }}
+        />
         <CardContent>
           <div className={classes.demo}>
             <List style={{ display: "flex" }}>
@@ -216,6 +230,34 @@ export default function BalanceOfTheDay(props) {
         </CardContent>
       </Card>
       <Divider />
+      <br />
+      <Card style={{ backgroundColor: "#f4f4f0" }}>
+        <CardContent>
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor="age-native-label-placeholder">
+              Tus tarjetas
+            </InputLabel>
+            <NativeSelect
+              value={card}
+              onChange={handleChange}
+              inputProps={{
+                name: "age",
+                id: "age-native-label-placeholder",
+              }}
+            >
+              {cards.length > 0 &&
+                cards.map((card) => (
+                  <option
+                    value={card.tarjeta}
+                  >{`${card.producto} (Límite: ${card.limite})`}</option>
+                ))}
+            </NativeSelect>
+            <FormHelperText>{`Tarjeta seleccionada Nro. ${card}`}</FormHelperText>
+          </FormControl>
+        </CardContent>
+      </Card>
+      <Divider />
+      <br />
       <MUIDataTable
         title={"Movimientos"}
         data={rows}
