@@ -10,7 +10,6 @@ import {
   ListItemText,
   ListItemIcon,
   makeStyles,
-  Select,
   FormControl,
   InputLabel,
   NativeSelect,
@@ -21,6 +20,11 @@ import TodayIcon from "@material-ui/icons/Today";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import Rotate90DegreesCcwIcon from "@material-ui/icons/Rotate90DegreesCcw";
 import MoneyIcon from "@material-ui/icons/Money";
+import {
+  currencyParser,
+  monthsMapper,
+  balanceTableOptions,
+} from "../../utils/helpers";
 // import { businessBalanceProvider } from "../../models/balanceProvider"; // TODO: use request from provider
 
 const useStyles = makeStyles((theme) => ({
@@ -35,62 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const columns = ["Monto (AR$)", "Comercio", "Detalle", "Fecha"];
-
-const options = {
-  filterType: "checkbox",
-  pagination: false,
-  selectableRows: "none",
-  textLabels: {
-    body: {
-      noMatch: "No se encontraron registros",
-      toolTip: "Ordenar",
-      columnHeaderTooltip: (column) => `Ordenar por ${column.label}`,
-    },
-    pagination: {
-      next: "Siguiente",
-      previous: "Anterior",
-      rowsPerPage: "Filas por página:",
-      displayRows: "de",
-    },
-    toolbar: {
-      search: "Buscar",
-      downloadCsv: "Descargar CSV",
-      print: "Imprimir",
-      viewColumns: "Ver Columnas",
-      filterTable: "Filtrar Tabla",
-    },
-    filter: {
-      all: "Todos",
-      title: "FILTROS",
-      reset: "LIMPIAR FILTROS",
-    },
-    viewColumns: {
-      title: "Mostrar Columnas",
-      titleAria: "Mostrar/Esconder Columnas",
-    },
-    selectedRows: {
-      text: "filas(s) seleccionadas",
-      delete: "Borrar",
-      deleteAria: "Borrar Filas Seleccionadas",
-    },
-  },
-};
-
-const months = {
-  1: "Enero",
-  2: "Febrero",
-  3: "Marzo",
-  4: "Abril",
-  5: "Mayo",
-  6: "Junio",
-  7: "Julio",
-  8: "Agosto",
-  9: "Septiembre",
-  10: "Octubre",
-  11: "Noviembre",
-  12: "Diciembre",
-};
-
 const username = localStorage.getItem("username");
 
 export default function ClientMonthlyBalance(props) {
@@ -152,10 +100,10 @@ export default function ClientMonthlyBalance(props) {
           consumosDelMes,
         } = dataResult;
         setResumen({
-          month: resumenDelMes,
-          monthTotal: totaldelMes,
-          debtTotal: totalAdeudado,
-          myPoints: totalPuntosMes.puntos,
+          month: resumenDelMes ? resumenDelMes : "-",
+          monthTotal: currencyParser(totaldelMes),
+          debtTotal: currencyParser(totalAdeudado),
+          myPoints: totalPuntosMes.puntos ? totalPuntosMes.puntos : "-",
         });
         setRows(
           consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -210,16 +158,10 @@ export default function ClientMonthlyBalance(props) {
         consumosDelMes,
       } = dataResult;
       setResumen({
-        month: resumenDelMes,
-        monthTotal: totaldelMes.toLocaleString("de-DE", {
-          style: "currency",
-          currency: "ARS",
-        }),
-        debtTotal: totalAdeudado.toLocaleString("de-DE", {
-          style: "currency",
-          currency: "ARS",
-        }),
-        myPoints: totalPuntosMes.puntos,
+        month: resumenDelMes ? resumenDelMes : "-",
+        monthTotal: currencyParser(totaldelMes),
+        debtTotal: currencyParser(totalAdeudado),
+        myPoints: totalPuntosMes.puntos ? totalPuntosMes.puntos : "-",
       });
       setRows(
         consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
@@ -251,7 +193,10 @@ export default function ClientMonthlyBalance(props) {
                 <ListItemIcon>
                   <TodayIcon />
                 </ListItemIcon>
-                <ListItemText secondary="Mes" primary={months[resumen.month]} />
+                <ListItemText
+                  secondary="Mes"
+                  primary={monthsMapper[resumen.month]}
+                />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
@@ -303,6 +248,7 @@ export default function ClientMonthlyBalance(props) {
               {cards.length > 0 &&
                 cards.map((card) => (
                   <option
+                    key={card.tarjeta}
                     value={card.tarjeta}
                   >{`${card.producto} (Límite: ${card.limite})`}</option>
                 ))}
@@ -317,7 +263,7 @@ export default function ClientMonthlyBalance(props) {
         title={"Movimientos"}
         data={rows}
         columns={columns}
-        options={options}
+        options={balanceTableOptions}
       />
     </Container>
   );

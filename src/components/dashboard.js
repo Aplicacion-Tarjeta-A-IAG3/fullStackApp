@@ -19,16 +19,6 @@ export default ({ permissions }) => {
     "Administrar los comercios",
     "Administrar los productos",
   ];
-  const cliente = [
-    "Administrar tus tarjetas",
-    "Consultar tu resumen del mes",
-    "Descargar tus resúmenes",
-  ];
-  const comercio = [
-    "Administrar las transacciones de tu comercio",
-    "Ver tu resumen de ventas",
-    "Utilizar el postnet virtual para registrar tus ventas",
-  ];
 
   return (
     <Card>
@@ -52,24 +42,10 @@ export default ({ permissions }) => {
             }}
           >
             <h5>Seguimos trabajando para mejorar la web.</h5>
-            <p>Desde el menú podrás:</p>
+            <h6>Desde el menú podrás:</h6>
             {permissions === "admin" && (
               <ul style={{ listStyle: "none" }}>
                 {admin.map((i) => (
-                  <li key={`perm-${i}`}>{i}</li>
-                ))}
-              </ul>
-            )}
-            {permissions === "cliente" && (
-              <ul style={{ listStyle: "none" }}>
-                {cliente.map((i) => (
-                  <li key={`perm-${i}`}>{i}</li>
-                ))}
-              </ul>
-            )}
-            {permissions === "comercio" && (
-              <ul style={{ listStyle: "none" }}>
-                {comercio.map((i) => (
                   <li key={`perm-${i}`}>{i}</li>
                 ))}
               </ul>
