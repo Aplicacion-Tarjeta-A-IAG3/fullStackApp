@@ -92,13 +92,6 @@ export const ProductEdit = (props) => (
         validate={validateText}
       />
       <BooleanInput fullWidth label="Producto activo" source="activo" />
-      <FormDataConsumer fullWidth>
-        {({ formData, ...rest }) =>
-          !formData.activo && (
-            <TextInput label="Detalle de baja" source="motivoBaja" {...rest} />
-          )
-        }
-      </FormDataConsumer>
     </SimpleForm>
   </Edit>
 );
