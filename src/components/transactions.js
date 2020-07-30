@@ -12,7 +12,7 @@ import {
   Loading,
   SelectInput,
 } from "react-admin";
-import { required, number, minValue, minLength, maxLength } from "react-admin";
+import formValidation from "../models/formValidations";
 
 const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 const headers = {
@@ -28,27 +28,27 @@ const cuotasChoices = [...Array(12).keys()].map((a, i) => ({
 
 export const TransactionList = (props) => (
   <List
-    exporter={false}
     {...props}
+    exporter={false}
     bulkActionButtons={false}
+    pagination={false}
     title="Lista de transacciones del día"
   >
     <Datagrid>
-      <TextField source="id" />
       <NumberField
-        label="Monto"
+        sortable={false}
         source="monto"
         options={{
           style: "currency",
           currency: "ARS",
-          maximumSignificantDigits: 2,
+          significantDigits: 2,
         }}
       />
-      <TextField label="Tarjeta" source="tarjeta" />
-      <TextField label="Tipo de transacción" source="tipo" />
-      <TextField label="Nombre del cliente" source="cliente" />
-      <TextField label="Nombre del comercio" source="comercio" />
-      <TextField label="CUIT del comercio" source="cuit" />
+      <TextField sortable={false} source="tarjeta" />
+      <TextField sortable={false} source="tipo" />
+      <TextField sortable={false} source="cliente" />
+      <TextField sortable={false} source="comercio" />
+      <TextField sortable={false} source="cuit" />
     </Datagrid>
   </List>
 );
@@ -76,29 +76,6 @@ const validateCreation = (values) => {
 
 export const TransactionCreate = (props) => {
   const [defaultFormValue, setDefaultFormValue] = React.useState({});
-
-  const validateDni = [
-    required("No puede estar vacío"),
-    number("Debe ser un número"),
-  ];
-  const validateText = [
-    required("No puede estar vacío"),
-    minLength(4),
-    maxLength(50),
-  ];
-  const validateCard = [
-    required("No puede estar vacío"),
-    number("No puede contener letras"),
-  ];
-  const validateCvc = [
-    required("No puede estar vacío"),
-    number("No puede contener letras"),
-  ];
-  const validateNumber = [
-    required("No puede estar vacío"),
-    number("Debe ser un número"),
-    minValue(1),
-  ];
 
   React.useEffect(() => {
     const username = localStorage.getItem("username");
@@ -145,32 +122,44 @@ export const TransactionCreate = (props) => {
               required
               label="DNI"
               source="dni"
-              validate={validateDni}
+              validate={formValidation.validateDni}
             />
-            <TextInput required source="nombre" validate={validateText} />
-            <TextInput required source="apellido" validate={validateText} />
+            <TextInput
+              required
+              source="nombre"
+              validate={formValidation.validateText}
+            />
+            <TextInput
+              required
+              source="apellido"
+              validate={formValidation.validateText}
+            />
             <h4>Datos de la tarjeta</h4>
             <NumberInput
               required
               label="Número de tarjeta"
               source="tarjeta"
-              validate={validateCard}
+              validate={formValidation.validateCard}
             />
             <DateInput
               required
               label="Vencimiento"
               source="vencimiento"
               defaultValue={new Date()}
-              validate={required("No debe estar vacío")}
+              validate={formValidation.validateRequired}
             />
             <NumberInput
               required
               label="CVC"
               source="cvc"
-              validate={validateCvc}
+              validate={formValidation.validateCvc}
             />
             <h4>Datos de la venta</h4>
-            <NumberInput required source="monto" validate={validateNumber} />
+            <NumberInput
+              required
+              source="monto"
+              validate={formValidation.validateNumber}
+            />
             <SelectInput source="cuotas" choices={cuotasChoices} />
           </div>
         )}

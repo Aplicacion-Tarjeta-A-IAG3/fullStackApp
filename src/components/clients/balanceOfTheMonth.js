@@ -29,15 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const columns = ["Monto (AR$)", "Tipo", "Detalle del movimiento", "Fecha"];
-
-// TODO: delete this example
-// const data = [
-//   [109, "3000 ARS", "Julia Espinoza", "compra", "2020-07-23"],
-//   [110, "-1500 ARS", "African Express", "comisiones", "2020-07-23"],
-//   [111, "120 ARS", "Julia Espinoza", "compra", "2020-07-24"],
-//   [157, "350 ARS", "Julia Espinoza", "compra", "2020-07-27"],
-// ];
+const columns = ["Monto (AR$)", "Comercio", "Detalle", "Fecha"];
 
 const options = {
   filterType: "checkbox",
@@ -98,6 +90,8 @@ const username = localStorage.getItem("username");
 
 export default function BalanceOfTheDay(props) {
   const classes = useStyles();
+  const [cards, setCards] = React.useState([]);
+  const [card, setCard] = React.useState(null);
   const [resumen, setResumen] = React.useState({
     isBalance: false,
     month: 0,
@@ -108,57 +102,73 @@ export default function BalanceOfTheDay(props) {
   const [rows, setRows] = React.useState([]);
 
   React.useEffect(() => {
-    const fillBusinessData = async () => {
-      const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
+    const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
 
-      const headers = {
-        "Content-Type": "application/json",
-        client_id: localStorage.getItem("clientId"),
-        client_secret: localStorage.getItem("clientSecret"),
-      };
-      const requestOptions = {
-        method: "GET",
-        headers: headers,
-      };
+    const headers = {
+      "Content-Type": "application/json",
+      client_id: localStorage.getItem("clientId"),
+      client_secret: localStorage.getItem("clientSecret"),
+    };
 
-      const url = `${apiUrl}/resumenes?cuit=${username}`;
+    const requestOptions = {
+      method: "GET",
+      headers: headers,
+    };
+
+    const getCardsData = async () => {
+      const url = `${apiUrl}/tarjetas?dni=${username}`;
 
       const result = await fetch(url, requestOptions);
-      console.log("status", result.status);
+      console.log("cards status", result.status);
+      const dataResult = await result.json();
+      if (result.status === 200) {
+        setCards(dataResult);
+        setCard(dataResult[0]);
+        console.log("client data:", dataResult);
+        console.log("client pagos:", dataResult[0]);
+        fillCardData(dataResult[0].tarjeta);
+      } else {
+        throw new Error(`response from the server: ${dataResult.message}`);
+      }
+    };
+
+    const fillCardData = async (tarjeta) => {
+      const url = `${apiUrl}/resumenes?tarjeta=${tarjeta}`;
+
+      const result = await fetch(url, requestOptions);
+      console.log("balance status", result.status);
       const dataResult = await result.json();
       if (result.status === 200) {
         const {
-          esResumen,
+          totalPuntosMes,
           resumenDelMes,
-          total,
-          totalComisiones,
-          totalSinComisiones,
-          pagos,
+          totalAdeudado,
+          totaldelMes,
+          consumosDelMes,
         } = dataResult;
         setResumen({
-          isBalance: esResumen,
           month: resumenDelMes,
-          netTotal: total,
-          grossTotal: totalSinComisiones,
-          fees: totalComisiones,
+          monthTotal: totaldelMes,
+          debtTotal: totalAdeudado,
+          myPoints: totalPuntosMes,
         });
         setRows(
-          pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
+          consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
             monto,
-            tipoTransaccion,
+            comercio,
             detalle,
             fecha,
           ])
         );
-        // console.log("business data:", dataResult);
-        // console.log("business pagos:", dataResult.pagos);
+        console.log("client data:", dataResult);
+        console.log("client pagos:", dataResult.pagos);
       } else {
-        console.error(`response from the server: ${dataResult.message}`);
+        throw new Error(`response from the server: ${dataResult.message}`);
         // TODO: add error flash notification
       }
     };
 
-    fillBusinessData();
+    getCardsData();
   }, []);
 
   return (
@@ -179,8 +189,8 @@ export default function BalanceOfTheDay(props) {
                   <LibraryBooksIcon />
                 </ListItemIcon>
                 <ListItemText
-                  secondary="Total de transacciones"
-                  primary={resumen.grossTotal}
+                  secondary="Total de movimientos"
+                  primary={resumen.monthTotal}
                 />
               </ListItem>
               <ListItem>
@@ -188,8 +198,8 @@ export default function BalanceOfTheDay(props) {
                   <Rotate90DegreesCcwIcon />
                 </ListItemIcon>
                 <ListItemText
-                  secondary="Total de comisiones"
-                  primary={resumen.fees}
+                  secondary="Total adeudado"
+                  primary={resumen.debtTotal}
                 />
               </ListItem>
               <ListItem>
@@ -197,8 +207,8 @@ export default function BalanceOfTheDay(props) {
                   <MoneyIcon />
                 </ListItemIcon>
                 <ListItemText
-                  secondary="Total a recibir"
-                  primary={resumen.netTotal}
+                  secondary="Puntos acumulados del mes"
+                  primary={resumen.myPoints}
                 />
               </ListItem>
             </List>
