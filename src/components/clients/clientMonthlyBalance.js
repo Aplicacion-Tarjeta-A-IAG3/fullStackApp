@@ -183,14 +183,16 @@ export default function ClientMonthlyBalance(props) {
         debtTotal: currencyParser(totalAdeudado),
         myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
       });
-      setRows(
-        consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
-          monto,
-          comercio,
-          detalle,
-          fecha,
-        ])
-      );
+      if (isDefined(consumosDelMes)) {
+        setRows(
+          consumosDelMes.map(({ monto, comercio, detalle, fecha }) => [
+            monto,
+            comercio,
+            detalle,
+            fecha,
+          ])
+        );
+      }
       // console.log("client data:", dataResult);
       // console.log("client pagos:", dataResult.pagos);
     } else {

@@ -7,6 +7,8 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import BusinessDailyBalance from "./bussiness/businessDailyBalance";
 import BusinessMonthlyBalance from "./bussiness/businessMonthlyBalance";
+import BusinessProfile from "./bussiness/businessProfile";
+import BusinessPreviousBalances from "./bussiness/previousBalances";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,36 +67,40 @@ export default function BusinessDashboard() {
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-        aria-label="business dashboard"
+        aria-label="business-dashboard"
         centered
       >
-        <Tab label="Resumen del día" icon={<MoneyIcon />} {...a11yProps(0)} />
-        <Tab label="Resumen del mes" icon={<MoneyIcon />} {...a11yProps(1)} />
+        <Tab label="Resumen del día" icon={<MoneyIcon />} id="business-tab-0" />
+        <Tab label="Resumen del mes" icon={<MoneyIcon />} id="business-tab-1" />
         <Tab
           disabled
           label="Resúmenes anteriores"
           icon={<GetAppIcon />}
-          {...a11yProps(2)}
+          id="business-tab-2"
         />
         <Tab
           disabled
           label="Mi Perfil"
           icon={<PersonPinIcon />}
-          {...a11yProps(3)}
+          id="business-tab-3"
         />
       </Tabs>
-      <TabPanel value={value} index={0} style={{ minHeight: "400px" }}>
-        <BusinessDailyBalance />
-      </TabPanel>
-      <TabPanel value={value} index={1} style={{ minHeight: "400px" }}>
-        <BusinessMonthlyBalance />
-      </TabPanel>
-      <TabPanel value={value} index={2} style={{ minHeight: "400px" }}>
-        Resumenes
-      </TabPanel>
-      <TabPanel value={value} index={3} style={{ minHeight: "400px" }}>
-        Mi perfil
-      </TabPanel>
+      <BusinessDailyBalance
+        value={value}
+        index={0}
+        style={{ minHeight: "400px" }}
+      />
+      <BusinessMonthlyBalance
+        value={value}
+        index={1}
+        style={{ minHeight: "400px" }}
+      />
+      <BusinessPreviousBalances
+        value={value}
+        index={2}
+        style={{ minHeight: "400px" }}
+      />
+      <BusinessProfile value={value} index={3} style={{ minHeight: "400px" }} />
     </Paper>
   );
 }
