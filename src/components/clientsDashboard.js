@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Tabs, Tab, Typography, Box } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box } from "@material-ui/core";
 import MoneyIcon from "@material-ui/icons/Money";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ClientMonthlyBalance from "./clients/clientMonthlyBalance";
+import ClientPreviousBalances from "./clients/previousBalances";
+import ClientProfile from "./clients/clientProfile";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,38 +60,35 @@ export default function ClientsDashboard() {
   };
 
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
       <Tabs
         value={value}
         onChange={handleChange}
         indicatorColor="primary"
         textColor="primary"
-        aria-label="client dashboard"
+        aria-label="client-dashboard"
         centered
       >
-        <Tab label="Resumen del mes" icon={<MoneyIcon />} {...a11yProps(0)} />
+        <Tab label="Resumen del mes" icon={<MoneyIcon />} id="client-tab-0" />
         <Tab
           disabled
           label="Resúmenes anteriores"
           icon={<GetAppIcon />}
-          {...a11yProps(1)}
+          id="client-tab-1"
         />
-        <Tab
-          disabled
-          label="Mi Perfil"
-          icon={<PersonPinIcon />}
-          {...a11yProps(2)}
-        />
+        <Tab label="Mi Perfil" icon={<PersonPinIcon />} id="client-tab-2" />
       </Tabs>
-      <TabPanel value={value} index={0} style={{ minHeight: "400px" }}>
-        <ClientMonthlyBalance />
-      </TabPanel>
-      <TabPanel value={value} index={1} style={{ minHeight: "400px" }}>
-        Resumenes
-      </TabPanel>
-      <TabPanel value={value} index={2} style={{ minHeight: "400px" }}>
-        Mi perfil
-      </TabPanel>
-    </Paper>
+      <ClientMonthlyBalance
+        value={value}
+        index={0}
+        style={{ minHeight: "400px" }}
+      />
+      <ClientPreviousBalances
+        value={value}
+        index={1}
+        style={{ minHeight: "400px" }}
+      />
+      <ClientProfile value={value} index={2} style={{ minHeight: "400px" }} />
+    </div>
   );
 }

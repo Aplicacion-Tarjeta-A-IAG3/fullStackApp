@@ -59,12 +59,12 @@ const resourceMessages = {
     "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
   "Unexpected token E in JSON at position 0":
     "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
-  "Bad request":
-    "¡Ha ocurrido un error! No se guardaron los cambios. [Respuesta del servidor: 'Bad Request']",
   emptyValidation: "No puede estar vacío",
   numericValidation: "Debe ser numérico",
   emailValidation: "Email inválido",
   invalid_form:
     "Datos incorrectos o incompletos. Por favor verifique el formulario y las pestañas",
+  passNotMatch: "Tu contraseña actual no coincide",
+  sameNewPass: "Tu contraseña nueva es igual que la actual",
 };
 export default resourceMessages;

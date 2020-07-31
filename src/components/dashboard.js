@@ -1,6 +1,4 @@
 import * as React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import { Title } from "react-admin";
 // import Background from "../utils/still-working.jpg";
 import Background from "../utils/cards.jpg";
@@ -21,38 +19,38 @@ export default ({ permissions }) => {
   ];
 
   return (
-    <Card>
+    <div
+      style={{
+        background: `url(${Background}) no-repeat center center fixed`,
+        backgroundSize: "cover",
+        minHeight: "500px",
+        textAlign: "center",
+        margin: "1em",
+        padding: "1em",
+      }}
+    >
       <Title title={`Bienvenido ${title[permissions]}`} />
-      <CardContent
-        style={{
-          background: `url(${Background}) no-repeat center center fixed`,
-          backgroundSize: "cover",
-          minHeight: "500px",
-          textAlign: "center",
-        }}
-      >
-        {permissions === "comercio" && <BusinessDashboard />}
-        {permissions === "cliente" && <ClientsDashboard />}
-        {permissions === "admin" && (
-          <div
-            style={{
-              color: "#fff",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              padding: "1em",
-            }}
-          >
-            <h5>Seguimos trabajando para mejorar la web.</h5>
-            <h6>Desde el menú podrás:</h6>
-            {permissions === "admin" && (
-              <ul style={{ listStyle: "none" }}>
-                {admin.map((i) => (
-                  <li key={`perm-${i}`}>{i}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {permissions === "comercio" && <BusinessDashboard />}
+      {permissions === "cliente" && <ClientsDashboard />}
+      {permissions === "admin" && (
+        <div
+          style={{
+            color: "#fff",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            padding: "1em",
+          }}
+        >
+          <h5>Seguimos trabajando para mejorar la web.</h5>
+          <h6>Desde el menú podrás:</h6>
+          {permissions === "admin" && (
+            <ul style={{ listStyle: "none" }}>
+              {admin.map((i) => (
+                <li key={`perm-${i}`}>{i}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
