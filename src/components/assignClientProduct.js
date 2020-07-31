@@ -25,11 +25,10 @@ const headers = {
   client_secret: localStorage.getItem("clientSecret"),
 };
 
-const userId = localStorage.getItem("username");
-
 const AssignProduct = (props) => {
   // console.log("props", props);
   const [currentUser, setCurrentUser] = useState(null);
+  const userId = props.match.params.id;
   // const [error, setError] = useState(null);
   // const [isLoaded, setIsLoaded] = useState(false);
   const [productsLoaded, setProductsLoaded] = useState(false);
