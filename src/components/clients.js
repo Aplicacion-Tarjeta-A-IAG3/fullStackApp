@@ -255,7 +255,7 @@ export const ClientCreate = (props) => (
           source="estadoCivil"
           choices={estadosCiviles}
           validate={formValidations.validateRequired}
-          defaultValue={false}
+          defaultValue={"false"}
         />
         <PasswordInput fullWidth label="Contraseña" source="password" />
         <NumberInput
