@@ -80,42 +80,46 @@ export default function BusinessMonthlyBalance(props) {
 
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
-      const dataResult = await result.json();
-      if (result.status === 200) {
-        const {
-          esResumen,
-          resumenDelMes,
-          total,
-          totalComisiones,
-          totalSinComisiones,
-          pagos,
-        } = dataResult;
-        setResumen({
-          isBalance: esResumen,
-          month: isDefined(resumenDelMes) ? resumenDelMes : 0,
-          netTotal: currencyParser(total),
-          grossTotal: currencyParser(totalSinComisiones),
-          fees: currencyParser(totalComisiones),
-        });
-        if (isDefined(pagos)) {
-          setRows(
-            pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
-              monto,
-              tipoTransaccion,
-              detalle,
-              fecha,
-            ])
+      try {
+        const dataResult = await result.json();
+        if (result.status === 200) {
+          const {
+            esResumen,
+            resumenDelMes,
+            total,
+            totalComisiones,
+            totalSinComisiones,
+            pagos,
+          } = dataResult;
+          setResumen({
+            isBalance: esResumen,
+            month: isDefined(resumenDelMes) ? resumenDelMes : 0,
+            netTotal: currencyParser(total),
+            grossTotal: currencyParser(totalSinComisiones),
+            fees: currencyParser(totalComisiones),
+          });
+          if (isDefined(pagos)) {
+            setRows(
+              pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
+                monto,
+                tipoTransaccion,
+                detalle,
+                fecha,
+              ])
+            );
+          }
+          // console.log("business data:", dataResult);
+          // console.log("business pagos:", dataResult.pagos);
+        } else {
+          console.error(
+            `response from the server: ${
+              isDefined(dataResult.message) ? dataResult.message : dataResult
+            }`
           );
+          // TODO: add error flash notification
         }
-        // console.log("business data:", dataResult);
-        // console.log("business pagos:", dataResult.pagos);
-      } else {
-        console.error(
-          `response from the server: ${
-            isDefined(dataResult.message) ? dataResult.message : dataResult
-          }`
-        );
-        // TODO: add error flash notification
+      } catch (e) {
+        console.error("error resumen mensual: ", e.message);
       }
     };
 
