@@ -13,7 +13,6 @@ import {
   EditButton,
   Toolbar,
   SaveButton,
-  FormDataConsumer,
 } from "react-admin";
 import { required, minLength } from "react-admin";
 

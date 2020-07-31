@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Admin, Resource } from "react-admin";
+import { createBrowserHistory as createHistory } from "history";
 import customRoutes from "./utils/customRoutes";
 // Authentication and Authorization
 import authProvider from "./models/authProvider";
@@ -41,8 +42,12 @@ const i18nProvider = polyglotI18nProvider(() => messages["es"]);
 // );
 //const dataProvider = dataProvider;
 
+//to remove # from URL
+const history = createHistory();
+
 const App = () => (
   <Admin
+    history={history}
     dashboard={Dashboard}
     customRoutes={customRoutes}
     loginPage={LoginPage}

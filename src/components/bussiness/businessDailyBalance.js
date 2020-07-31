@@ -73,7 +73,9 @@ export default function BusinessDailyBalance(props) {
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
       const dataResult = await result.json();
-      if (result.status === 200 && result.length > 0) {
+      console.log("json", dataResult);
+      console.log("length", dataResult.length);
+      if (result.status === 200 && result.length !== null) {
         const {
           movimientosDelDia,
           total,
