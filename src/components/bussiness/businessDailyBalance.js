@@ -73,7 +73,7 @@ export default function BusinessDailyBalance(props) {
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
       const dataResult = await result.json();
-      if (result.status === 200) {
+      if (result.status === 200 && result.length > 0) {
         const {
           movimientosDelDia,
           total,
@@ -101,7 +101,11 @@ export default function BusinessDailyBalance(props) {
         // console.log("business data:", dataResult);
         // console.log("business pagos:", dataResult.pagos);
       } else {
-        console.error(`response from the server: ${dataResult.message}`);
+        console.error(
+          `response from the server: ${
+            isDefined(dataResult.message) ? dataResult.message : dataResult
+          }`
+        );
         // TODO: add error flash notification
       }
     };

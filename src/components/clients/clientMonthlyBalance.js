@@ -75,14 +75,18 @@ export default function ClientMonthlyBalance(props) {
       const result = await fetch(url, requestOptions);
       console.log("cards status", result.status);
       const dataResult = await result.json();
-      if (result.status === 200) {
+      if (result.status === 200 && result.length > 0) {
         setCards(dataResult);
         setCard(dataResult[0].tarjeta);
         // console.log("client data:", dataResult);
         // console.log("client pagos:", dataResult[0]);
         fillCardData(dataResult[0].tarjeta);
       } else {
-        console.log(`response from the server: ${dataResult.message}`);
+        console.error(
+          `response from the server: ${
+            isDefined(dataResult.message) ? dataResult.message : dataResult
+          }`
+        );
       }
     };
 
@@ -92,7 +96,7 @@ export default function ClientMonthlyBalance(props) {
       const result = await fetch(url, requestOptions);
       // console.log("balance status", result.status);
       const dataResult = await result.json();
-      if (result.status === 200) {
+      if (result.status === 200 && result.length > 0) {
         const {
           totalPuntosMes,
           resumenDelMes,
@@ -117,7 +121,11 @@ export default function ClientMonthlyBalance(props) {
         // console.log("client data:", dataResult);
         // console.log("client pagos:", dataResult.pagos);
       } else {
-        console.log(`response from the server: ${dataResult.message}`);
+        console.error(
+          `response from the server: ${
+            isDefined(dataResult.message) ? dataResult.message : dataResult
+          }`
+        );
         // TODO: add error flash notification
       }
     };
@@ -150,7 +158,7 @@ export default function ClientMonthlyBalance(props) {
     const result = await fetch(url, requestOptions);
     // console.log("balance status", result.status);
     const dataResult = await result.json();
-    if (result.status === 200) {
+    if (result.status === 200 && result.length > 0) {
       const {
         totalPuntosMes,
         resumenDelMes,
@@ -175,7 +183,11 @@ export default function ClientMonthlyBalance(props) {
       // console.log("client data:", dataResult);
       // console.log("client pagos:", dataResult.pagos);
     } else {
-      console.log(`response from the server: ${dataResult.message}`);
+      console.error(
+        `response from the server: ${
+          isDefined(dataResult.message) ? dataResult.message : dataResult
+        }`
+      );
       // TODO: add error flash notification
     }
   };
