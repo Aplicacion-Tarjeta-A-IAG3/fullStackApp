@@ -73,9 +73,13 @@ export default function ClientProfile(props) {
       const result = await fetch(url, requestOptions);
       console.log("response status", result.status);
       if (result.status === 200) {
-        const dataResult = await result.json();
-        console.log("CLIENTe? status", dataResult);
-        setClient(dataResult[0]);
+        try {
+          const dataResult = await result.json();
+          console.log("CLIENTe? status", dataResult);
+          setClient(dataResult[0]);
+        } catch (e) {
+          console.error("error cliente: ", e.message);
+        }
       } else {
         console.error("Ha ocurrido un error al recuperar los datos.");
       }
@@ -136,7 +140,7 @@ export default function ClientProfile(props) {
             return json;
           }
         } catch (err) {
-          console.error(err);
+          console.error("error update password", err.message);
         }
       })
       .then((result) => {
@@ -145,7 +149,7 @@ export default function ClientProfile(props) {
         handleClick(null);
       })
       .catch((e) => {
-        console.error(e.message);
+        console.error("error update password", e.message);
       });
   };
 

@@ -85,43 +85,47 @@ export default function BusinessDailyBalance(props) {
 
       const result = await fetch(url, requestOptions);
       console.log("status", result.status);
-      const dataResult = await result.json();
-      if (result.status === 200) {
-        const {
-          movimientosDelDia,
-          total,
-          totalComisiones,
-          totalSinComisiones,
-          fechaPago,
-          pagos,
-        } = dataResult;
-        setResumen({
-          day: isDefined(movimientosDelDia) ? movimientosDelDia : "-",
-          netTotal: currencyParser(total),
-          grossTotal: currencyParser(totalSinComisiones),
-          fees: currencyParser(totalComisiones),
-          payDay: isDefined(fechaPago) ? fechaPago : "-",
-        });
-        if (isDefined(pagos)) {
-          setRows(
-            pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
-              monto,
-              tipoTransaccion,
-              detalle,
-              fecha,
-              isDefined(fechaPago) ? fechaPago : "-",
-            ])
+      try {
+        const dataResult = await result.json();
+        if (result.status === 200) {
+          const {
+            movimientosDelDia,
+            total,
+            totalComisiones,
+            totalSinComisiones,
+            fechaPago,
+            pagos,
+          } = dataResult;
+          setResumen({
+            day: isDefined(movimientosDelDia) ? movimientosDelDia : "-",
+            netTotal: currencyParser(total),
+            grossTotal: currencyParser(totalSinComisiones),
+            fees: currencyParser(totalComisiones),
+            payDay: isDefined(fechaPago) ? fechaPago : "-",
+          });
+          if (isDefined(pagos)) {
+            setRows(
+              pagos.map(({ monto, tipoTransaccion, detalle, fecha }) => [
+                monto,
+                tipoTransaccion,
+                detalle,
+                fecha,
+                isDefined(fechaPago) ? fechaPago : "-",
+              ])
+            );
+          }
+          // console.log("business data:", dataResult);
+          // console.log("business pagos:", dataResult.pagos);
+        } else {
+          console.error(
+            `response from the server: ${
+              isDefined(dataResult.message) ? dataResult.message : dataResult
+            }`
           );
+          // TODO: add error flash notification
         }
-        // console.log("business data:", dataResult);
-        // console.log("business pagos:", dataResult.pagos);
-      } else {
-        console.error(
-          `response from the server: ${
-            isDefined(dataResult.message) ? dataResult.message : dataResult
-          }`
-        );
-        // TODO: add error flash notification
+      } catch (e) {
+        console.error("error resumen diario: ", e.message);
       }
     };
 
