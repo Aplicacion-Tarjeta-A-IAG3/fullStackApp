@@ -1,5 +1,13 @@
 import * as React from "react";
-import { CardHeader, Divider, makeStyles, Snackbar } from "@material-ui/core";
+import {
+  CardHeader,
+  Divider,
+  makeStyles,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from "@material-ui/core";
 import { TextInput, SimpleForm, minLength, required } from "react-admin";
 import MuiAlert from "@material-ui/lab/Alert";
 import { isDefined, currencyParser } from "../../utils/helpers";
@@ -10,6 +18,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import MoneyIcon from "@material-ui/icons/Money";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
+    display: "flex",
+    flexDirection: "row-reverse",
   },
   formControl: {
     margin: "1em",
@@ -40,24 +51,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-const username = localStorage.getItem("username");
-
 export default function Payments(props) {
   const { children, value, index, ...other } = props;
   const classes = useStyles();
-  const [payments, setPayments] = React.useState(null);
+  const [payments, setPayments] = React.useState({ total: 0, pagos: [] });
   const [rows, setRows] = React.useState([]);
 
   React.useEffect(() => {
@@ -75,7 +72,7 @@ export default function Payments(props) {
       };
 
       const result = await fetch(apiUrl, requestOptions);
-      console.log("status", result.status);
+      // console.log("status", result.status);
       try {
         const dataResult = await result.json();
         if (result.status === 200) {
@@ -124,6 +121,19 @@ export default function Payments(props) {
           title="Pagos realizados a comercios en el mes"
           className={classes.header}
         />
+        <div className={classes.demo}>
+          <List style={{}}>
+            <ListItem>
+              <ListItemIcon>
+                <MoneyIcon />
+              </ListItemIcon>
+              <ListItemText
+                secondary="Total de pagos"
+                primary={payments.total}
+              />
+            </ListItem>
+          </List>
+        </div>
         <div className={classes.demo}>
           <TableContainer component={Paper}>
             <Table
