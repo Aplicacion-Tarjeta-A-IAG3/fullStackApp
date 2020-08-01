@@ -1,8 +1,7 @@
 import * as React from "react";
 import { CardHeader, Divider, makeStyles, Snackbar } from "@material-ui/core";
-import { TextInput, SimpleForm, minLength, required } from "react-admin";
+import { NumberInput, SimpleForm, required, number } from "react-admin";
 import MuiAlert from "@material-ui/lab/Alert";
-import { isDefined } from "../../utils/helpers";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -121,21 +120,21 @@ export default function ArrangePayment(props) {
       <div className={classes.form}>
         <CardHeader title="Realizar un pago" className={classes.header} />
         <SimpleForm save={handleProcessPayment}>
-          <TextInput
+          <NumberInput
             label="CUIT del comecio"
             source="cuit"
             required
             fullWidth
             onChange={handleCuitChange}
-            validate={required("emptyValidation")}
+            validate={[required("emptyValidation"), number()]}
           />
-          <TextInput
+          <NumberInput
             label="Número de cuenta del comercio"
             source="newPass"
             required
             fullWidth
             onChange={handleAccountChange}
-            validate={[required("emptyValidation"), minLength(4)]}
+            validate={[required("emptyValidation"), number()]}
           />
         </SimpleForm>
         <Snackbar

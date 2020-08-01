@@ -8,8 +8,6 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@material-ui/core";
-import { TextInput, SimpleForm, minLength, required } from "react-admin";
-import MuiAlert from "@material-ui/lab/Alert";
 import { isDefined, currencyParser } from "../../utils/helpers";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";

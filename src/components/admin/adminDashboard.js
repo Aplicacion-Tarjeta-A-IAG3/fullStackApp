@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box } from "@material-ui/core";
+import { Tabs, Tab } from "@material-ui/core";
 import MoneyIcon from "@material-ui/icons/Money";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import Payments from "./payments";
