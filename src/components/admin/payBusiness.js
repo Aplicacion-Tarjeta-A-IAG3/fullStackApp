@@ -34,20 +34,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const username = localStorage.getItem("username");
-
 export default function ArrangePayment(props) {
   const { children, value, index, ...other } = props;
   const classes = useStyles();
   const [successOpen, setSuccessOpen] = React.useState(false);
   const [errorOpen, setErrorOpen] = React.useState("");
+  const [cuit, setCuit] = React.useState(null);
+  const [account, setAccount] = React.useState(null);
 
   const openSuccessAlert = () => {
     setSuccessOpen(true);
   };
 
   const openErrorAlert = (msg) => {
-    setSuccessOpen(msg);
+    setErrorOpen(msg);
   };
 
   const handleClose = (event, reason) => {
@@ -59,13 +59,55 @@ export default function ArrangePayment(props) {
     setErrorOpen(false);
   };
 
-  const handleProcessPayment = () => {};
+  const handleProcessPayment = () => {
+    const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core/pagos";
 
-  const validateSendRequest = () => {};
+    const headers = {
+      "Content-Type": "application/json",
+      client_id: localStorage.getItem("clientId"),
+      client_secret: localStorage.getItem("clientSecret"),
+    };
 
-  const handleCuitChange = () => {};
+    const requestOptions = {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({ cuit, cuenta: account }),
+    };
 
-  const handleAccountChange = () => {};
+    fetch(apiUrl, requestOptions)
+      .then((response) => {
+        try {
+          let json = response.json();
+          // console.log("JSON??", json);
+          if (response.status >= 200 && response.status < 300) {
+            openErrorAlert(response);
+          } else {
+            // console.log("llega?", json);
+            return json;
+          }
+        } catch (err) {
+          openErrorAlert(err.message);
+          console.error("error update password", err.message);
+        }
+      })
+      .then((result) => {
+        openSuccessAlert();
+      })
+      .catch((e) => {
+        openErrorAlert(e.message);
+        console.error("error update password", e.message);
+      });
+  };
+
+  const handleCuitChange = (event) => {
+    const pass = event.target.value;
+    setCuit(pass);
+  };
+
+  const handleAccountChange = (event) => {
+    const pass = event.target.value;
+    setAccount(pass);
+  };
 
   return (
     <div
@@ -78,7 +120,7 @@ export default function ArrangePayment(props) {
     >
       <div className={classes.form}>
         <CardHeader title="Realizar un pago" className={classes.header} />
-        <SimpleForm save={handleProcessPayment} validate={validateSendRequest}>
+        <SimpleForm save={handleProcessPayment}>
           <TextInput
             label="CUIT del comecio"
             source="cuit"
@@ -102,7 +144,7 @@ export default function ArrangePayment(props) {
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="success">
-            ¡Pago realizado correctament!
+            ¡Pago realizado correctamente!
           </Alert>
         </Snackbar>
         <Snackbar
