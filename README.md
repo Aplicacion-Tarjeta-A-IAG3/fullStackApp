@@ -6,6 +6,12 @@
 - APIs managed by [ra-data-json-server](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-json-server).
 - Fake APIs managed by [ra-data-fakerest](https://github.com/marmelab/react-admin/tree/master/packages/ra-data-fakerest).
 
+### Detalles del Backend
+
+- Backend Core [MuleSoft](https://github.com/mulesoft) Runtime.
+- MuleSoft REST APIs endpoints documented @ [console](https://african-express.us-e2.cloudhub.io/console/).
+- Deployed to [Anypoint Cloudhub](https://anypoint.mulesoft.com/).
+
 ## Iniciar la app en el servidor local
 
 1. git clone https://github.com/Aplicacion-Tarjeta-A-IAG3/fullStackApp.git
