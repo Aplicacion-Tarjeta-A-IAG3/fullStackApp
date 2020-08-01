@@ -77,9 +77,9 @@ export default function ArrangePayment(props) {
 
     const response = await fetch(apiUrl, requestOptions);
     let json = await response.json();
-    if (response.status === 200) {
+    if (response.status >= 200 && response.status < 300) {
       const msg = isDefined(json.success)
-        ? json.success
+        ? `${json.success}. Estado: ${json.estadoTransferencia}. Monto transferido: ${json.totalTransferido}`
         : "Pago realizado con éxito";
       setMessage(msg);
       openSuccessAlert(true);
