@@ -5,7 +5,7 @@ import MoneyIcon from "@material-ui/icons/Money";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ClientMonthlyBalance from "./clientMonthlyBalance";
-// import ClientPreviousBalances from "./previousBalances";
+import ClientDailyBalance from "./clientDailyBalance";
 import ClientProfile from "./clientProfile";
 import PayMyCard from "./payMyCard";
 
@@ -36,17 +36,27 @@ export default function ClientsDashboard() {
         aria-label="client-dashboard"
         centered
       >
-        <Tab label="Resumen del mes" icon={<MoneyIcon />} id="client-tab-0" />
-        <Tab label="Pagar tarjetas" icon={<GetAppIcon />} id="client-tab-1" />
-        <Tab label="Mi Perfil" icon={<PersonPinIcon />} id="client-tab-2" />
+        <Tab
+          label="Consumos del período"
+          icon={<MoneyIcon />}
+          id="client-tab-0"
+        />
+        <Tab label="Resumen del mes" icon={<MoneyIcon />} id="client-tab-1" />
+        <Tab label="Pagar tarjetas" icon={<GetAppIcon />} id="client-tab-2" />
+        <Tab label="Mi Perfil" icon={<PersonPinIcon />} id="client-tab-3" />
       </Tabs>
-      <ClientMonthlyBalance
+      <ClientDailyBalance
         value={value}
         index={0}
         style={{ minHeight: "400px" }}
       />
-      <PayMyCard value={value} index={1} style={{ minHeight: "400px" }} />
-      <ClientProfile value={value} index={2} style={{ minHeight: "400px" }} />
+      <ClientMonthlyBalance
+        value={value}
+        index={1}
+        style={{ minHeight: "400px" }}
+      />
+      <PayMyCard value={value} index={2} style={{ minHeight: "400px" }} />
+      <ClientProfile value={value} index={3} style={{ minHeight: "400px" }} />
     </div>
   );
 }
