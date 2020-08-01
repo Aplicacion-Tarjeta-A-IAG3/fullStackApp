@@ -7,6 +7,7 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import ClientMonthlyBalance from "./clients/clientMonthlyBalance";
 import ClientPreviousBalances from "./clients/previousBalances";
 import ClientProfile from "./clients/clientProfile";
+import PayMyCard from "./clients/payMyCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,12 +37,7 @@ export default function ClientsDashboard() {
         centered
       >
         <Tab label="Resumen del mes" icon={<MoneyIcon />} id="client-tab-0" />
-        <Tab
-          disabled
-          label="Resúmenes anteriores"
-          icon={<GetAppIcon />}
-          id="client-tab-1"
-        />
+        <Tab label="Pagar tarjetas" icon={<GetAppIcon />} id="client-tab-1" />
         <Tab label="Mi Perfil" icon={<PersonPinIcon />} id="client-tab-2" />
       </Tabs>
       <ClientMonthlyBalance
@@ -49,11 +45,7 @@ export default function ClientsDashboard() {
         index={0}
         style={{ minHeight: "400px" }}
       />
-      <ClientPreviousBalances
-        value={value}
-        index={1}
-        style={{ minHeight: "400px" }}
-      />
+      <PayMyCard value={value} index={1} style={{ minHeight: "400px" }} />
       <ClientProfile value={value} index={2} style={{ minHeight: "400px" }} />
     </div>
   );
