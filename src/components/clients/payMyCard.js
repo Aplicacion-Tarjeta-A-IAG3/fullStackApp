@@ -48,9 +48,9 @@ const username = localStorage.getItem("username");
 export default function ClientProfile(props) {
   const { children, value, index, ...other } = props;
   const classes = useStyles();
-  const [client, setClient] = React.useState(null);
-  const [oldPass, setOldPass] = React.useState(null);
-  const [newPass, setNewPass] = React.useState(null);
+  const [card, setCard] = React.useState(null);
+  const [account, setAccount] = React.useState(null);
+  const [cards, setCards] = React.useState(null);
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -67,7 +67,7 @@ export default function ClientProfile(props) {
       headers: headers,
     };
 
-    const getCLientData = async () => {
+    const getCardsData = async () => {
       const url = `${apiUrl}/personas?dni=${username}`;
 
       const result = await fetch(url, requestOptions);
@@ -85,7 +85,7 @@ export default function ClientProfile(props) {
       }
     };
 
-    getCLientData();
+    getCardsData();
   }, []);
 
   const handleClick = () => {
