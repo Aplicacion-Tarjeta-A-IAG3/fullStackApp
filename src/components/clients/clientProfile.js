@@ -121,7 +121,7 @@ export default function ClientProfile(props) {
     updatedClient.password = newPass;
     const url = `${apiUrl}/personas`;
     const requestOptions = {
-      method: "PUT",
+      method: "POST",
       headers: headers,
       body: JSON.stringify(updatedClient),
     };

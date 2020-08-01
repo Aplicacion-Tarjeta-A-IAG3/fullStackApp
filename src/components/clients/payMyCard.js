@@ -127,7 +127,7 @@ export default function ClientProfile(props) {
   const handlePayCard = async () => {
     const url = `${apiUrl}/pagos/tarjeta`;
     const requestOptions = {
-      method: "PUT",
+      method: "POST",
       headers: headers,
       body: JSON.stringify({ tarjeta: card, cuenta: account, total: total }),
     };
