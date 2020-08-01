@@ -2,8 +2,8 @@ import * as React from "react";
 import { Title } from "react-admin";
 // import Background from "../utils/still-working.jpg";
 import Background from "../utils/cards.jpg";
-import BusinessDashboard from "./bussinessDashboard";
-import ClientsDashboard from "./clientsDashboard";
+import BusinessDashboard from "./bussiness/bussinessDashboard";
+import ClientsDashboard from "./clients/clientsDashboard";
 import AdminDashboard from "./admin/adminDashboard";
 
 export default ({ permissions }) => {

@@ -4,10 +4,10 @@ import { Tabs, Tab } from "@material-ui/core";
 import MoneyIcon from "@material-ui/icons/Money";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
-import ClientMonthlyBalance from "./clients/clientMonthlyBalance";
-import ClientPreviousBalances from "./clients/previousBalances";
-import ClientProfile from "./clients/clientProfile";
-import PayMyCard from "./clients/payMyCard";
+import ClientMonthlyBalance from "./clientMonthlyBalance";
+// import ClientPreviousBalances from "./previousBalances";
+import ClientProfile from "./clientProfile";
+import PayMyCard from "./payMyCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
