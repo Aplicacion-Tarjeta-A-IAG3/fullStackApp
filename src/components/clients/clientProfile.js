@@ -52,6 +52,7 @@ export default function ClientProfile(props) {
   const [oldPass, setOldPass] = React.useState(null);
   const [newPass, setNewPass] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [errorOpen, setErrorOpen] = React.useState(false);
 
   React.useEffect(() => {
     const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
@@ -88,16 +89,13 @@ export default function ClientProfile(props) {
     getCLientData();
   }, []);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
     setOpen(false);
+    setErrorOpen(false);
   };
 
   const handleOldPassChange = (event) => {
@@ -118,7 +116,7 @@ export default function ClientProfile(props) {
     client_secret: localStorage.getItem("clientSecret"),
   };
 
-  const handleUpdatePass = () => {
+  const handleUpdatePass = async () => {
     const updatedClient = client;
     updatedClient.password = newPass;
     const url = `${apiUrl}/personas`;
@@ -128,29 +126,21 @@ export default function ClientProfile(props) {
       body: JSON.stringify(updatedClient),
     };
     setClient(updatedClient);
-    fetch(url, requestOptions)
-      .then((response) => {
-        try {
-          let json = response.json();
-          // console.log("JSON??", json);
-          if (response.status >= 200 && response.status < 300) {
-            console.error(response);
-          } else {
-            // console.log("llega?", json);
-            return json;
-          }
-        } catch (err) {
-          console.error("error update password", err.message);
-        }
-      })
-      .then((result) => {
-        setNewPass(null);
-        setOldPass(null);
-        handleClick();
-      })
-      .catch((e) => {
-        console.error("error update password", e.message);
-      });
+
+    const response = await fetch(url, requestOptions);
+    const json = await response.json();
+
+    if (response.status === 200) {
+      setNewPass(null);
+      setOldPass(null);
+      setOpen(false);
+    } else {
+      const msg = isDefined(json.message)
+        ? json.message
+        : "Error del servidor: No se pudo realizar el pago";
+      console.error(msg);
+      setErrorOpen(false);
+    }
   };
 
   // !! this is necessary to validate values' lengths for NumberInput components
@@ -228,6 +218,15 @@ export default function ClientProfile(props) {
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success">
             ¡Contraseña actualizada correctamente!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={errorOpen}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="error">
+            Error: No se pudo actualizar la contraseña.
           </Alert>
         </Snackbar>
       </div>

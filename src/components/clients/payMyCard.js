@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { NumberInput, SimpleForm, required, number } from "react-admin";
 import MuiAlert from "@material-ui/lab/Alert";
+import { isDefined } from "../../utils/helpers";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -53,6 +54,7 @@ export default function ClientProfile(props) {
   const [cards, setCards] = React.useState([]);
   const [successAlert, setSuccessAlert] = React.useState(false);
   const [errorAlert, setErrorAlert] = React.useState(false);
+  const [message, setMessage] = React.useState(false);
 
   React.useEffect(() => {
     const apiUrl = "https://african-express.us-e2.cloudhub.io/api/core";
@@ -92,17 +94,17 @@ export default function ClientProfile(props) {
 
   const handleTarjetaChange = (event) => {
     const tarjeta = event.target.value;
-    setCard(tarjeta);
+    setCard(parseInt(tarjeta));
   };
 
   const handleCuentaChange = (event) => {
     const cuenta = event.target.value;
-    setAccount(cuenta);
+    setAccount(parseInt(cuenta));
   };
 
   const handleMontoChange = (event) => {
     const monto = event.target.value;
-    setTotal(monto);
+    setTotal(parseFloat(monto));
   };
 
   const handleClose = (event, reason) => {
@@ -122,37 +124,32 @@ export default function ClientProfile(props) {
     client_secret: localStorage.getItem("clientSecret"),
   };
 
-  const handlePayCard = () => {
+  const handlePayCard = async () => {
     const url = `${apiUrl}/pagos/tarjeta`;
     const requestOptions = {
       method: "PUT",
       headers: headers,
       body: JSON.stringify({ tarjeta: card, cuenta: account, total: total }),
     };
-    fetch(url, requestOptions)
-      .then((response) => {
-        try {
-          let json = response.json();
-          // console.log("JSON??", json);
-          if (response.status >= 200 && response.status < 300) {
-            console.error(response);
-            setErrorAlert(response);
-          } else {
-            // console.log("llega?", json);
-            return json;
-          }
-        } catch (err) {
-          setErrorAlert(err.message);
-          console.error("error pago", err.message);
-        }
-      })
-      .then((result) => {
-        setSuccessAlert(result);
-      })
-      .catch((e) => {
-        setErrorAlert(e.message);
-        console.error("error pago", e.message);
-      });
+
+    const response = await fetch(url, requestOptions);
+    let json = await response.json();
+    if (response.status === 200) {
+      const msg = isDefined(json.success)
+        ? json.success
+        : "Pago realizado con éxito";
+      setMessage(msg);
+      setSuccessAlert(true);
+    } else if (response.status === 406) {
+      setMessage(json);
+      setErrorAlert(true);
+    } else {
+      const msg = isDefined(json.message)
+        ? json.message
+        : "Error del servidor: No se pudo realizar el pago";
+      setMessage(msg);
+      setErrorAlert(true);
+    }
   };
 
   return (
@@ -207,21 +204,21 @@ export default function ClientProfile(props) {
           />
         </SimpleForm>
         <Snackbar
-          open={!!successAlert}
+          open={successAlert}
           autoHideDuration={3000}
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="success">
-            {successAlert}
+            {message}
           </Alert>
         </Snackbar>
         <Snackbar
-          open={!!errorAlert}
+          open={errorAlert}
           autoHideDuration={3000}
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="error">
-            {errorAlert}
+            {message}
           </Alert>
         </Snackbar>
       </div>
