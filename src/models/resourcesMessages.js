@@ -56,9 +56,9 @@ const resourceMessages = {
     "forEach is not a function": "No se encontraron datos",
   },
   serverResponseError:
-    "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
+    "Datos incorrectos o incompletos. Por favor verifique el formulario y las pestañas",
   "Unexpected token E in JSON at position 0":
-    "Respuesta incorrecta del servidor. Consulte al proveedor del servicio.",
+    "Datos incorrectos o incompletos. Por favor verifique el formulario y las pestañas",
   emptyValidation: "No puede estar vacío",
   numericValidation: "Debe ser numérico",
   emailValidation: "Email inválido",
