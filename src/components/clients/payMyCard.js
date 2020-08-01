@@ -146,7 +146,7 @@ export default function ClientProfile(props) {
       .then((result) => {
         setNewPass(null);
         setOldPass(null);
-        handleClick();
+        handleClick(null);
       })
       .catch((e) => {
         console.error("error update password", e.message);

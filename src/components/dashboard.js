@@ -1,9 +1,11 @@
 import * as React from "react";
 import { Title } from "react-admin";
+import { Table } from "@material-ui/core";
 // import Background from "../utils/still-working.jpg";
 import Background from "../utils/cards.jpg";
 import BusinessDashboard from "./bussinessDashboard";
 import ClientsDashboard from "./clientsDashboard";
+import AdminDashboard from "./admin/adminDashboard";
 
 export default ({ permissions }) => {
   const title = {
@@ -11,12 +13,6 @@ export default ({ permissions }) => {
     cliente: "Cliente",
     comercio: "Comercio",
   };
-
-  const admin = [
-    "Administar los clientes",
-    "Administrar los comercios",
-    "Administrar los productos",
-  ];
 
   return (
     <div
@@ -32,25 +28,7 @@ export default ({ permissions }) => {
       <Title title={`Bienvenido ${title[permissions]}`} />
       {permissions === "comercio" && <BusinessDashboard />}
       {permissions === "cliente" && <ClientsDashboard />}
-      {permissions === "admin" && (
-        <div
-          style={{
-            color: "#fff",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            padding: "1em",
-          }}
-        >
-          <h5>Seguimos trabajando para mejorar la web.</h5>
-          <h6>Desde el menú podrás:</h6>
-          {permissions === "admin" && (
-            <ul style={{ listStyle: "none" }}>
-              {admin.map((i) => (
-                <li key={`perm-${i}`}>{i}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      {permissions === "admin" && <AdminDashboard />}
     </div>
   );
 };
