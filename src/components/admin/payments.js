@@ -82,7 +82,7 @@ export default function Payments(props) {
           if (isDefined(pagos)) {
             setRows(
               pagos.map(({ comercio, monto }) => ({
-                comercio: "Falta nombre comercio",
+                comercio: isDefined(comercio) ? comercio : "Sin nombre",
                 monto: currencyParser(monto),
               }))
             );
