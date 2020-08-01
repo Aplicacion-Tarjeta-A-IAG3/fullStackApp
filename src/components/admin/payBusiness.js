@@ -41,8 +41,8 @@ export default function ArrangePayment(props) {
   const [cuit, setCuit] = React.useState(null);
   const [account, setAccount] = React.useState(null);
 
-  const openSuccessAlert = () => {
-    setSuccessOpen(true);
+  const openSuccessAlert = (msg) => {
+    setSuccessOpen(msg);
   };
 
   const openErrorAlert = (msg) => {
@@ -90,7 +90,7 @@ export default function ArrangePayment(props) {
         }
       })
       .then((result) => {
-        openSuccessAlert();
+        openSuccessAlert(result);
       })
       .catch((e) => {
         openErrorAlert(e.message);
@@ -143,7 +143,7 @@ export default function ArrangePayment(props) {
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="success">
-            ¡Pago realizado correctamente!
+            {successOpen}
           </Alert>
         </Snackbar>
         <Snackbar
