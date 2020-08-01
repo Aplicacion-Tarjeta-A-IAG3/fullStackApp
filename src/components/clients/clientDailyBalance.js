@@ -121,7 +121,7 @@ export default function ClientMonthlyBalance(props) {
             consumosDelMes,
           } = dataResult;
           setResumen({
-            month: isDefined(resumenDelMes) ? resumenDelMes : 0,
+            month: isDefined(resumenDelMes) ? resumenDelMes : 8,
             monthTotal: currencyParser(totaldelMes),
             debtTotal: currencyParser(totalAdeudado),
             myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
@@ -187,7 +187,7 @@ export default function ClientMonthlyBalance(props) {
           consumosDelMes,
         } = dataResult;
         setResumen({
-          month: isDefined(resumenDelMes) ? resumenDelMes : 0,
+          month: isDefined(resumenDelMes) ? resumenDelMes : 8,
           monthTotal: currencyParser(totaldelMes),
           debtTotal: currencyParser(totalAdeudado),
           myPoints: isDefined(totalPuntosMes) ? totalPuntosMes.puntos : "-",
